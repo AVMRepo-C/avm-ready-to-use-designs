@@ -55,99 +55,65 @@
             }
           }
 
-          /* --- Mobile layout --- */
+          /* --- Breakpoint toggles: 1a (mobile) / 1c (desktop) --- */
+          .rtu-desktop-only {
+            display: flex;
+          }
+          .rtu-mobile-only {
+            display: none;
+          }
+          .rtu-mobile-topbar {
+            display: none;
+          }
+          .rtu-bottom-tabs {
+            display: none;
+          }
+
           @media (max-width: 760px) {
             .rtu-shell {
               flex-direction: column !important;
-              height: auto !important;
-              min-height: 100vh !important;
-              overflow: visible !important;
+              height: 100vh !important;
+              height: 100dvh !important;
+              overflow: hidden !important;
             }
             .rtu-sidebar {
-              position: sticky !important;
-              top: 0 !important;
-              z-index: 30 !important;
-              flex: 0 0 auto !important;
-              width: 100% !important;
-              min-width: 0 !important;
-              height: auto !important;
-              max-height: none !important;
-              overflow: visible !important;
-              flex-direction: row !important;
-              flex-wrap: wrap !important;
-              align-items: center !important;
-              gap: 10px !important;
-              padding: 12px 14px !important;
-            }
-            .rtu-brand {
-              flex-direction: row !important;
-              align-items: center !important;
-              gap: 10px !important;
-            }
-            .rtu-logo {
-              height: 36px !important;
-              padding: 6px 10px !important;
-            }
-            .rtu-workspace-label {
               display: none !important;
             }
-            .rtu-nav {
-              flex-direction: row !important;
-              flex: 1 1 auto !important;
-              overflow-x: auto !important;
-              gap: 6px !important;
-              -ms-overflow-style: none;
-              scrollbar-width: none;
-            }
-            .rtu-nav::-webkit-scrollbar {
-              display: none;
-            }
-            .rtu-nav-link,
-            .rtu-nav-soon {
-              white-space: nowrap !important;
-              flex: 0 0 auto !important;
-            }
-            .rtu-nav-soon {
-              display: none !important;
-            }
-            .rtu-sidebar-footer {
-              margin-top: 0 !important;
-              flex: 0 0 auto !important;
-              width: auto !important;
-              margin-left: auto !important;
-            }
-            .rtu-sidebar-divider,
-            .rtu-sidebar-note {
-              display: none !important;
-            }
-            .rtu-cta {
-              padding: 9px 12px !important;
-              font-size: 12px !important;
-              white-space: nowrap !important;
-              box-shadow: none !important;
+            .rtu-mobile-topbar {
+              display: flex !important;
+              align-items: center;
+              gap: 10px;
+              background: #0e2238;
+              padding: 14px 16px;
+              flex: 0 0 auto;
             }
             .rtu-main {
+              flex: 1 1 auto !important;
               height: auto !important;
-              overflow-y: visible !important;
-              padding: 18px 14px 32px !important;
+              overflow-y: auto !important;
+              padding: 16px 16px 18px !important;
+            }
+            .rtu-bottom-tabs {
+              display: block !important;
+              flex: 0 0 auto;
+              background: #fff;
+              border-top: 1px solid #e1e8ef;
+            }
+            .rtu-desktop-only {
+              display: none !important;
+            }
+            .rtu-mobile-only {
+              display: flex !important;
             }
             .rtu-grid {
               grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
               gap: 12px !important;
             }
-            .rtu-editor-row {
-              flex-direction: column !important;
-              align-items: stretch !important;
-              gap: 20px !important;
+            .rtu-cover-img {
+              object-fit: contain !important;
             }
-            .rtu-editor-left,
-            .rtu-editor-preview {
-              max-width: 100% !important;
-              min-width: 0 !important;
-              flex: 1 1 auto !important;
-            }
-            .rtu-editor-left input[type="text"],
-            .rtu-editor-left textarea {
+            input[type="text"],
+            textarea {
               font-size: 16px !important;
             }
           }
@@ -157,149 +123,107 @@
               grid-template-columns: 1fr !important;
             }
           }
+
+          .rtu-zoom-overlay {
+            position: fixed;
+            inset: 0;
+            background: #0b1a26;
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+          }
         </style>
       </helmet>
       <div class="rtu-shell" style="display: flex; align-items: stretch; height: 100vh; overflow: hidden; color: #0e2238">
+        <!-- ============ Desktop sidebar (1c — narrower rail) ============ -->
         <aside
           class="rtu-sidebar"
           style="
-            flex: 0 0 240px;
-            min-width: 204px;
+            flex: 0 0 232px;
             background: #0e2238;
             color: #fff;
             display: flex;
             flex-direction: column;
-            gap: 26px;
-            padding: 24px 18px 22px;
+            padding: 20px 16px;
+            gap: 20px;
             height: 100vh;
             overflow-y: auto;
           "
         >
-          <div class="rtu-brand" style="display: flex; flex-direction: column; gap: 14px">
+          <div style="display: flex; align-items: center; gap: 11px">
             <img
-              class="rtu-logo"
               src="https://avm-rate-list.vercel.app/assets/images/avm-logo.png"
-              alt="AVMLabs"
-              style="
-                display: block;
-                height: 86px;
-                width: auto;
-                max-width: 100%;
-                object-fit: contain;
-                align-self: flex-start;
-                background: #fff;
-                border-radius: 10px;
-                padding: 10px 14px;
-              "
+              alt="AVM Labs"
+              style="height: 36px; width: auto; max-width: 68px; object-fit: contain; background: #fff; border-radius: 7px; padding: 3px 5px; flex: 0 0 auto"
             />
-            <div class="rtu-workspace-label" style="font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #7fa3be">
-              Marketing workspace
+            <div style="display: flex; flex-direction: column; line-height: 1.2; min-width: 0">
+              <span style="color: #fff; font-size: 14px; font-weight: 600; white-space: nowrap">AVM Labs</span>
+              <span style="color: #8fa3b3; font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap">Marketing Studio</span>
             </div>
           </div>
 
-          <nav class="rtu-nav" style="display: flex; flex-direction: column; gap: 4px">
+          <nav style="display: flex; flex-direction: column; gap: 4px">
             <a
-              class="rtu-nav-link"
               href="#"
               onClick="{{ goGallery }}"
               style="
                 display: flex;
                 align-items: center;
                 gap: 10px;
-                padding: 11px 12px;
-                border-radius: 9px;
-                background: #183253;
+                padding: 11px 13px;
+                border-radius: 10px;
+                background: #1b3a52;
                 color: #fff;
-                font-size: 13.5px;
+                font-size: 14px;
                 font-weight: 600;
                 text-decoration: none;
               "
-              style-hover="background:#1E3D63;color:#fff;text-decoration:none"
+              style-hover="background:#21405C;color:#fff;text-decoration:none"
             >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#4FD1C0"
-                stroke-width="1.9"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                style="width: 17px; height: 17px; flex: 0 0 auto"
-              >
-                <rect x="3" y="3" width="18" height="18" rx="2.5"></rect>
-                <path d="M3 9h18"></path>
-                <path d="M9 21V9"></path>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#4AD0BE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px; flex: 0 0 auto">
+                <rect x="3" y="3" width="7.5" height="7.5" rx="1.6"></rect>
+                <rect x="13.5" y="3" width="7.5" height="7.5" rx="1.6"></rect>
+                <rect x="3" y="13.5" width="7.5" height="7.5" rx="1.6"></rect>
+                <rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.6"></rect>
               </svg>
-              Ready-to-Use Designs
+              Designs
             </a>
-            <div
-              class="rtu-nav-soon"
-              style="
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                padding: 11px 12px;
-                border-radius: 9px;
-                font-size: 13.5px;
-                color: #5e809c;
-              "
-            >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#3B5A78"
-                stroke-width="1.9"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                style="width: 17px; height: 17px; flex: 0 0 auto"
-              >
-                <circle cx="12" cy="12" r="9"></circle>
-                <path d="M12 8v8"></path>
-                <path d="M8 12h8"></path>
-              </svg>
-              More pages soon
-            </div>
           </nav>
 
-          <div class="rtu-sidebar-footer" style="margin-top: auto; display: flex; flex-direction: column; gap: 12px">
-            <div class="rtu-sidebar-divider" style="height: 1px; background: #1e3556"></div>
-            <a
-              class="rtu-cta"
-              href="https://avm-rate-list.vercel.app/"
-              style="
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 8px;
-                padding: 11px 12px;
-                border-radius: 9px;
-                background: #4fd1c0;
-                color: #06282b;
-                font-size: 13px;
-                font-weight: 600;
-                text-decoration: none;
-                box-shadow: 0 4px 14px rgba(79, 209, 192, 0.22);
-              "
-              style-hover="background:#6FE0D2;color:#06282B;text-decoration:none"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#06282B"
-                stroke-width="2.1"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                style="width: 15px; height: 15px; flex: 0 0 auto"
-              >
-                <path d="M7 17L17 7"></path>
-                <path d="M8 7h9v9"></path>
-              </svg>
-              View Our Rate List
-            </a>
-            <div class="rtu-sidebar-note" style="font-size: 11px; line-height: 1.5; color: #4e7090">
-              Artwork stays locked. Only the logo and address blocks are yours to fill.
-            </div>
+          <div style="flex: 1 1 0"></div>
+
+          <div style="color: #7d93a5; font-size: 11px; line-height: 1.55">
+            Artwork stays locked. Only the logo and address blocks are yours to fill.
           </div>
         </aside>
+
+        <!-- ============ Mobile top bar (1a) ============ -->
+        <header class="rtu-mobile-topbar">
+          <sc-if value="{{ topbarBack }}">
+            <a href="#" onClick="{{ goGallery }}" aria-label="Back" style="color: #fff; width: 36px; height: 36px; flex: 0 0 auto; border-radius: 50%; background: rgba(255, 255, 255, 0.12); display: flex; align-items: center; justify-content: center; text-decoration: none">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.5 5.5 8 12l6.5 6.5"></path>
+              </svg>
+            </a>
+            <span style="color: #fff; font-size: 16px; font-weight: 600; flex: 1 1 0">{{ activeName }}</span>
+            <img
+              src="https://avm-rate-list.vercel.app/assets/images/avm-logo.png"
+              alt=""
+              style="height: 26px; width: auto; max-width: 50px; object-fit: contain; background: #fff; border-radius: 5px; padding: 2px 4px; flex: 0 0 auto"
+            />
+          </sc-if>
+          <sc-if value="{{ topbarBrand }}" hint-placeholder-val="{{ true }}">
+            <img
+              src="https://avm-rate-list.vercel.app/assets/images/avm-logo.png"
+              alt="AVM Labs"
+              style="height: 30px; width: auto; max-width: 58px; object-fit: contain; background: #fff; border-radius: 6px; padding: 3px 5px; flex: 0 0 auto"
+            />
+            <div style="display: flex; flex-direction: column; line-height: 1.15">
+              <span style="color: #fff; font-size: 15px; font-weight: 600">AVM Labs</span>
+              <span style="color: #8fa3b3; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase">Marketing Studio</span>
+            </div>
+          </sc-if>
+        </header>
 
         <main class="rtu-main" style="flex: 1 1 auto; min-width: 0; height: 100vh; overflow-y: auto; padding: 24px 28px 32px">
           <sc-if value="{{ isGallery }}" hint-placeholder-val="{{ true }}">
@@ -313,12 +237,12 @@
                   font-weight: 600;
                 "
               >
-                Profile artworks
+                Ready-to-use marketing designs
               </div>
               <h1
                 style="margin: 6px 0 6px; font-size: 26px; line-height: 1.1; font-weight: 700; letter-spacing: -0.02em"
               >
-                Ready-to-Use Designs
+                Create. Personalize. Promote.
               </h1>
               <p
                 style="
@@ -330,8 +254,7 @@
                   text-wrap: pretty;
                 "
               >
-                Pick an artwork, add your logo, address and phone number, then export a print-ready file. Nothing else
-                on the design can be changed.
+                Choose a design, add your lab details, and download a ready-to-share creative.
               </p>
 
               <div class="rtu-grid" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; max-width: 1460px">
@@ -358,7 +281,8 @@
                     <sc-if value="{{ p.hasCover }}">
                       <div style="position: relative; height: 148px; background: #0e2238; overflow: hidden">
                         <img
-                          src="assets/artworks/avm-wellness-profiles-poster.png"
+                          class="rtu-cover-img"
+                          src="assets/artworks/avm-wellness-profiles-card-cover.png"
                           alt=""
                           style="
                             position: absolute;
@@ -366,7 +290,7 @@
                             width: 100%;
                             height: 100%;
                             object-fit: cover;
-                            object-position: top center;
+                            object-position: center;
                           "
                         />
                       </div>
@@ -409,10 +333,23 @@
                         <div style="font-size: 10.5px; color: #8aa0b3">{{ p.tests }}</div>
                       </div>
                     </sc-if>
-                    <div style="padding: 11px 12px 12px; display: flex; flex-direction: column; gap: 7px">
+                    <div style="padding: 11px 12px 12px; display: flex; flex-direction: column; gap: 6px">
                       <div style="font-size: 13.5px; font-weight: 600; line-height: 1.25">{{ p.name }}</div>
-                      <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 6px">
-                        <sc-if value="{{ p.special }}">
+                      <sc-if value="{{ p.hasTag }}">
+                        <div
+                          style="
+                            font-size: 9.5px;
+                            font-weight: 700;
+                            letter-spacing: 0.14em;
+                            text-transform: uppercase;
+                            color: #14776b;
+                          "
+                        >
+                          {{ p.tag }}
+                        </div>
+                      </sc-if>
+                      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 1px">
+                        <sc-if value="{{ p.hasOffer }}">
                           <span
                             style="
                               padding: 4px 10px;
@@ -426,37 +363,23 @@
                               box-shadow: 0 3px 8px rgba(201, 55, 77, 0.2);
                               border: 1px solid rgba(255, 255, 255, 0.3);
                             "
-                            >Special offer</span
-                          >
-                          <span
-                            style="
-                              padding: 3px 8px;
-                              border-radius: 6px;
-                              background: #f4eef2;
-                              border: 1px solid #e9c4cf;
-                              font-size: 10.5px;
-                              font-weight: 700;
-                              color: #8a2a42;
-                            "
-                            >{{ p.tests }}</span
+                            >{{ p.offerLabel }}</span
                           >
                         </sc-if>
-                        <sc-if value="{{ p.plain }}">
-                          <span
-                            style="
-                              padding: 3px 8px;
-                              border-radius: 6px;
-                              border: 1px solid #e1e8ef;
-                              background: #fafcfd;
-                              font-size: 10.5px;
-                              font-weight: 600;
-                              color: #93a8b8;
-                            "
-                            >No offer</span
-                          >
-                        </sc-if>
+                        <span
+                          style="
+                            padding: 3px 8px;
+                            border-radius: 6px;
+                            background: #eef3f7;
+                            border: 1px solid #dbe4ec;
+                            font-size: 10.5px;
+                            font-weight: 700;
+                            color: #3a5470;
+                          "
+                          >{{ p.tests }}</span
+                        >
                       </div>
-                      <div style="font-size: 11.5px; font-weight: 600; color: #14776b">Customise →</div>
+                      <div style="font-size: 11.5px; font-weight: 600; color: #14776b">{{ p.ctaLabel }} →</div>
                     </div>
                   </a>
                 </sc-for>
@@ -468,7 +391,7 @@
                         display: flex;
                         flex-direction: column;
                         justify-content: flex-end;
-                        gap: 6px;
+                        gap: 8px;
                         min-height: 196px;
                         padding: 13px;
                         border: 1.5px dashed #c7d4df;
@@ -485,7 +408,7 @@
                           font-weight: 600;
                         "
                       >
-                        New profile coming soon
+                        Coming soon
                       </div>
                       <div style="font-size: 13px; font-weight: 600; color: #6b8297; line-height: 1.3">{{ s }}</div>
                     </div>
@@ -495,479 +418,688 @@
             </div>
           </sc-if>
 
-          <sc-if value="{{ isEditor }}">
-            <div style="animation: rtuFade 0.3s ease both">
-              <a
-                href="#"
-                onClick="{{ goGallery }}"
-                style="font-size: 12.5px; font-weight: 600; color: #4a6076; text-decoration: none"
-                style-hover="color:#0E2238;text-decoration:none"
-                >← All designs</a
-              >
-              <h1
-                style="
-                  margin: 8px 0 3px;
-                  font-size: 25px;
-                  font-weight: 700;
-                  letter-spacing: -0.015em;
-                  line-height: 1.15;
-                "
-              >
-                {{ activeName }}
-              </h1>
-              <p style="margin: 0 0 20px; font-size: 12.5px; color: #6b8297">{{ activeNote }}</p>
-
-              <div
-                class="rtu-editor-row"
-                style="
-                  display: flex;
-                  flex-wrap: wrap;
-                  gap: 28px;
-                  align-items: flex-start;
-                  justify-content: center;
-                  width: 100%;
-                  max-width: 760px;
-                  margin: 0 auto;
-                "
-              >
-                <div
-                  class="rtu-editor-left"
-                  style="
-                    flex: 0 1 316px;
-                    max-width: 316px;
-                    min-width: 258px;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 16px;
-                  "
+          <!-- ============ Preview-before-customising (1a, mobile only) ============ -->
+          <sc-if value="{{ isPreview }}">
+            <div style="animation: rtuFade 0.3s ease both; height: 100%">
+              <!-- ============ Desktop preview-before-customising (1c-style) ============ -->
+              <div class="rtu-desktop-only" style="flex-direction: column; gap: 20px; max-width: 640px; margin: 0 auto">
+                <a
+                  href="#"
+                  onClick="{{ goGallery }}"
+                  aria-label="Back to all designs"
+                  style="align-self: flex-start; display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px; border-radius: 9px; border: 1px solid #dde4ea; color: #12263a; font-size: 13px; font-weight: 600; text-decoration: none"
+                  style-hover="border-color:#14776B;color:#14776B;text-decoration:none"
                 >
-                  <section
-                    style="
-                      display: flex;
-                      flex-direction: column;
-                      gap: 14px;
-                      background: #fff;
-                      border: 1px solid #e1e8ef;
-                      border-radius: 16px;
-                      padding: 18px;
-                    "
-                  >
-                    <div
-                      style="
-                        font-size: 10.5px;
-                        letter-spacing: 0.18em;
-                        text-transform: uppercase;
-                        color: #14776b;
-                        font-weight: 600;
-                      "
-                    >
-                      Your details
-                    </div>
+                  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5 8 12l6.5 6.5"></path></svg>
+                  All designs
+                </a>
 
-                    <div style="display: flex; flex-direction: column; gap: 7px">
-                      <label style="font-size: 12.5px; font-weight: 600">Your logo</label>
-                      <label
-                        onDragOver="{{ onDragOver }}"
-                        onDrop="{{ onDrop }}"
-                        style="
-                          display: flex;
-                          flex-direction: column;
-                          align-items: center;
-                          justify-content: center;
-                          gap: 6px;
-                          min-height: 92px;
-                          padding: 12px;
-                          border: 1.5px dashed #bfd0dd;
-                          border-radius: 12px;
-                          background: #f8fafc;
-                          cursor: pointer;
-                          text-align: center;
-                        "
-                        style-hover="border-color:#14776B;background:#F2F8F6"
-                      >
-                        <sc-if value="{{ hasLogo }}">
-                          <img
-                            ref="{{ logoRefA }}"
-                            alt="logo"
-                            style="max-height: 58px; max-width: 100%; object-fit: contain"
-                          />
-                        </sc-if>
-                        <sc-if value="{{ noLogo }}" hint-placeholder-val="{{ true }}">
-                          <div style="font-size: 12.5px; font-weight: 600; color: #2e4a63">
-                            Drop logo or click to upload
-                          </div>
-                        </sc-if>
-                        <div style="font-size: 10.5px; color: #8aa0b3">PNG with transparent background works best</div>
-                        <input
-                          type="file"
-                          accept="image/png,image/jpeg,image/svg+xml,image/webp"
-                          onChange="{{ onLogoFile }}"
-                          style="display: none"
-                        />
-                      </label>
-                      <sc-if value="{{ hasLogo }}">
-                        <a
-                          href="#"
-                          onClick="{{ clearLogo }}"
-                          style="align-self: flex-start; font-size: 11.5px; color: #b2405a; text-decoration: none"
-                          style-hover="color:#8F2C44;text-decoration:none"
-                          >Remove logo</a
-                        >
-                      </sc-if>
-                    </div>
-
-                    <div style="display: flex; flex-direction: column; gap: 7px">
-                      <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
-                        <label
-                          style="display: flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 600"
-                        >
-                          <svg
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="#14776B"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            style="width: 15px; height: 15px; flex: 0 0 auto"
-                          >
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                            <circle cx="12" cy="10" r="3"></circle>
-                          </svg>
-                          Your address
-                        </label>
-                        <label style="font-size: 11px; font-weight: 600; color: #14776b; cursor: pointer">
-                          Upload .txt
-                          <input
-                            type="file"
-                            accept=".txt,text/plain"
-                            onChange="{{ onTextFile }}"
-                            style="display: none"
-                          />
-                        </label>
-                      </div>
-                      <textarea
-                        rows="3"
-                        value="{{ address }}"
-                        onChange="{{ onAddress }}"
-                        placeholder="Centre name&#10;Street, area&#10;City – PIN"
-                        style="
-                          width: 100%;
-                          resize: vertical;
-                          padding: 10px 12px;
-                          border: 1px solid #d7e0e8;
-                          border-radius: 10px;
-                          font-size: 13px;
-                          line-height: 1.5;
-                          color: #0e2238;
-                          background: #fff;
-                          outline: none;
-                        "
-                        style-focus="border-color:#14776B"
-                      ></textarea>
-                    </div>
-
-                    <div style="display: flex; flex-direction: column; gap: 7px">
-                      <label style="display: flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 600">
-                        <svg
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="#14776B"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          style="width: 15px; height: 15px; flex: 0 0 auto"
-                        >
-                          <path
-                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
-                          ></path>
-                        </svg>
-                        Your phone number
-                      </label>
-                      <input
-                        type="text"
-                        value="{{ cardNo }}"
-                        onChange="{{ onCardNo }}"
-                        placeholder="+91 70946 06386"
-                        style="
-                          width: 100%;
-                          padding: 10px 12px;
-                          border: 1px solid #d7e0e8;
-                          border-radius: 10px;
-                          font-size: 13px;
-                          color: #0e2238;
-                          outline: none;
-                        "
-                        style-focus="border-color:#14776B"
-                      />
-                    </div>
-
-                    <a
-                      href="#"
-                      onClick="{{ resetAll }}"
-                      style="font-size: 11.5px; color: #7c8fa1; text-decoration: none"
-                      style-hover="color:#0E2238;text-decoration:none"
-                      >Clear all fields</a
-                    >
-                  </section>
-
-                  <section
-                    style="
-                      display: flex;
-                      flex-direction: column;
-                      gap: 11px;
-                      background: #fff;
-                      border: 1px solid #e1e8ef;
-                      border-radius: 16px;
-                      padding: 18px;
-                    "
-                  >
-                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
-                      <div
-                        style="
-                          font-size: 10.5px;
-                          letter-spacing: 0.18em;
-                          text-transform: uppercase;
-                          color: #14776b;
-                          font-weight: 600;
-                        "
-                      >
-                        Export
-                      </div>
-                      <div style="font-size: 10.5px; color: #93a8b8">{{ exportNote }}</div>
-                    </div>
-
+                <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; row-gap: 14px; gap: 24px">
+                  <div style="display: flex; flex-direction: column; gap: 6px; max-width: 360px">
+                    <span style="font-size: 26px; font-weight: 700; color: #12263a">{{ pageLabel }}</span>
+                    <span style="font-size: 13.5px; color: #6b7b8a; line-height: 1.5">{{ previewNote }}</span>
+                  </div>
+                  <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 10px">
                     <sc-if value="{{ multiPage }}">
-                      <div style="display: flex; background: #f1f5f8; border-radius: 9px; padding: 3px; gap: 3px">
-                        <sc-for list="{{ scopeTabs }}" as="s" hint-placeholder-count="2">
+                      <div style="display: flex; background: #e6ebef; border-radius: 999px; padding: 4px; gap: 4px">
+                        <sc-for list="{{ pageTabs }}" as="t">
                           <a
                             href="#"
-                            onClick="{{ s.select }}"
-                            style="flex:1;text-align:center;padding:6px 4px;border-radius:7px;font-size:11.5px;font-weight:600;text-decoration:none;background:{{ s.bg }};color:{{ s.fg }}"
-                            style-hover="text-decoration:none"
-                            >{{ s.label }}</a
+                            onClick="{{ t.select }}"
+                            style="height: 36px; padding: 0 18px; border-radius: 999px; color: {{ t.fg }}; font-size: 13px; font-weight: 600; display: flex; align-items: center; text-decoration: none; background: {{ t.bg }}"
+                            >{{ t.label }}</a
+                          >
+                        </sc-for>
+                      </div>
+                    </sc-if>
+                    <a
+                      href="#"
+                      onClick="{{ ctaAction }}"
+                      style="height: 46px; padding: 0 22px; background: #0e2238; border-radius: 11px; color: #fff; font-size: 14.5px; font-weight: 600; display: flex; align-items: center; text-decoration: none; white-space: nowrap"
+                      style-hover="background:#183253;color:#fff;text-decoration:none"
+                      >{{ ctaLabel }}</a
+                    >
+                  </div>
+                </div>
+
+                <sc-if value="{{ hasStatus }}">
+                  <div style="padding: 8px 14px; border-radius: 9px; background: #eef6f4; color: #0f6157; font-size: 12.5px; font-weight: 600">{{ status }}</div>
+                </sc-if>
+
+                <div
+                  onClick="{{ openZoomPlain }}"
+                  style="align-self: center; container-type: inline-size; position: relative; border-radius: 16px; overflow: hidden; background: #0e2238; box-shadow: 0 12px 36px rgba(14, 34, 51, 0.22); max-width: 400px; width: 100%; cursor: pointer"
+                >
+                  <img src="{{ previewImgSrc }}" alt="{{ pageLabel }}, before customising" style="display: block; width: 100%" />
+                  <div
+                    style="position: absolute; right: 10px; bottom: 10px; background: rgba(14, 34, 51, 0.86); color: #fff; font-size: 12px; font-weight: 600; padding: 8px 12px; border-radius: 999px; display: flex; align-items: center; gap: 6px"
+                  >
+                    <span style="font-size: 14px">◎</span> Tap to zoom
+                  </div>
+                </div>
+                <div style="text-align: center; font-size: 12px; color: #6b7b8a">{{ ctaCaption }}</div>
+              </div>
+
+              <!-- ============ Mobile preview-before-customising (1a) ============ -->
+              <div class="rtu-mobile-only" style="flex-direction: column; gap: 12px">
+                <sc-if value="{{ hasStatus }}">
+                  <div style="padding: 8px 11px; border-radius: 9px; background: #eef6f4; color: #0f6157; font-size: 11.5px; font-weight: 600">{{ status }}</div>
+                </sc-if>
+                <div style="display: flex; align-items: flex-start; gap: 12px">
+                  <div style="flex: 1 1 0; display: flex; flex-direction: column; gap: 3px">
+                    <span style="font-size: 19px; font-weight: 700; color: #12263a">{{ pageLabel }}</span>
+                    <span style="font-size: 12.5px; color: #6b7b8a; line-height: 1.45">{{ previewNote }}</span>
+                  </div>
+                  <sc-if value="{{ multiPage }}">
+                    <div style="flex: 0 0 auto; background: #fff; border: 1px solid #dde4ea; border-radius: 999px; padding: 6px 11px; font-size: 11px; font-weight: 600; color: #107a6e">
+                      {{ pageOfTotal }}
+                    </div>
+                  </sc-if>
+                </div>
+                <div
+                  onClick="{{ openZoomPlain }}"
+                  style="container-type: inline-size; position: relative; border-radius: 14px; overflow: hidden; background: #0e2238; box-shadow: 0 8px 24px rgba(14, 34, 51, 0.18); cursor: pointer"
+                >
+                  <img src="{{ previewImgSrc }}" alt="{{ pageLabel }}, before customising" style="display: block; width: 100%; height: auto" />
+                  <div
+                    style="
+                      position: absolute;
+                      right: 10px;
+                      bottom: 10px;
+                      background: rgba(14, 34, 51, 0.86);
+                      color: #fff;
+                      font-size: 12px;
+                      font-weight: 600;
+                      padding: 8px 12px;
+                      border-radius: 999px;
+                      display: flex;
+                      align-items: center;
+                      gap: 6px;
+                    "
+                  >
+                    <span style="font-size: 14px">◎</span> Tap to zoom
+                  </div>
+                </div>
+                <sc-if value="{{ multiPage }}">
+                  <div style="display: flex; align-items: center; justify-content: center; gap: 7px; padding: 2px 0 4px">
+                    <sc-for list="{{ dots }}" as="d">
+                      <a href="#" onClick="{{ d.select }}" style="height: 5px; border-radius: 3px; background: {{ d.bg }}; width: {{ d.w }}"></a>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isEditor }}">
+            <div style="animation: rtuFade 0.3s ease both; height: 100%">
+              <!-- ============ Desktop editor (1c — tightened shell) ============ -->
+              <div class="rtu-desktop-only" style="flex-direction: column; gap: 0; min-height: 100%">
+                <div
+                  style="
+                    position: sticky;
+                    top: 0;
+                    z-index: 5;
+                    background: #fff;
+                    border-bottom: 1px solid #dde4ea;
+                    margin: -24px -28px 0;
+                    padding: 16px 28px;
+                    display: flex;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+                    gap: 12px 20px;
+                  "
+                >
+                  <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 14px; min-width: 0">
+                    <a
+                      href="#"
+                      onClick="{{ goGallery }}"
+                      aria-label="Back to all designs"
+                      style="display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px; border-radius: 9px; border: 1px solid #dde4ea; color: #12263a; font-size: 13px; font-weight: 600; text-decoration: none; white-space: nowrap; flex: 0 0 auto"
+                      style-hover="border-color:#14776B;color:#14776B;text-decoration:none"
+                    >
+                      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5 8 12l6.5 6.5"></path></svg>
+                      All designs
+                    </a>
+                    <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+                      <span style="font-size: 22px; font-weight: 700; color: #12263a; line-height: 1.2">{{ activeName }}</span>
+                      <span style="font-size: 12.5px; color: #6b7b8a; max-width: 420px">{{ activeNote }}</span>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px">
+                    <a
+                      href="#"
+                      onClick="{{ exportJpg }}"
+                      style="height: 44px; padding: 0 18px; border: 1px solid #dde4ea; border-radius: 11px; color: #12263a; font-size: 14px; font-weight: 600; display: flex; align-items: center; text-decoration: none"
+                      style-hover="border-color:#14776B;color:#14776B;text-decoration:none"
+                      >JPG</a
+                    >
+                    <a
+                      href="#"
+                      onClick="{{ exportPng }}"
+                      style="height: 44px; padding: 0 18px; border: 1px solid #dde4ea; border-radius: 11px; color: #12263a; font-size: 14px; font-weight: 600; display: flex; align-items: center; text-decoration: none"
+                      style-hover="border-color:#14776B;color:#14776B;text-decoration:none"
+                      >PNG</a
+                    >
+                    <a
+                      href="#"
+                      onClick="{{ exportPdf }}"
+                      style="height: 44px; padding: 0 22px; background: #0e2238; border-radius: 11px; color: #fff; font-size: 14.5px; font-weight: 600; display: flex; align-items: center; text-decoration: none"
+                      style-hover="background:#183253;color:#fff;text-decoration:none"
+                      >Download PDF</a
+                    >
+                    <a
+                      href="#"
+                      onClick="{{ shareWhatsApp }}"
+                      style="height: 44px; padding: 0 22px; background: #14776b; border-radius: 11px; color: #fff; font-size: 14.5px; font-weight: 600; display: flex; align-items: center; text-decoration: none"
+                      style-hover="background:#0F6157;color:#fff;text-decoration:none"
+                      >Share on WhatsApp</a
+                    >
+                  </div>
+                </div>
+
+                <sc-if value="{{ hasStatus }}">
+                  <div style="margin: 14px 0 0; padding: 8px 14px; border-radius: 9px; background: #eef6f4; color: #0f6157; font-size: 12.5px; font-weight: 600">{{ status }}</div>
+                </sc-if>
+
+                <div style="flex: 1 1 0; display: grid; grid-template-columns: minmax(0, 400px) minmax(0, 1fr); gap: 28px; padding: 24px 0 8px">
+                  <div style="display: flex; flex-direction: column; gap: 16px">
+                    <section style="background: #fff; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 16px">
+                      <div style="font-size: 11px; letter-spacing: 0.16em; font-weight: 600; color: #107a6e">YOUR DETAILS</div>
+
+                      <div style="display: flex; flex-direction: column; gap: 8px">
+                        <label style="font-size: 14px; font-weight: 600; color: #12263a">Your logo</label>
+                        <label
+                          onDragOver="{{ onDragOver }}"
+                          onDrop="{{ onDrop }}"
+                          style="border: 1.5px dashed #c6d1da; background: #f7f9fb; border-radius: 12px; padding: 22px; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; text-align: center"
+                          style-hover="border-color:#14776B;background:#F2F8F6"
+                        >
+                          <sc-if value="{{ hasLogo }}">
+                            <img ref="{{ logoRefA }}" alt="logo" style="max-height: 58px; max-width: 100%; object-fit: contain" />
+                          </sc-if>
+                          <sc-if value="{{ noLogo }}">
+                            <span style="font-size: 14px; font-weight: 600; color: #12263a">Drop logo or click to upload</span>
+                          </sc-if>
+                          <span style="font-size: 11.5px; color: #6b7b8a">PNG with transparent background works best</span>
+                          <input type="file" accept="image/png,image/jpeg,image/svg+xml,image/webp" onChange="{{ onLogoFile }}" style="display: none" />
+                        </label>
+                        <sc-if value="{{ hasLogo }}">
+                          <a href="#" onClick="{{ clearLogo }}" style="align-self: flex-start; font-size: 11.5px; color: #b2405a; text-decoration: none" style-hover="color:#8F2C44;text-decoration:none"
+                            >Remove logo</a
+                          >
+                        </sc-if>
+                      </div>
+
+                      <div style="display: flex; flex-direction: column; gap: 8px">
+                        <div style="display: flex; align-items: center; justify-content: space-between">
+                          <span style="font-size: 14px; font-weight: 600; color: #12263a">Your address</span>
+                          <label style="font-size: 12.5px; font-weight: 600; color: #107a6e; cursor: pointer"
+                            >Upload .txt
+                            <input type="file" accept=".txt,text/plain" onChange="{{ onTextFile }}" style="display: none" />
+                          </label>
+                        </div>
+                        <textarea
+                          rows="3"
+                          value="{{ address }}"
+                          onChange="{{ onAddress }}"
+                          placeholder="Centre name&#10;Street, area&#10;City – PIN"
+                          style="width: 100%; resize: vertical; padding: 12px 14px; border: 1px solid #dde4ea; border-radius: 12px; font-size: 14px; line-height: 1.55; color: #12263a; background: #fff; outline: none"
+                          style-focus="border-color:#14776B"
+                        ></textarea>
+                      </div>
+
+                      <div style="display: flex; flex-direction: column; gap: 8px">
+                        <span style="font-size: 14px; font-weight: 600; color: #12263a">Your phone number</span>
+                        <input
+                          type="text"
+                          value="{{ cardNo }}"
+                          onChange="{{ onCardNo }}"
+                          placeholder="+91 70946 06386"
+                          style="width: 100%; padding: 12px 14px; border: 1px solid #dde4ea; border-radius: 12px; font-size: 14.5px; color: #12263a; outline: none"
+                          style-focus="border-color:#14776B"
+                        />
+                      </div>
+
+                      <a href="#" onClick="{{ resetAll }}" style="font-size: 13px; color: #6b7b8a; text-decoration: none" style-hover="color:#0E2238;text-decoration:none">Clear all fields</a>
+                    </section>
+
+                    <section style="background: #fff; border-radius: 16px; padding: 18px 22px; display: flex; align-items: center; justify-content: space-between; gap: 14px">
+                      <div style="display: flex; flex-direction: column; gap: 3px">
+                        <span style="font-size: 11px; letter-spacing: 0.16em; font-weight: 600; color: #107a6e">EXPORT RANGE</span>
+                        <span style="font-size: 12px; color: #6b7b8a">{{ exportNote }}</span>
+                      </div>
+                      <sc-if value="{{ multiPage }}">
+                        <div style="display: flex; background: #e6ebef; border-radius: 10px; padding: 4px; gap: 4px">
+                          <sc-for list="{{ scopeTabs }}" as="s">
+                            <a
+                              href="#"
+                              onClick="{{ s.select }}"
+                              style="height: 36px; padding: 0 16px; border-radius: 8px; color: {{ s.fg }}; font-size: 13.5px; font-weight: 600; display: flex; align-items: center; text-decoration: none; background: {{ s.bg }}"
+                              >{{ s.label }}</a
+                            >
+                          </sc-for>
+                        </div>
+                      </sc-if>
+                    </section>
+                  </div>
+
+                  <div style="position: sticky; top: 92px; align-self: start; display: flex; flex-direction: column; gap: 14px; align-items: center">
+                    <div style="align-self: flex-start; display: flex; background: #e6ebef; border-radius: 999px; padding: 4px; gap: 4px">
+                      <sc-for list="{{ pageTabs }}" as="t">
+                        <a
+                          href="#"
+                          onClick="{{ t.select }}"
+                          style="height: 38px; padding: 0 22px; border-radius: 999px; color: {{ t.fg }}; font-size: 13.5px; font-weight: 600; display: flex; align-items: center; text-decoration: none; background: {{ t.bg }}"
+                          >{{ t.label }}</a
+                        >
+                      </sc-for>
+                    </div>
+                    <div style="container-type: inline-size; position: relative; border-radius: 16px; overflow: hidden; background: #0e2238; box-shadow: 0 12px 36px rgba(14, 34, 51, 0.22); max-width: 430px; width: 100%">
+                      <img src="{{ pageSrc }}" alt="preview" style="width: 100%; display: block" />
+                      <sc-if value="{{ hasLogoSlot }}">
+                        <div
+                          style="position: absolute; display: flex; align-items: center; justify-content: center; overflow: hidden; left: {{ logoBox.left }}; top: {{ logoBox.top }}; width: {{ logoBox.width }}; height: {{ logoBox.height }}"
+                        >
+                          <sc-if value="{{ hasLogo }}">
+                            <img ref="{{ logoRefB }}" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain" />
+                          </sc-if>
+                          <sc-if value="{{ noLogo }}" hint-placeholder-val="{{ true }}">
+                            <div
+                              style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; border: 1px dashed #a9bccb; border-radius: 4px; font-size: 1.4cqw; letter-spacing: 0.14em; color: #93a8b8; font-weight: 600"
+                            >
+                              LOGO
+                            </div>
+                          </sc-if>
+                        </div>
+                      </sc-if>
+                      <div
+                        style="position: absolute; display: flex; flex-direction: column; justify-content: center; overflow: hidden; color: #0e2238; font-weight: 600; line-height: 1.28; left: {{ textBox.left }}; top: {{ textBox.top }}; width: {{ textBox.width }}; height: {{ textBox.height }}; padding-left: {{ textBox.pad }}; font-size: {{ textBox.font }}; gap: {{ textBox.gap }}"
+                      >
+                        <sc-if value="{{ hasAddress }}">
+                          <div style="display: flex; align-items: center; gap: {{ textBox.iconGap }}">
+                            <svg
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="#0E2238"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              style="flex: 0 0 auto; width: {{ textBox.icon }}; height: {{ textBox.icon }}"
+                            >
+                              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                              <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <div style="display: flex; flex-direction: column">
+                              <sc-for list="{{ addressLines }}" as="ln">
+                                <div style="white-space: pre">{{ ln }}</div>
+                              </sc-for>
+                            </div>
+                          </div>
+                        </sc-if>
+                        <sc-if value="{{ hasPhone }}">
+                          <div style="display: flex; align-items: center; gap: {{ textBox.iconGap }}">
+                            <svg
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="#0E2238"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              style="flex: 0 0 auto; width: {{ textBox.icon }}; height: {{ textBox.icon }}"
+                            >
+                              <path
+                                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                              ></path>
+                            </svg>
+                            <div style="white-space: pre">{{ phone }}</div>
+                          </div>
+                        </sc-if>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ============ Mobile stepped-card editor (1a) ============ -->
+              <div class="rtu-mobile-only" style="flex-direction: column">
+                <sc-if value="{{ isStep0 }}">
+                  <div style="display: flex; flex-direction: column; gap: 12px">
+                    <div style="display: flex; align-items: center; gap: 8px; background: #fff; border: 1px solid #e1e8ef; border-radius: 12px; padding: 10px 14px">
+                      <div style="flex: 1 1 0; display: flex; align-items: center; gap: 8px">
+                        <div style="width: 24px; height: 24px; border-radius: 50%; background: #0e2238; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center">1</div>
+                        <span style="font-size: 13px; font-weight: 600; color: #0e2238">Details</span>
+                      </div>
+                      <div style="width: 20px; height: 2px; background: #dde4ea"></div>
+                      <div style="width: 24px; height: 24px; border-radius: 50%; background: #eef2f5; color: #93a3b1; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center">2</div>
+                      <div style="width: 20px; height: 2px; background: #dde4ea"></div>
+                      <div style="width: 24px; height: 24px; border-radius: 50%; background: #eef2f5; color: #93a3b1; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center">3</div>
+                    </div>
+
+                    <sc-if value="{{ hasStatus }}">
+                      <div style="padding: 8px 11px; border-radius: 9px; background: #eef6f4; color: #0f6157; font-size: 11.5px; font-weight: 600">{{ status }}</div>
+                    </sc-if>
+
+                    <section style="background: #fff; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 14px">
+                      <div style="font-size: 11px; letter-spacing: 0.16em; font-weight: 600; color: #107a6e">YOUR DETAILS</div>
+
+                      <div style="display: flex; flex-direction: column; gap: 8px">
+                        <label style="font-size: 14px; font-weight: 600; color: #12263a">Your logo</label>
+                        <label
+                          onDragOver="{{ onDragOver }}"
+                          onDrop="{{ onDrop }}"
+                          style="border: 1.5px dashed #c6d1da; border-radius: 12px; background: #f7f9fb; padding: 20px 14px; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer"
+                          style-hover="border-color:#14776B;background:#F2F8F6"
+                        >
+                          <sc-if value="{{ hasLogo }}">
+                            <img ref="{{ logoRefC }}" alt="logo" style="max-height: 52px; max-width: 100%; object-fit: contain" />
+                          </sc-if>
+                          <sc-if value="{{ noLogo }}" hint-placeholder-val="{{ true }}">
+                            <span style="font-size: 14px; font-weight: 600; color: #12263a">Tap to upload logo</span>
+                          </sc-if>
+                          <span style="font-size: 11px; color: #6b7b8a">Transparent PNG works best</span>
+                          <input type="file" accept="image/png,image/jpeg,image/svg+xml,image/webp" onChange="{{ onLogoFile }}" style="display: none" />
+                        </label>
+                        <sc-if value="{{ hasLogo }}">
+                          <a href="#" onClick="{{ clearLogo }}" style="align-self: flex-start; font-size: 11.5px; color: #b2405a; text-decoration: none">Remove logo</a>
+                        </sc-if>
+                      </div>
+
+                      <div style="display: flex; flex-direction: column; gap: 8px">
+                        <div style="display: flex; align-items: center; justify-content: space-between">
+                          <span style="font-size: 14px; font-weight: 600; color: #12263a">Your address</span>
+                          <label style="font-size: 12px; font-weight: 600; color: #107a6e; cursor: pointer"
+                            >Upload .txt
+                            <input type="file" accept=".txt,text/plain" onChange="{{ onTextFile }}" style="display: none" />
+                          </label>
+                        </div>
+                        <textarea
+                          rows="3"
+                          value="{{ address }}"
+                          onChange="{{ onAddress }}"
+                          placeholder="Centre name&#10;Street, area&#10;City – PIN"
+                          style="width: 100%; resize: vertical; padding: 12px 14px; border: 1px solid #dde4ea; border-radius: 12px; font-size: 16px; line-height: 1.5; color: #12263a; background: #fff; outline: none"
+                          style-focus="border-color:#14776B"
+                        ></textarea>
+                      </div>
+
+                      <div style="display: flex; flex-direction: column; gap: 8px">
+                        <span style="font-size: 14px; font-weight: 600; color: #12263a">Your phone number</span>
+                        <input
+                          type="text"
+                          value="{{ cardNo }}"
+                          onChange="{{ onCardNo }}"
+                          placeholder="+91 70946 06386"
+                          style="width: 100%; padding: 13px 14px; border: 1px solid #dde4ea; border-radius: 12px; font-size: 16px; color: #12263a; outline: none"
+                          style-focus="border-color:#14776B"
+                        />
+                      </div>
+
+                      <a href="#" onClick="{{ resetAll }}" style="font-size: 13px; color: #6b7b8a; text-decoration: none">Clear all fields</a>
+                    </section>
+
+                    <div style="display: flex; gap: 9px; align-items: flex-start; padding: 0 4px">
+                      <div style="width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid #8fa3b3; flex: 0 0 auto; margin-top: 1px"></div>
+                      <div style="font-size: 11.5px; color: #6b7b8a; line-height: 1.5">Artwork stays locked. Only the logo and address blocks are yours to fill.</div>
+                    </div>
+                  </div>
+                </sc-if>
+
+                <sc-if value="{{ isStep1 }}">
+                  <div style="display: flex; flex-direction: column; gap: 12px">
+                    <div style="display: flex; align-items: center; gap: 8px; background: #fff; border: 1px solid #e1e8ef; border-radius: 12px; padding: 10px 14px">
+                      <a href="#" onClick="{{ toStep0 }}" style="width: 24px; height: 24px; border-radius: 50%; background: #107a6e; color: #fff; font-size: 13px; display: flex; align-items: center; justify-content: center; text-decoration: none">✓</a>
+                      <div style="width: 20px; height: 2px; background: #dde4ea"></div>
+                      <div style="flex: 1 1 0; display: flex; align-items: center; gap: 8px">
+                        <div style="width: 24px; height: 24px; border-radius: 50%; background: #0e2238; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center">2</div>
+                        <span style="font-size: 13px; font-weight: 600; color: #0e2238">Preview</span>
+                      </div>
+                      <div style="width: 20px; height: 2px; background: #dde4ea"></div>
+                      <div style="width: 24px; height: 24px; border-radius: 50%; background: #eef2f5; color: #93a3b1; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center">3</div>
+                    </div>
+
+                    <sc-if value="{{ hasStatus }}">
+                      <div style="padding: 8px 11px; border-radius: 9px; background: #eef6f4; color: #0f6157; font-size: 11.5px; font-weight: 600">{{ status }}</div>
+                    </sc-if>
+
+                    <sc-if value="{{ multiPage }}">
+                      <div style="display: flex; background: #e6ebef; border-radius: 999px; padding: 4px; gap: 4px">
+                        <sc-for list="{{ pageTabs }}" as="t">
+                          <a
+                            href="#"
+                            onClick="{{ t.select }}"
+                            style="flex: 1 1 0; height: 38px; border-radius: 999px; font-size: 13.5px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; background: {{ t.bg }}; color: {{ t.fg }}"
+                            >{{ t.label }}</a
                           >
                         </sc-for>
                       </div>
                     </sc-if>
 
-                    <a
-                      href="#"
-                      onClick="{{ exportPdf }}"
-                      style="
-                        display: block;
-                        text-align: center;
-                        padding: 11px;
-                        border-radius: 10px;
-                        background: #0e2238;
-                        color: #fff;
-                        font-size: 13px;
-                        font-weight: 600;
-                        text-decoration: none;
-                      "
-                      style-hover="background:#183253;color:#fff;text-decoration:none"
-                      >Download PDF</a
+                    <div
+                      onClick="{{ openZoom }}"
+                      style="container-type: inline-size; position: relative; border-radius: 14px; overflow: hidden; background: #0e2238; box-shadow: 0 8px 24px rgba(14, 34, 51, 0.18); cursor: pointer"
                     >
-
-                    <div style="display: flex; gap: 8px">
-                      <a
-                        href="#"
-                        onClick="{{ exportJpg }}"
-                        style="
-                          flex: 1;
-                          text-align: center;
-                          padding: 10px;
-                          border-radius: 10px;
-                          background: #fff;
-                          border: 1px solid #cdd9e3;
-                          color: #0e2238;
-                          font-size: 12.5px;
-                          font-weight: 600;
-                          text-decoration: none;
-                        "
-                        style-hover="border-color:#14776B;color:#14776B;text-decoration:none"
-                        >JPG</a
+                      <img src="{{ pageSrc }}" alt="preview" style="display: block; width: 100%; height: auto" />
+                      <sc-if value="{{ hasLogoSlot }}">
+                        <div
+                          style="position: absolute; display: flex; align-items: center; justify-content: center; overflow: hidden; left: {{ logoBox.left }}; top: {{ logoBox.top }}; width: {{ logoBox.width }}; height: {{ logoBox.height }}"
+                        >
+                          <sc-if value="{{ hasLogo }}">
+                            <img ref="{{ logoRefD }}" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain" />
+                          </sc-if>
+                        </div>
+                      </sc-if>
+                      <div
+                        style="position: absolute; display: flex; flex-direction: column; justify-content: center; overflow: hidden; color: #0e2238; font-weight: 600; line-height: 1.28; left: {{ textBox.left }}; top: {{ textBox.top }}; width: {{ textBox.width }}; height: {{ textBox.height }}; padding-left: {{ textBox.pad }}; font-size: {{ textBox.font }}; gap: {{ textBox.gap }}"
                       >
-                      <a
-                        href="#"
-                        onClick="{{ exportPng }}"
+                        <sc-if value="{{ hasAddress }}">
+                          <div style="display: flex; align-items: center; gap: {{ textBox.iconGap }}">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#0E2238" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto; width: {{ textBox.icon }}; height: {{ textBox.icon }}">
+                              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                              <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <div style="display: flex; flex-direction: column">
+                              <sc-for list="{{ addressLines }}" as="ln">
+                                <div style="white-space: pre">{{ ln }}</div>
+                              </sc-for>
+                            </div>
+                          </div>
+                        </sc-if>
+                        <sc-if value="{{ hasPhone }}">
+                          <div style="display: flex; align-items: center; gap: {{ textBox.iconGap }}">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#0E2238" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto; width: {{ textBox.icon }}; height: {{ textBox.icon }}">
+                              <path
+                                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                              ></path>
+                            </svg>
+                            <div style="white-space: pre">{{ phone }}</div>
+                          </div>
+                        </sc-if>
+                      </div>
+                      <div
                         style="
-                          flex: 1;
-                          text-align: center;
-                          padding: 10px;
-                          border-radius: 10px;
-                          background: #fff;
-                          border: 1px solid #cdd9e3;
-                          color: #0e2238;
-                          font-size: 12.5px;
+                          position: absolute;
+                          right: 10px;
+                          bottom: 10px;
+                          background: rgba(14, 34, 51, 0.86);
+                          color: #fff;
+                          font-size: 12px;
                           font-weight: 600;
-                          text-decoration: none;
+                          padding: 8px 12px;
+                          border-radius: 999px;
+                          display: flex;
+                          align-items: center;
+                          gap: 6px;
                         "
-                        style-hover="border-color:#14776B;color:#14776B;text-decoration:none"
-                        >PNG</a
                       >
+                        <span style="font-size: 14px">◎</span> Tap to zoom
+                      </div>
                     </div>
 
-                    <a
-                      href="#"
-                      onClick="{{ shareWhatsApp }}"
-                      style="
-                        display: block;
-                        text-align: center;
-                        padding: 11px;
-                        border-radius: 10px;
-                        background: #14776b;
-                        color: #fff;
-                        font-size: 13px;
-                        font-weight: 600;
-                        text-decoration: none;
-                      "
-                      style-hover="background:#0F6157;color:#fff;text-decoration:none"
-                      >Share on WhatsApp</a
-                    >
+                    <div style="display: flex; align-items: center; justify-content: space-between; padding: 0 4px">
+                      <span style="font-size: 12px; color: #6b7b8a">{{ exportNote }}</span>
+                      <a href="#" onClick="{{ toStep0 }}" style="height: 32px; padding: 0 14px; border-radius: 999px; border: 1px solid #cfe4df; background: #f2f8f6; display: flex; align-items: center; font-size: 12.5px; font-weight: 600; color: #107a6e; text-decoration: none">Edit details</a>
+                    </div>
+                  </div>
+                </sc-if>
+
+                <sc-if value="{{ isStep2 }}">
+                  <div style="display: flex; flex-direction: column; gap: 12px">
+                    <div style="display: flex; align-items: center; gap: 8px; background: #fff; border: 1px solid #e1e8ef; border-radius: 12px; padding: 10px 14px">
+                      <a href="#" onClick="{{ toStep0 }}" style="width: 24px; height: 24px; border-radius: 50%; background: #107a6e; color: #fff; font-size: 13px; display: flex; align-items: center; justify-content: center; text-decoration: none">✓</a>
+                      <div style="width: 20px; height: 2px; background: #dde4ea"></div>
+                      <a href="#" onClick="{{ toStep1 }}" style="width: 24px; height: 24px; border-radius: 50%; background: #107a6e; color: #fff; font-size: 13px; display: flex; align-items: center; justify-content: center; text-decoration: none">✓</a>
+                      <div style="width: 20px; height: 2px; background: #dde4ea"></div>
+                      <div style="flex: 1 1 0; display: flex; align-items: center; gap: 8px">
+                        <div style="width: 24px; height: 24px; border-radius: 50%; background: #0e2238; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center">3</div>
+                        <span style="font-size: 13px; font-weight: 600; color: #0e2238">Export</span>
+                      </div>
+                    </div>
+
+                    <div style="background: #fff; border-radius: 16px; padding: 16px; display: flex; gap: 13px; align-items: center">
+                      <div style="width: 62px; border-radius: 8px; overflow: hidden; background: #0e2238; flex: 0 0 auto">
+                        <img src="{{ pageSrc }}" alt="" style="width: 100%; display: block" />
+                      </div>
+                      <div style="display: flex; flex-direction: column; gap: 3px">
+                        <span style="font-size: 14.5px; font-weight: 600; color: #12263a">{{ activeName }}</span>
+                        <span style="font-size: 12px; color: #6b7b8a">{{ pageCountLabel }} · {{ exportNote }}</span>
+                        <span style="font-size: 12px; font-weight: 600; color: #107a6e">{{ detailsAddedLabel }}</span>
+                      </div>
+                    </div>
+
+                    <div style="background: #fff; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 13px">
+                      <div style="font-size: 11px; letter-spacing: 0.16em; font-weight: 600; color: #107a6e">EXPORT</div>
+                      <sc-if value="{{ multiPage }}">
+                        <div style="display: flex; background: #e6ebef; border-radius: 10px; padding: 4px; gap: 4px">
+                          <sc-for list="{{ scopeTabs }}" as="s">
+                            <a
+                              href="#"
+                              onClick="{{ s.select }}"
+                              style="flex: 1 1 0; height: 40px; border-radius: 8px; color: {{ s.fg }}; font-size: 14px; font-weight: 600; display: flex; align-items: center; justify-content: center; text-decoration: none; background: {{ s.bg }}"
+                              >{{ s.label }}</a
+                            >
+                          </sc-for>
+                        </div>
+                      </sc-if>
+                      <a href="#" onClick="{{ exportPdf }}" style="height: 52px; background: #0e2238; border-radius: 12px; color: #fff; font-size: 15.5px; font-weight: 600; display: flex; align-items: center; justify-content: center; text-decoration: none">Download PDF</a>
+                      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px">
+                        <a href="#" onClick="{{ exportJpg }}" style="height: 48px; border: 1px solid #dde4ea; background: #fff; border-radius: 12px; color: #12263a; font-size: 14.5px; font-weight: 600; display: flex; align-items: center; justify-content: center; text-decoration: none">JPG</a>
+                        <a href="#" onClick="{{ exportPng }}" style="height: 48px; border: 1px solid #dde4ea; background: #fff; border-radius: 12px; color: #12263a; font-size: 14.5px; font-weight: 600; display: flex; align-items: center; justify-content: center; text-decoration: none">PNG</a>
+                      </div>
+                    </div>
+
+                    <a href="#" onClick="{{ shareWhatsApp }}" style="height: 54px; background: #14776b; border-radius: 12px; color: #fff; font-size: 15.5px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 9px; text-decoration: none">Share on WhatsApp</a>
 
                     <sc-if value="{{ hasStatus }}">
-                      <div
-                        style="
-                          padding: 8px 11px;
-                          border-radius: 9px;
-                          background: #eef6f4;
-                          color: #0f6157;
-                          font-size: 11.5px;
-                          font-weight: 600;
-                          line-height: 1.45;
-                        "
-                      >
-                        {{ status }}
-                      </div>
+                      <div style="padding: 8px 11px; border-radius: 9px; background: #eef6f4; color: #0f6157; font-size: 11.5px; font-weight: 600; line-height: 1.45">{{ status }}</div>
                     </sc-if>
-                  </section>
-                </div>
-
-                <section
-                  class="rtu-editor-preview"
-                  style="
-                    flex: 1 1 340px;
-                    min-width: 270px;
-                    max-width: 400px;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 10px;
-                    align-items: stretch;
-                  "
-                >
-                  <div style="display: flex; flex-wrap: wrap; gap: 6px">
-                    <sc-for list="{{ pageTabs }}" as="t" hint-placeholder-count="2">
-                      <a
-                        href="#"
-                        onClick="{{ t.select }}"
-                        style="padding:7px 13px;border-radius:99px;font-size:12px;font-weight:600;text-decoration:none;border:1px solid {{ t.border }};background:{{ t.bg }};color:{{ t.fg }}"
-                        style-hover="text-decoration:none"
-                        >{{ t.label }}</a
-                      >
-                    </sc-for>
                   </div>
-
-                  <div
-                    style="container-type:inline-size;position:relative;background:#fff;border:1px solid #E1E8EF;border-radius:14px;overflow:hidden;box-shadow:0 8px 26px rgba(14,34,56,.08);width:{{ previewW }}"
-                  >
-                    <sc-if value="{{ isPoster }}" hint-placeholder-val="{{ true }}">
-                      <img
-                        src="assets/artworks/avm-wellness-profiles-poster.png"
-                        alt="artwork"
-                        style="display: block; width: 100%; height: auto"
-                      />
-                    </sc-if>
-                    <sc-if value="{{ isDetails }}">
-                      <img
-                        src="assets/artworks/avm-profile-test-details.png"
-                        alt="artwork"
-                        style="display: block; width: 100%; height: auto"
-                      />
-                    </sc-if>
-
-                    <sc-if value="{{ hasLogoSlot }}" hint-placeholder-val="{{ true }}">
-                      <div
-                        style="position:absolute;display:flex;align-items:center;justify-content:center;overflow:hidden;left:{{ logoBox.left }};top:{{ logoBox.top }};width:{{ logoBox.width }};height:{{ logoBox.height }}"
-                      >
-                        <sc-if value="{{ hasLogo }}">
-                          <img
-                            ref="{{ logoRefB }}"
-                            alt=""
-                            style="max-width: 100%; max-height: 100%; object-fit: contain"
-                          />
-                        </sc-if>
-                        <sc-if value="{{ noLogo }}" hint-placeholder-val="{{ true }}">
-                          <div
-                            style="
-                              width: 100%;
-                              height: 100%;
-                              display: flex;
-                              align-items: center;
-                              justify-content: center;
-                              border: 1px dashed #a9bccb;
-                              border-radius: 4px;
-                              font-size: 1.4cqw;
-                              letter-spacing: 0.14em;
-                              color: #93a8b8;
-                              font-weight: 600;
-                            "
-                          >
-                            LOGO
-                          </div>
-                        </sc-if>
-                      </div>
-                    </sc-if>
-
-                    <div
-                      style="position:absolute;display:flex;flex-direction:column;justify-content:center;overflow:hidden;color:#0E2238;font-weight:600;line-height:1.28;left:{{ textBox.left }};top:{{ textBox.top }};width:{{ textBox.width }};height:{{ textBox.height }};padding-left:{{ textBox.pad }};font-size:{{ textBox.font }};gap:{{ textBox.gap }}"
-                    >
-                      <sc-if value="{{ hasAddress }}">
-                        <div style="display:flex;align-items:center;gap:{{ textBox.iconGap }}">
-                          <svg
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="#0E2238"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            style="flex:0 0 auto;width:{{ textBox.icon }};height:{{ textBox.icon }}"
-                          >
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                            <circle cx="12" cy="10" r="3"></circle>
-                          </svg>
-                          <div style="display: flex; flex-direction: column">
-                            <sc-for list="{{ addressLines }}" as="ln">
-                              <div style="white-space: pre">{{ ln }}</div>
-                            </sc-for>
-                          </div>
-                        </div>
-                      </sc-if>
-                      <sc-if value="{{ hasPhone }}">
-                        <div style="display:flex;align-items:center;gap:{{ textBox.iconGap }}">
-                          <svg
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="#0E2238"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            style="flex:0 0 auto;width:{{ textBox.icon }};height:{{ textBox.icon }}"
-                          >
-                            <path
-                              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
-                            ></path>
-                          </svg>
-                          <div style="white-space: pre">{{ phone }}</div>
-                        </div>
-                      </sc-if>
-                    </div>
-                  </div>
-                </section>
+                </sc-if>
               </div>
             </div>
           </sc-if>
         </main>
+
+        <!-- ============ Mobile bottom bar: tabs or sticky step CTA (1a) ============ -->
+        <footer class="rtu-bottom-tabs">
+          <sc-if value="{{ hasBottomTabs }}">
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); padding: 6px 0 calc(6px + env(safe-area-inset-bottom, 0px))">
+              <a href="#" onClick="{{ goGallery }}" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; color: #0e2238; text-decoration: none">
+                <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="7.5" height="7.5" rx="1.6"></rect>
+                  <rect x="13.5" y="3" width="7.5" height="7.5" rx="1.6"></rect>
+                  <rect x="3" y="13.5" width="7.5" height="7.5" rx="1.6"></rect>
+                  <rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.6"></rect>
+                </svg>
+                <span style="font-size: 11px; font-weight: 600">Designs</span>
+              </a>
+              <a href="#" onClick="{{ goMore }}" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; color: #8fa3b3; text-decoration: none">
+                <svg width="23" height="23" viewBox="0 0 24 24" fill="currentColor">
+                  <circle cx="5.2" cy="12" r="1.9"></circle>
+                  <circle cx="12" cy="12" r="1.9"></circle>
+                  <circle cx="18.8" cy="12" r="1.9"></circle>
+                </svg>
+                <span style="font-size: 11px; font-weight: 500">More</span>
+              </a>
+            </div>
+          </sc-if>
+          <sc-if value="{{ hasStickyCta }}">
+            <div style="padding: 10px 16px calc(12px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 6px">
+              <a href="#" onClick="{{ ctaAction }}" style="height: 52px; background: #0e2238; border-radius: 12px; color: #fff; font-size: 15.5px; font-weight: 600; display: flex; align-items: center; justify-content: center; text-decoration: none">{{ ctaLabel }}</a>
+              <sc-if value="{{ ctaCaption }}">
+                <div style="font-size: 11.5px; color: #6b7b8a; text-align: center">{{ ctaCaption }}</div>
+              </sc-if>
+            </div>
+          </sc-if>
+        </footer>
       </div>
+
+      <!-- ============ Full-screen zoom (1a) ============ -->
+      <sc-if value="{{ hasZoom }}">
+        <div class="rtu-zoom-overlay">
+          <div style="flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 14px 18px">
+            <span style="color: #fff; font-size: 15px; font-weight: 600">{{ zoomTitle }}</span>
+            <a href="#" onClick="{{ closeZoom }}" aria-label="Close" style="width: 36px; height: 36px; border-radius: 50%; background: rgba(255, 255, 255, 0.12); color: #fff; font-size: 18px; display: flex; align-items: center; justify-content: center; text-decoration: none">✕</a>
+          </div>
+          <div style="flex: 1 1 0; display: flex; align-items: center; justify-content: center; padding: 10px; overflow: auto">
+            <div style="container-type: inline-size; position: relative; width: min(92vw, 430px); border-radius: 14px; overflow: hidden; background: #0e2238; transform: {{ zoomTransform }}; transition: transform 0.15s ease">
+              <sc-if value="{{ zoomPlainView }}">
+                <img src="{{ previewImgSrc }}" alt="preview" style="display: block; width: 100%" />
+              </sc-if>
+              <sc-if value="{{ zoomComposited }}">
+                <img src="{{ pageSrc }}" alt="preview" style="display: block; width: 100%" />
+                <sc-if value="{{ hasLogoSlot }}">
+                  <div
+                    style="position: absolute; display: flex; align-items: center; justify-content: center; overflow: hidden; left: {{ logoBox.left }}; top: {{ logoBox.top }}; width: {{ logoBox.width }}; height: {{ logoBox.height }}"
+                  >
+                    <sc-if value="{{ hasLogo }}">
+                      <img ref="{{ logoRefE }}" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain" />
+                    </sc-if>
+                  </div>
+                </sc-if>
+                <div
+                  style="position: absolute; display: flex; flex-direction: column; justify-content: center; overflow: hidden; color: #0e2238; font-weight: 600; line-height: 1.28; left: {{ textBox.left }}; top: {{ textBox.top }}; width: {{ textBox.width }}; height: {{ textBox.height }}; padding-left: {{ textBox.pad }}; font-size: {{ textBox.font }}; gap: {{ textBox.gap }}"
+                >
+                  <sc-if value="{{ hasAddress }}">
+                    <div style="display: flex; align-items: center; gap: {{ textBox.iconGap }}">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="#0E2238" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto; width: {{ textBox.icon }}; height: {{ textBox.icon }}">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
+                      <div style="display: flex; flex-direction: column">
+                        <sc-for list="{{ addressLines }}" as="ln">
+                          <div style="white-space: pre">{{ ln }}</div>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ hasPhone }}">
+                    <div style="display: flex; align-items: center; gap: {{ textBox.iconGap }}">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="#0E2238" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto; width: {{ textBox.icon }}; height: {{ textBox.icon }}">
+                        <path
+                          d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                        ></path>
+                      </svg>
+                      <div style="white-space: pre">{{ phone }}</div>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+          <div style="flex: 0 0 auto; padding: 16px 18px calc(22px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 12px">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 10px">
+              <a href="#" onClick="{{ zoomOut }}" style="width: 38px; height: 38px; border-radius: 50%; background: rgba(255, 255, 255, 0.12); color: #fff; font-size: 18px; display: flex; align-items: center; justify-content: center; text-decoration: none">−</a>
+              <div style="flex: 1 1 0; height: 4px; background: rgba(255, 255, 255, 0.18); border-radius: 2px; position: relative; max-width: 220px">
+                <div style="position: absolute; left: 0; top: 0; bottom: 0; width: {{ zoomPct }}; background: #4ad0be; border-radius: 2px"></div>
+              </div>
+              <a href="#" onClick="{{ zoomIn }}" style="width: 38px; height: 38px; border-radius: 50%; background: rgba(255, 255, 255, 0.12); color: #fff; font-size: 18px; display: flex; align-items: center; justify-content: center; text-decoration: none">+</a>
+            </div>
+            <a href="#" onClick="{{ closeZoom }}" style="height: 50px; background: #4ad0be; border-radius: 12px; color: #0e2238; font-size: 15.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none">Looks good →</a>
+          </div>
+        </div>
+      </sc-if>
     </x-dc>
     <script
       type="text/x-dc"
@@ -979,9 +1111,11 @@
         id: 'poster',
         label: 'Offer Poster',
         src: 'assets/artworks/avm-wellness-profiles-poster.png',
+        previewSrc: 'assets/artworks/avm-wellness-profiles-poster-preview.jpg',
         w: 1152, h: 1600,
         logo: { x: 51, y: 72, w: 318, h: 168, pad: 16 },
-        text: { x: 26, y: 1442, w: 716, h: 156, pad: 12, max: 38 }
+        text: { x: 26, y: 1442, w: 716, h: 156, pad: 12, max: 38 },
+        previewNote: 'This is the artwork. Your logo and address go in the blank block at the bottom.'
       };
       const DETAILS = {
         id: 'details',
@@ -989,7 +1123,8 @@
         src: 'assets/artworks/avm-profile-test-details.png',
         w: 1137, h: 1600,
         logo: null,
-        text: { x: 104, y: 1440, w: 618, h: 152, pad: 24, max: 36 }
+        text: { x: 104, y: 1440, w: 618, h: 152, pad: 24, max: 36 },
+        previewNote: 'This is the full test list. No logo or address needed on this page.'
       };
 
       const PIN_PATHS = [
@@ -1002,12 +1137,12 @@
 
       // --- Profile catalogue shown in the gallery ---
       const PROFILES = [
-        { id: 'all', name: 'All in One', special: true, cover: true, tests: '5 profiles', pages: [POSTER, DETAILS], note: 'Offer poster plus the full test-details sheet.' },
-        { id: 'p1', name: 'AVM Profile 1', num: '1', tests: '37 tests', pages: [POSTER, DETAILS], note: 'Using the All-in-One artwork until Profile 1 art is supplied.' },
-        { id: 'p2', name: 'AVM Profile 2', num: '2', tests: '69 tests', pages: [POSTER, DETAILS], note: 'Using the All-in-One artwork until Profile 2 art is supplied.' },
-        { id: 'p3', name: 'AVM Profile 3', num: '3', tests: '75 tests', pages: [POSTER, DETAILS], note: 'Using the All-in-One artwork until Profile 3 art is supplied.' },
-        { id: 'p4', name: 'AVM Profile 4', num: '4', tests: '80 tests', pages: [POSTER, DETAILS], note: 'Using the All-in-One artwork until Profile 4 art is supplied.' },
-        { id: 'p5', name: 'AVM Profile 5', num: '5', tests: '85 tests', pages: [POSTER, DETAILS], note: 'Using the All-in-One artwork until Profile 5 art is supplied.' }
+        { id: 'all', name: 'AVM Wellness Profiles', cover: true, tag: 'Complete Profile Collection', tests: 'Profiles 1–5', ctaLabel: 'Personalize Design', pages: [POSTER, DETAILS], note: 'The complete AVM Wellness Profiles set — offer poster plus the full test-details sheet.' },
+        { id: 'p1', name: 'AVM Profile 1', num: '1', tests: '37 Tests', ctaLabel: 'Personalize', pages: [POSTER, DETAILS], note: 'Using the AVM Wellness Profiles artwork until dedicated Profile 1 artwork is ready.' },
+        { id: 'p2', name: 'AVM Profile 2', num: '2', tests: '69 Tests', ctaLabel: 'Personalize', pages: [POSTER, DETAILS], note: 'Using the AVM Wellness Profiles artwork until dedicated Profile 2 artwork is ready.' },
+        { id: 'p3', name: 'AVM Profile 3', num: '3', tests: '75 Tests', ctaLabel: 'Personalize', pages: [POSTER, DETAILS], note: 'Using the AVM Wellness Profiles artwork until dedicated Profile 3 artwork is ready.' },
+        { id: 'p4', name: 'AVM Profile 4', num: '4', tests: '80 Tests', ctaLabel: 'Personalize', pages: [POSTER, DETAILS], note: 'Using the AVM Wellness Profiles artwork until dedicated Profile 4 artwork is ready.' },
+        { id: 'p5', name: 'AVM Profile 5', num: '5', tests: '85 Tests', ctaLabel: 'Personalize', pages: [POSTER, DETAILS], note: 'Using the AVM Wellness Profiles artwork until dedicated Profile 5 artwork is ready.' }
       ];
 
       const STORE = 'avm-rtu-brand-v1';
@@ -1016,13 +1151,17 @@
         // --- State & lifecycle ---
         state = {
           view: 'gallery',
+          step: 0,
           profileId: 'all',
           page: 0,
           scope: 'page',
           logo: '',
           address: 'AVM Labs Collection Centre\n12, Gandhi Road, T. Nagar\nChennai – 600 017',
           cardNo: '+91 70946 06386',
-          status: ''
+          status: '',
+          zoomOpen: false,
+          zoomScale: 1,
+          zoomPlain: false
         };
 
         componentDidMount() {
@@ -1045,7 +1184,7 @@
 
         syncLogo() {
           const v = this.state.logo || '';
-          [this._logoA, this._logoB].forEach(r => {
+          [this._logoA, this._logoB, this._logoC, this._logoD, this._logoE].forEach(r => {
             if (r && r.current && r.current.getAttribute('src') !== v) {
               if (v) r.current.setAttribute('src', v);
               else r.current.removeAttribute('src');
@@ -1276,14 +1415,51 @@
           const cq = v => (v / page.w * 100) + 'cqw';
           if (!this._logoA) this._logoA = React.createRef();
           if (!this._logoB) this._logoB = React.createRef();
+          if (!this._logoC) this._logoC = React.createRef();
+          if (!this._logoD) this._logoD = React.createRef();
+          if (!this._logoE) this._logoE = React.createRef();
+
+          const step = this.state.step;
+          const isGallery = this.state.view === 'gallery';
+          const isPreview = this.state.view === 'preview';
+          const isEditor = this.state.view === 'editor';
+          const curIdx = Math.min(this.state.page, pages.length - 1);
+
+          const gotoStep = i => e => { stop(e); this.setState({ step: i }); window.scrollTo(0, 0); };
+
+          let ctaLabel = '', ctaAction = null, ctaCaption = '';
+          if (isPreview) {
+            ctaLabel = 'Use this design →';
+            ctaAction = e => { stop(e); this.setState({ view: 'editor', step: 0 }); window.scrollTo(0, 0); };
+            ctaCaption = 'Artwork stays locked · ' + page.w + ' × ' + page.h + ' px';
+          } else if (isEditor && step === 0) {
+            ctaLabel = 'Next · Preview →';
+            ctaAction = gotoStep(1);
+          } else if (isEditor && step === 1) {
+            ctaLabel = 'Next · Download & share →';
+            ctaAction = gotoStep(2);
+          }
+
+          const detailsAdded = !!(this.state.logo || f.lines.length || f.tel);
 
           return {
             logoRefA: this._logoA,
             logoRefB: this._logoB,
+            logoRefC: this._logoC,
+            logoRefD: this._logoD,
+            logoRefE: this._logoE,
+
             isPoster: page.id === 'poster',
             isDetails: page.id === 'details',
-            isGallery: this.state.view === 'gallery',
-            isEditor: this.state.view === 'editor',
+            isGallery: isGallery,
+            isPreview: isPreview,
+            isEditor: isEditor,
+            isStep0: isEditor && step === 0,
+            isStep1: isEditor && step === 1,
+            isStep2: isEditor && step === 2,
+            topbarBack: isPreview || isEditor,
+            topbarBrand: isGallery,
+
             profiles: PROFILES.map(p => ({
               name: p.name,
               num: p.num,
@@ -1291,26 +1467,45 @@
               thumb: p.pages[0].src,
               hasCover: !!p.cover,
               noCover: !p.cover,
-              special: !!p.special,
-              plain: !p.special,
-              open: e => { stop(e); this.setState({ view: 'editor', profileId: p.id, page: 0, scope: 'page', status: '' }); window.scrollTo(0, 0); }
+              tag: p.tag || '',
+              hasTag: !!p.tag,
+              hasOffer: !!p.offerLabel,
+              offerLabel: p.offerLabel || '',
+              ctaLabel: p.ctaLabel || 'Personalize',
+              open: e => {
+                stop(e);
+                this.setState({ view: 'preview', step: 0, profileId: p.id, page: 0, scope: 'page', status: '' });
+                window.scrollTo(0, 0);
+              }
             })),
             showSoon: this.props.showComingSoon !== false,
             soon: ['AVM Profile 6', 'AVM Profile 7', 'AVM Profile 8'],
-            goGallery: e => { stop(e); this.setState({ view: 'gallery', status: '' }); },
+            goGallery: e => { stop(e); this.setState({ view: 'gallery', step: 0, status: '' }); window.scrollTo(0, 0); },
+            goMore: e => { stop(e); this.say('More pages coming soon.'); },
+            toStep0: gotoStep(0),
+            toStep1: gotoStep(1),
+            toStep2: gotoStep(2),
 
             activeName: prof.name,
             activeNote: prof.note,
+            pageLabel: page.label,
+            previewNote: page.previewNote,
+            pageOfTotal: (curIdx + 1) + ' of ' + pages.length,
+            pageCountLabel: pages.length + ' page' + (pages.length > 1 ? 's' : ''),
+            detailsAddedLabel: detailsAdded ? 'Your details added' : 'Add your details above',
             multiPage: pages.length > 1,
             pageSrc: page.src,
-            previewW: '100%',
+            dots: pages.map((p, i) => ({
+              bg: i === curIdx ? '#0E2238' : '#C6D1DA',
+              w: i === curIdx ? '22px' : '5px',
+              select: e => { stop(e); this.setState({ page: i }); }
+            })),
             pageTabs: pages.map((p, i) => {
-              const on = i === Math.min(this.state.page, pages.length - 1);
+              const on = i === curIdx;
               return {
                 label: p.label,
-                bg: on ? '#0E2238' : '#fff',
-                fg: on ? '#fff' : '#4A6076',
-                border: on ? '#0E2238' : '#D7E0E8',
+                bg: on ? '#0E2238' : 'transparent',
+                fg: on ? '#fff' : '#5D6E7D',
                 select: e => { stop(e); this.setState({ page: i }); }
               };
             }),
@@ -1320,7 +1515,7 @@
             ].map(s => ({
               label: s.label,
               bg: this.state.scope === s.key ? '#fff' : 'transparent',
-              fg: this.state.scope === s.key ? '#0E2238' : '#7C8FA1',
+              fg: this.state.scope === s.key ? '#0E2238' : '#5D6E7D',
               select: e => { stop(e); this.setState({ scope: s.key }); }
             })),
 
@@ -1374,7 +1569,26 @@
             shareWhatsApp: e => { stop(e); this.whatsApp(); },
             exportNote: page.w + ' × ' + page.h + ' px',
             status: this.state.status,
-            hasStatus: !!this.state.status
+            hasStatus: !!this.state.status,
+
+            hasBottomTabs: isGallery || (isEditor && step === 2),
+            hasStickyCta: isPreview || (isEditor && (step === 0 || step === 1)),
+            ctaLabel: ctaLabel,
+            ctaAction: ctaAction,
+            ctaCaption: ctaCaption,
+
+            previewImgSrc: page.previewSrc || page.src,
+            hasZoom: this.state.zoomOpen,
+            zoomPlainView: this.state.zoomOpen && this.state.zoomPlain,
+            zoomComposited: this.state.zoomOpen && !this.state.zoomPlain,
+            zoomTitle: page.label,
+            zoomTransform: 'scale(' + this.state.zoomScale + ')',
+            zoomPct: Math.round(((this.state.zoomScale - 0.6) / (1.8 - 0.6)) * 100) + '%',
+            openZoom: e => { stop(e); this.setState({ zoomOpen: true, zoomScale: 1, zoomPlain: false }); },
+            openZoomPlain: e => { stop(e); this.setState({ zoomOpen: true, zoomScale: 1, zoomPlain: true }); },
+            closeZoom: e => { stop(e); this.setState({ zoomOpen: false }); },
+            zoomIn: e => { stop(e); this.setState({ zoomScale: Math.min(1.8, +(this.state.zoomScale + 0.15).toFixed(2)) }); },
+            zoomOut: e => { stop(e); this.setState({ zoomScale: Math.max(0.6, +(this.state.zoomScale - 0.15).toFixed(2)) }); }
           };
         }
       }
