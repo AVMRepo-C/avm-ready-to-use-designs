@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/Ready-to-Use Designs.dc.html" }
+  ]
+}
