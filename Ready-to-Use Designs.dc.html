@@ -152,9 +152,9 @@
         >
           <div style="display: flex; flex-direction: column; align-items: center; width: 100%; gap: 10px">
             <img
-              src="https://avm-rate-list.vercel.app/assets/images/avm-logo.png"
+              src="assets/images/avm-logo-transparent.png"
               alt="AVM Labs"
-              style="height: 92px; width: auto; max-width: 170px; object-fit: contain; background: #fff; border-radius: 14px; padding: 16px 18px"
+              style="height: 112px; width: auto; max-width: 190px; object-fit: contain"
             />
             <span style="color: #8fa3b3; font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase">Marketing Studio</span>
           </div>
@@ -204,17 +204,17 @@
             </a>
             <span style="color: #fff; font-size: 16px; font-weight: 600; flex: 1 1 0">{{ activeName }}</span>
             <img
-              src="https://avm-rate-list.vercel.app/assets/images/avm-logo.png"
+              src="assets/images/avm-logo-transparent.png"
               alt=""
-              style="height: 26px; width: auto; max-width: 50px; object-fit: contain; background: #fff; border-radius: 5px; padding: 2px 4px; flex: 0 0 auto"
+              style="height: 34px; width: auto; max-width: 56px; object-fit: contain; flex: 0 0 auto"
             />
           </sc-if>
           <sc-if value="{{ topbarBrand }}" hint-placeholder-val="{{ true }}">
             <div style="display: flex; flex-direction: column; align-items: center; width: 100%; gap: 6px">
               <img
-                src="https://avm-rate-list.vercel.app/assets/images/avm-logo.png"
+                src="assets/images/avm-logo-transparent.png"
                 alt="AVM Labs"
-                style="height: 64px; width: auto; max-width: 118px; object-fit: contain; background: #fff; border-radius: 11px; padding: 11px 13px"
+                style="height: 78px; width: auto; max-width: 132px; object-fit: contain"
               />
               <span style="color: #8fa3b3; font-size: 9.5px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase">Marketing Studio</span>
             </div>
@@ -634,7 +634,7 @@
                           type="text"
                           value="{{ cardNo }}"
                           onChange="{{ onCardNo }}"
-                          placeholder="+91 70946 06386"
+                          placeholder="Phone number"
                           style="width: 100%; padding: 12px 14px; border: 1px solid #dde4ea; border-radius: 12px; font-size: 14.5px; color: #12263a; outline: none"
                           style-focus="border-color:#14776B"
                         />
@@ -789,7 +789,7 @@
                           type="text"
                           value="{{ cardNo }}"
                           onChange="{{ onCardNo }}"
-                          placeholder="+91 70946 06386"
+                          placeholder="Phone number"
                           style="width: 100%; padding: 13px 14px; border: 1px solid #dde4ea; border-radius: 12px; font-size: 16px; color: #12263a; outline: none"
                           style-focus="border-color:#14776B"
                         />
@@ -1100,8 +1100,8 @@
           profileId: 'all',
           page: 0,
           logo: '',
-          address: 'AVM Labs Collection Centre\n12, Gandhi Road, T. Nagar\nChennai – 600 017',
-          cardNo: '+91 70946 06386',
+          address: '',
+          cardNo: '',
           status: '',
           zoomOpen: false,
           zoomScale: 1,
