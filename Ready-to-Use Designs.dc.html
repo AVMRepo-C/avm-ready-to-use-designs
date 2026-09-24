@@ -109,9 +109,6 @@
               grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
               gap: 12px !important;
             }
-            .rtu-cover-img {
-              object-fit: contain !important;
-            }
             input[type="text"],
             textarea {
               font-size: 16px !important;
@@ -150,16 +147,16 @@
             overflow-y: auto;
           "
         >
-          <div style="display: flex; align-items: center; gap: 11px">
-            <img
-              src="https://avm-rate-list.vercel.app/assets/images/avm-logo.png"
-              alt="AVM Labs"
-              style="height: 36px; width: auto; max-width: 68px; object-fit: contain; background: #fff; border-radius: 7px; padding: 3px 5px; flex: 0 0 auto"
-            />
-            <div style="display: flex; flex-direction: column; line-height: 1.2; min-width: 0">
-              <span style="color: #fff; font-size: 14px; font-weight: 600; white-space: nowrap">AVM Labs</span>
-              <span style="color: #8fa3b3; font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap">Marketing Studio</span>
+          <div style="display: flex; flex-direction: column; gap: 12px">
+            <div style="display: flex; align-items: center; gap: 13px">
+              <img
+                src="https://avm-rate-list.vercel.app/assets/images/avm-logo.png"
+                alt="AVM Labs"
+                style="height: 58px; width: auto; max-width: 96px; object-fit: contain; background: #fff; border-radius: 10px; padding: 6px 8px; flex: 0 0 auto"
+              />
+              <span style="color: #fff; font-size: 18px; font-weight: 700; line-height: 1.2; min-width: 0">AVM Labs</span>
             </div>
+            <span style="color: #8fa3b3; font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase">Marketing Studio</span>
           </div>
 
           <nav style="display: flex; flex-direction: column; gap: 4px">
@@ -213,14 +210,16 @@
             />
           </sc-if>
           <sc-if value="{{ topbarBrand }}" hint-placeholder-val="{{ true }}">
-            <img
-              src="https://avm-rate-list.vercel.app/assets/images/avm-logo.png"
-              alt="AVM Labs"
-              style="height: 30px; width: auto; max-width: 58px; object-fit: contain; background: #fff; border-radius: 6px; padding: 3px 5px; flex: 0 0 auto"
-            />
-            <div style="display: flex; flex-direction: column; line-height: 1.15">
-              <span style="color: #fff; font-size: 15px; font-weight: 600">AVM Labs</span>
-              <span style="color: #8fa3b3; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase">Marketing Studio</span>
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <div style="display: flex; align-items: center; gap: 10px">
+                <img
+                  src="https://avm-rate-list.vercel.app/assets/images/avm-logo.png"
+                  alt="AVM Labs"
+                  style="height: 42px; width: auto; max-width: 74px; object-fit: contain; background: #fff; border-radius: 8px; padding: 4px 6px; flex: 0 0 auto"
+                />
+                <span style="color: #fff; font-size: 16px; font-weight: 700; line-height: 1.2">AVM Labs</span>
+              </div>
+              <span style="color: #8fa3b3; font-size: 9.5px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase">Marketing Studio</span>
             </div>
           </sc-if>
         </header>
@@ -257,7 +256,7 @@
                 Choose a design, add your lab details, and download a ready-to-share creative.
               </p>
 
-              <div class="rtu-grid" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; max-width: 1460px">
+              <div class="rtu-grid" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; max-width: 1460px">
                 <sc-for list="{{ profiles }}" as="p">
                   <a
                     href="#"
@@ -267,7 +266,7 @@
                       flex-direction: column;
                       background: #fff;
                       border: 1px solid #e1e8ef;
-                      border-radius: 16px;
+                      border-radius: 18px;
                       overflow: hidden;
                       text-decoration: none;
                       color: inherit;
@@ -279,10 +278,23 @@
                     style-hover="box-shadow:0 14px 32px rgba(14,34,56,.14);transform:translateY(-3px);text-decoration:none;color:inherit"
                   >
                     <sc-if value="{{ p.hasCover }}">
-                      <div style="position: relative; height: 148px; background: #0e2238; overflow: hidden">
+                      <div style="position: relative; height: 184px; background: #0e2238; overflow: hidden">
                         <img
-                          class="rtu-cover-img"
+                          class="rtu-desktop-only"
                           src="assets/artworks/avm-wellness-profiles-card-cover.png"
+                          alt=""
+                          style="
+                            position: absolute;
+                            inset: 0;
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                            object-position: center;
+                          "
+                        />
+                        <img
+                          class="rtu-mobile-only"
+                          src="assets/artworks/avm-wellness-profiles-card-cover-mobile.png"
                           alt=""
                           style="
                             position: absolute;
@@ -298,7 +310,7 @@
                     <sc-if value="{{ p.noCover }}">
                       <div
                         style="
-                          height: 148px;
+                          height: 184px;
                           display: flex;
                           flex-direction: column;
                           align-items: center;
@@ -310,7 +322,7 @@
                       >
                         <div
                           style="
-                            font-size: 9px;
+                            font-size: 10.5px;
                             letter-spacing: 0.2em;
                             text-transform: uppercase;
                             color: #7c93a8;
@@ -321,7 +333,7 @@
                         </div>
                         <div
                           style="
-                            font-size: 44px;
+                            font-size: 54px;
                             font-weight: 700;
                             line-height: 1.1;
                             letter-spacing: -0.03em;
@@ -330,15 +342,15 @@
                         >
                           {{ p.num }}
                         </div>
-                        <div style="font-size: 10.5px; color: #8aa0b3">{{ p.tests }}</div>
+                        <div style="font-size: 12px; color: #8aa0b3">{{ p.tests }}</div>
                       </div>
                     </sc-if>
-                    <div style="padding: 11px 12px 12px; display: flex; flex-direction: column; gap: 6px">
-                      <div style="font-size: 13.5px; font-weight: 600; line-height: 1.25">{{ p.name }}</div>
+                    <div style="padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 8px">
+                      <div style="font-size: 16px; font-weight: 600; line-height: 1.25">{{ p.name }}</div>
                       <sc-if value="{{ p.hasTag }}">
                         <div
                           style="
-                            font-size: 9.5px;
+                            font-size: 11px;
                             font-weight: 700;
                             letter-spacing: 0.14em;
                             text-transform: uppercase;
@@ -356,7 +368,7 @@
                               border-radius: 999px;
                               background: linear-gradient(135deg, #d9374d, #b32138);
                               color: #fff;
-                              font-size: 9.5px;
+                              font-size: 11px;
                               font-weight: 800;
                               letter-spacing: 0.09em;
                               text-transform: uppercase;
@@ -368,52 +380,21 @@
                         </sc-if>
                         <span
                           style="
-                            padding: 3px 8px;
+                            padding: 4px 10px;
                             border-radius: 6px;
                             background: #eef3f7;
                             border: 1px solid #dbe4ec;
-                            font-size: 10.5px;
+                            font-size: 12px;
                             font-weight: 700;
                             color: #3a5470;
                           "
                           >{{ p.tests }}</span
                         >
                       </div>
-                      <div style="font-size: 11.5px; font-weight: 600; color: #14776b">{{ p.ctaLabel }} →</div>
+                      <div style="font-size: 13px; font-weight: 600; color: #14776b">{{ p.ctaLabel }} →</div>
                     </div>
                   </a>
                 </sc-for>
-
-                <sc-if value="{{ showSoon }}" hint-placeholder-val="{{ true }}">
-                  <sc-for list="{{ soon }}" as="s" hint-placeholder-count="3">
-                    <div
-                      style="
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: flex-end;
-                        gap: 8px;
-                        min-height: 196px;
-                        padding: 13px;
-                        border: 1.5px dashed #c7d4df;
-                        border-radius: 16px;
-                        background: repeating-linear-gradient(135deg, #f7fafc 0 10px, #eff4f8 10px 20px);
-                      "
-                    >
-                      <div
-                        style="
-                          font-size: 9.5px;
-                          letter-spacing: 0.16em;
-                          text-transform: uppercase;
-                          color: #8aa0b3;
-                          font-weight: 600;
-                        "
-                      >
-                        Coming soon
-                      </div>
-                      <div style="font-size: 13px; font-weight: 600; color: #6b8297; line-height: 1.3">{{ s }}</div>
-                    </div>
-                  </sc-for>
-                </sc-if>
               </div>
             </div>
           </sc-if>
@@ -1104,7 +1085,7 @@
     <script
       type="text/x-dc"
       data-dc-script
-      data-props='{"showComingSoon":{"editor":"boolean","default":true,"tsType":"boolean","section":"Gallery"}}'
+      data-props='{}'
     >
       // --- Artwork layout constants (pixel coords into each source image) ---
       const POSTER = {
@@ -1141,8 +1122,6 @@
         { id: 'p1', name: 'AVM Profile 1', num: '1', tests: '37 Tests', ctaLabel: 'Personalize', pages: [POSTER, DETAILS], note: 'Using the AVM Wellness Profiles artwork until dedicated Profile 1 artwork is ready.' },
         { id: 'p2', name: 'AVM Profile 2', num: '2', tests: '69 Tests', ctaLabel: 'Personalize', pages: [POSTER, DETAILS], note: 'Using the AVM Wellness Profiles artwork until dedicated Profile 2 artwork is ready.' },
         { id: 'p3', name: 'AVM Profile 3', num: '3', tests: '75 Tests', ctaLabel: 'Personalize', pages: [POSTER, DETAILS], note: 'Using the AVM Wellness Profiles artwork until dedicated Profile 3 artwork is ready.' },
-        { id: 'p4', name: 'AVM Profile 4', num: '4', tests: '80 Tests', ctaLabel: 'Personalize', pages: [POSTER, DETAILS], note: 'Using the AVM Wellness Profiles artwork until dedicated Profile 4 artwork is ready.' },
-        { id: 'p5', name: 'AVM Profile 5', num: '5', tests: '85 Tests', ctaLabel: 'Personalize', pages: [POSTER, DETAILS], note: 'Using the AVM Wellness Profiles artwork until dedicated Profile 5 artwork is ready.' }
       ];
 
       const STORE = 'avm-rtu-brand-v1';
@@ -1478,8 +1457,6 @@
                 window.scrollTo(0, 0);
               }
             })),
-            showSoon: this.props.showComingSoon !== false,
-            soon: ['AVM Profile 6', 'AVM Profile 7', 'AVM Profile 8'],
             goGallery: e => { stop(e); this.setState({ view: 'gallery', step: 0, status: '' }); window.scrollTo(0, 0); },
             goMore: e => { stop(e); this.say('More pages coming soon.'); },
             toStep0: gotoStep(0),
