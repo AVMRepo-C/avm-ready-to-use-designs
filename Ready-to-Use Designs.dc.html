@@ -293,7 +293,7 @@
                       <div class="rtu-cover-box" style="position: relative; aspect-ratio: 1774 / 887; background: #0e2238; overflow: hidden">
                         <img
                           class="rtu-desktop-only"
-                          src="assets/artworks/avm-wellness-profiles-card-cover.jpg"
+                          src="{{ p.cover }}"
                           alt=""
                           style="
                             position: absolute;
@@ -306,7 +306,7 @@
                         />
                         <img
                           class="rtu-mobile-only"
-                          src="assets/artworks/avm-wellness-profiles-card-cover-mobile.jpg"
+                          src="{{ p.coverMobile }}"
                           alt=""
                           style="
                             position: absolute;
@@ -415,28 +415,29 @@
           <sc-if value="{{ isPreview }}">
             <div style="animation: rtuFade 0.3s ease both; height: 100%">
               <!-- ============ Desktop preview-before-customising (1c-style) ============ -->
-              <div class="rtu-desktop-only" style="flex-direction: column; gap: 22px; max-width: 980px; width: 100%; margin: 0 auto">
-                <a
-                  href="#"
-                  onClick="{{ goGallery }}"
-                  aria-label="Back to all designs"
-                  style="align-self: flex-start; display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px; border-radius: 9px; border: 1px solid #dde4ea; color: #12263a; font-size: 13px; font-weight: 600; text-decoration: none"
-                  style-hover="border-color:#14776B;color:#14776B;text-decoration:none"
-                >
-                  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5 8 12l6.5 6.5"></path></svg>
-                  All designs
-                </a>
-
+              <div class="rtu-desktop-only" style="flex-direction: column; gap: 0; max-width: 980px; width: 100%; margin: 0 auto">
                 <div style="display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 36px; align-items: start">
-                  <div
-                    onClick="{{ openZoomPlain }}"
-                    style="container-type: inline-size; position: relative; border-radius: 18px; overflow: hidden; background: #0e2238; box-shadow: 0 16px 40px rgba(14, 34, 51, 0.22); cursor: pointer"
-                  >
-                    <img src="{{ previewImgSrc }}" alt="{{ pageLabel }}, before customising" style="display: block; width: 100%" />
+                  <div style="display: flex; justify-content: center; min-width: 0">
                     <div
-                      style="position: absolute; right: 12px; bottom: 12px; background: rgba(14, 34, 51, 0.86); color: #fff; font-size: 12px; font-weight: 600; padding: 8px 12px; border-radius: 999px; display: flex; align-items: center; gap: 6px"
+                      onClick="{{ openZoomPlain }}"
+                      style="container-type: inline-size; position: relative; border-radius: 18px; overflow: hidden; background: #0e2238; box-shadow: 0 16px 40px rgba(14, 34, 51, 0.22); cursor: pointer; height: calc(100vh - 170px); max-height: 820px"
                     >
-                      <span style="font-size: 14px">◎</span> Tap to zoom
+                      <img src="{{ previewImgSrc }}" alt="{{ pageLabel }}, before customising" style="display: block; height: 100%; width: auto; max-width: 100%; object-fit: contain" />
+                      <a
+                        href="#"
+                        onClick="{{ goGallery }}"
+                        aria-label="Back to all designs"
+                        style="position: absolute; left: 12px; top: 12px; display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px; border-radius: 999px; background: rgba(14, 34, 51, 0.72); color: #fff; font-size: 13px; font-weight: 600; text-decoration: none"
+                        style-hover="background:rgba(14,34,51,.92);color:#fff;text-decoration:none"
+                      >
+                        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5 8 12l6.5 6.5"></path></svg>
+                        All designs
+                      </a>
+                      <div
+                        style="position: absolute; right: 12px; bottom: 12px; background: rgba(14, 34, 51, 0.86); color: #fff; font-size: 12px; font-weight: 600; padding: 8px 12px; border-radius: 999px; display: flex; align-items: center; gap: 6px"
+                      >
+                        <span style="font-size: 14px">◎</span> Tap to zoom
+                      </div>
                     </div>
                   </div>
 
@@ -1075,6 +1076,16 @@
         text: { x: 60, y: 3215, w: 1430, h: 260, pad: 26, max: 70 },
         previewNote: 'Your logo goes top-left. Your address and phone go in the "To Avail Service" block at the bottom.'
       };
+      // Same canvas, footer and logo slot as POSTER.
+      const WOMEN_CAMP = {
+        id: 'women-camp',
+        label: 'Women Camp Poster',
+        src: 'assets/artworks/avm-women-camp-poster.jpg',
+        w: 2526, h: 3508,
+        logo: { x: 70, y: 80, w: 560, h: 300, pad: 24 },
+        text: { x: 60, y: 3215, w: 1430, h: 260, pad: 26, max: 70 },
+        previewNote: 'Your logo goes top-left. Your address and phone go in the "To Avail Service" block at the bottom.'
+      };
       const DETAILS = {
         id: 'details',
         label: 'Test Details',
@@ -1100,8 +1111,8 @@
 
       // --- Profile catalogue shown in the gallery ---
       const PROFILES = [
-        { id: 'all', name: 'AVM Wellness Profiles', cover: true, tag: 'Complete Profile Collection', tests: 'Profiles 1–5', ctaLabel: 'Personalize Design', pages: [POSTER, DETAILS], note: 'The complete AVM Wellness Profiles set — offer poster plus the full test-details sheet.' },
-        { id: 'p1', name: 'AVM Profile 1', num: '1', tests: '37 Tests', ctaLabel: 'Personalize', pages: [POSTER, DETAILS], note: 'Using the AVM Wellness Profiles artwork until dedicated Profile 1 artwork is ready.' },
+        { id: 'all', name: 'AVM Wellness Profiles', cover: 'assets/artworks/avm-wellness-profiles-card-cover.jpg', coverMobile: 'assets/artworks/avm-wellness-profiles-card-cover-mobile.jpg', tag: 'Complete Profile Collection', tests: 'Profiles 1–5', ctaLabel: 'Personalize Design', pages: [POSTER, DETAILS], note: 'The complete AVM Wellness Profiles set — offer poster plus the full test-details sheet.' },
+        { id: 'p1', name: 'AVM Profile 1', num: '1', cover: 'assets/artworks/avm-women-camp-card-cover.jpg', tests: '37 Tests', ctaLabel: 'Personalize', pages: [WOMEN_CAMP], note: 'Only for Women camp poster — TSH + HbA1c at ₹100.' },
         { id: 'p2', name: 'AVM Profile 2', num: '2', tests: '69 Tests', ctaLabel: 'Personalize', pages: [POSTER, DETAILS], note: 'Using the AVM Wellness Profiles artwork until dedicated Profile 2 artwork is ready.' },
         { id: 'p3', name: 'AVM Profile 3', num: '3', tests: '75 Tests', ctaLabel: 'Personalize', pages: [POSTER, DETAILS], note: 'Using the AVM Wellness Profiles artwork until dedicated Profile 3 artwork is ready.' },
       ];
@@ -1432,6 +1443,8 @@
               num: p.num,
               tests: p.tests,
               thumb: p.pages[0].src,
+              cover: p.cover || '',
+              coverMobile: p.coverMobile || p.cover || '',
               hasCover: !!p.cover,
               noCover: !p.cover,
               tag: p.tag || '',
