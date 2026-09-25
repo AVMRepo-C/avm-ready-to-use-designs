@@ -429,54 +429,13 @@
                     </sc-if>
                     <div style="flex: 1 1 auto; padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 10px">
                       <div style="font-size: 17px; font-weight: 700; line-height: 1.25; color: #0e2238">{{ p.name }}</div>
-                      <sc-if value="{{ p.hasTag }}">
-                        <div
-                          style="
-                            font-size: 11px;
-                            font-weight: 700;
-                            letter-spacing: 0.14em;
-                            text-transform: uppercase;
-                            color: #14776b;
-                          "
-                        >
-                          {{ p.tag }}
-                        </div>
-                      </sc-if>
-                      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 1px">
-                        <sc-if value="{{ p.hasOffer }}">
-                          <span
-                            style="
-                              padding: 4px 10px;
-                              border-radius: 999px;
-                              background: linear-gradient(135deg, #d9374d, #b32138);
-                              color: #fff;
-                              font-size: 11px;
-                              font-weight: 800;
-                              letter-spacing: 0.09em;
-                              text-transform: uppercase;
-                              box-shadow: 0 3px 8px rgba(201, 55, 77, 0.2);
-                              border: 1px solid rgba(255, 255, 255, 0.3);
-                            "
-                            >{{ p.offerLabel }}</span
-                          >
-                        </sc-if>
-                        <span
-                          style="
-                            padding: 5px 11px;
-                            border-radius: 8px;
-                            background: #fdeef1;
-                            border: 1px solid #f5c6cf;
-                            font-size: 12.5px;
-                            font-weight: 700;
-                            line-height: 1.3;
-                            color: #a4243b;
-                          "
-                          >{{ p.tests }}</span
-                        >
+                      <div style="display: flex; flex-direction: column; gap: 3px; padding: 10px 14px; border-radius: 12px; background: #f1f7f8; border-left: 4px solid #14776b">
+                        <span style="font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; color: #14776b">{{ p.tag }}</span>
+                        <span style="font-size: 14px; font-weight: 700; color: #0e2238; line-height: 1.3">{{ p.tests }}</span>
                       </div>
-                      <div style="margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 11px 14px; border-radius: 12px; background: #eef7f5; color: #0f6157; font-size: 13.5px; font-weight: 700">
+                      <div style="margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 11px 14px; border-radius: 12px; background: #0e2238; color: #fff; font-size: 13.5px; font-weight: 700">
                         <span>{{ p.ctaLabel }}</span>
-                        <span style="width: 26px; height: 26px; border-radius: 50%; background: #14776b; color: #fff; font-size: 14px; display: flex; align-items: center; justify-content: center">→</span>
+                        <span style="width: 26px; height: 26px; border-radius: 50%; background: #4ad0be; color: #06282b; font-size: 14px; display: flex; align-items: center; justify-content: center">→</span>
                       </div>
                     </div>
                   </a>
