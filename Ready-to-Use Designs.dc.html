@@ -409,13 +409,11 @@
           }
           .rtu-el.e1 { left: 0; top: 4px; animation: rtuFloatC 7s ease-in-out infinite; }
           .rtu-el.e2 { left: 250px; top: 108px; animation: rtuFloatD 8s ease-in-out infinite; }
-          .rtu-el.e3 { left: 60px; top: 212px; animation: rtuFloatC 9s ease-in-out infinite reverse; }
           @keyframes rtuFloatC { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
           @keyframes rtuFloatD { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(6px, 10px); } }
           .rtu-el-k { font-size: 10.5px; font-weight: 800; letter-spacing: 0.16em; color: #7ee8d8; }
           .rtu-el-t { font-size: 14px; font-weight: 700; color: #fff; }
           .rtu-el-ic { width: 46px; height: 46px; flex: 0 0 auto; border-radius: 14px; background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(126, 232, 216, 0.4); display: flex; align-items: center; justify-content: center; }
-          .rtu-chip { padding: 3px 9px; border-radius: 999px; background: rgba(255, 255, 255, 0.14); border: 1px solid rgba(255, 255, 255, 0.24); font-size: 11px; font-weight: 700; color: #e4fbf7; }
           .rtu-mock { width: 46px; height: 58px; flex: 0 0 auto; border-radius: 9px; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
           .rtu-mock-head { height: 18px; background: linear-gradient(135deg, #0e2b45, #1fb3a0); }
           .rtu-mock-body { flex: 1; display: flex; flex-direction: column; gap: 4px; padding: 6px 5px; }
@@ -437,34 +435,7 @@
           .rtu-el { animation-name: rtuPopIn, rtuStepGlow; }
           .rtu-el.e1 { animation: rtuPopIn 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.2) 0.7s backwards, rtuFloatC 7s ease-in-out 1.4s infinite, rtuStepGlow 9s ease-in-out 1.5s infinite; }
           .rtu-el.e2 { animation: rtuPopIn 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.2) 0.95s backwards, rtuFloatD 8s ease-in-out 1.6s infinite, rtuStepGlow 9s ease-in-out 4.5s infinite; }
-          .rtu-el.e3 { animation: rtuPopIn 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.2) 1.2s backwards, rtuFloatC 9s ease-in-out 1.9s infinite reverse, rtuStepGlow 9s ease-in-out 7.5s infinite; }
           .rtu-bubble { animation-name: rtuPopIn; }
-          .rtu-ready {
-            position: absolute;
-            right: 6px;
-            top: 6px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 14px 8px 8px;
-            border-radius: 999px;
-            background: rgba(20, 119, 107, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            color: #fff;
-            font-size: 12.5px;
-            font-weight: 700;
-            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
-            animation: rtuPopIn 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.2) 1.5s backwards, rtuFloatD 7s ease-in-out 2.2s infinite;
-          }
-          .rtu-ready span {
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: #4ad0be;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          }
           .rtu-login-field {
             position: relative;
           }
@@ -493,7 +464,6 @@
             .rtu-in,
             .rtu-login-shot,
             .rtu-login-glass,
-            .rtu-ready,
             .rtu-el,
             .rtu-bubble,
             .rtu-el-line path,
@@ -569,8 +539,7 @@
               <div class="rtu-login-showcase rtu-in" style="--d: 0.5s">
                 <svg class="rtu-el-line" viewBox="0 0 540 300" fill="none" aria-hidden="true">
                   <path d="M190 46 C 235 46, 215 138, 252 142" stroke="rgba(126,232,216,0.55)" stroke-width="2" stroke-dasharray="4 8" stroke-linecap="round"></path>
-                  <path d="M340 186 C 345 205, 300 200, 285 222" stroke="rgba(126,232,216,0.55)" stroke-width="2" stroke-dasharray="4 8" stroke-linecap="round"></path>
-                  <path d="M296 262 C 350 262, 400 250, 456 244" stroke="rgba(126,232,216,0.55)" stroke-width="2" stroke-dasharray="4 8" stroke-linecap="round"></path>
+                  <path d="M370 186 C 385 225, 420 222, 456 244" stroke="rgba(126,232,216,0.55)" stroke-width="2" stroke-dasharray="4 8" stroke-linecap="round"></path>
                 </svg>
 
                 <div class="rtu-el e1">
@@ -598,27 +567,10 @@
                   </div>
                 </div>
 
-                <div class="rtu-el e3">
-                  <span class="rtu-el-ic" style="background: rgba(74, 208, 190, 0.22)">
-                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#7ee8d8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12"></path><path d="m7 11 5 5 5-5"></path><path d="M5 20h14"></path></svg>
-                  </span>
-                  <div style="display: flex; flex-direction: column; gap: 6px">
-                    <span class="rtu-el-t">Download</span>
-                    <div style="display: flex; gap: 6px">
-                      <span class="rtu-chip">PDF</span>
-                      <span class="rtu-chip">JPG</span>
-                      <span class="rtu-chip">PNG</span>
-                    </div>
-                  </div>
-                </div>
-
                 <span class="rtu-bubble b1">
                   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#06282b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="m8.6 13.5 6.8 4"></path><path d="m15.4 6.5-6.8 4"></path></svg>
                 </span>
-                <div class="rtu-ready">
-                  <span><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#06282b" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"></path></svg></span>
-                  Ready to share
-                </div>
+                
               </div>
             </div>
             <div style="font-size: 11.5px; color: #7d93a5">&copy; AVM Labs</div>
@@ -1903,7 +1855,7 @@
         restoreSession() {
           let saved = null;
           try { saved = JSON.parse(localStorage.getItem(AUTH_STORE) || 'null'); } catch (e) {}
-          if (saved && saved.h === AUTH_HASH && saved.code) this.setState({ authed: true, clientCode: saved.code, clientName: '' });
+          if (saved && saved.h === AUTH_HASH && saved.code) this.setState({ authed: true, clientCode: saved.code, clientName: 'Team' });
         }
 
         endSession(msg) {
@@ -1924,7 +1876,7 @@
             return;
           }
           try { localStorage.setItem(AUTH_STORE, JSON.stringify({ code: id, h: AUTH_HASH })); } catch (e) {}
-          this.setState({ authed: true, clientCode: id, clientName: '', loginBusy: false, loginInput: '', loginPass: '', loginError: '', view: 'gallery' });
+          this.setState({ authed: true, clientCode: id, clientName: 'Team', loginBusy: false, loginInput: '', loginPass: '', loginError: '', view: 'gallery' });
         }
 
         componentDidUpdate() { this.syncLogo(); }
