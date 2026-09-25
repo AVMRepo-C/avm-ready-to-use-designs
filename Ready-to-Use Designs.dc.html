@@ -1236,7 +1236,9 @@
                           type="text"
                           value="{{ cardNo }}"
                           onChange="{{ onCardNo }}"
-                          placeholder="Phone number"
+                          inputmode="numeric"
+                          maxlength="10"
+                          placeholder="10-digit mobile number"
                           style="width: 100%; padding: 12px 14px; border: 1px solid #dde4ea; border-radius: 12px; font-size: 14.5px; color: #12263a; outline: none"
                           style-focus="border-color:#14776B"
                         />
@@ -1409,7 +1411,9 @@
                           type="text"
                           value="{{ cardNo }}"
                           onChange="{{ onCardNo }}"
-                          placeholder="Phone number"
+                          inputmode="numeric"
+                          maxlength="10"
+                          placeholder="10-digit mobile number"
                           style="width: 100%; padding: 13px 14px; border: 1px solid #dde4ea; border-radius: 12px; font-size: 16px; color: #12263a; outline: none"
                           style-focus="border-color:#14776B"
                         />
@@ -1743,6 +1747,13 @@
 
       const STORE = 'avm-rtu-brand-v1';
 
+      // Mobile number: digits only, at most 10. A saved +91 / 0 prefix is dropped.
+      const cleanPhone = v => {
+        let d = String(v || '').replace(/\D/g, '');
+        if (d.length > 10) d = d.replace(/^(91|0)/, '');
+        return d.slice(0, 10);
+      };
+
       // --- Internal login: one shared ID + password ---
       // Only a salted SHA-256 of "ID\npassword" is kept here, never the password itself.
       // To change the credentials, recompute AUTH_HASH = sha256(AUTH_SALT + ID + '\n' + password), both uppercased.
@@ -1783,7 +1794,7 @@
                 logo: v.logo || '',
                 labName: typeof v.labName === 'string' ? v.labName : '',
                 address: typeof v.address === 'string' && !/Gandhi Road|T\. Nagar/.test(v.address) ? v.address : '',
-                cardNo: typeof v.cardNo === 'string' && v.cardNo.replace(/\D/g, '') !== '917094606386' ? v.cardNo : ''
+                cardNo: typeof v.cardNo === 'string' && v.cardNo.replace(/\D/g, '') !== '917094606386' ? cleanPhone(v.cardNo) : ''
               });
             }
           } catch (e) {}
@@ -2283,7 +2294,7 @@
               r.readAsText(file);
             },
             onAddress: e => this.persist({ address: e.target.value }),
-            onCardNo: e => this.persist({ cardNo: e.target.value }),
+            onCardNo: e => this.persist({ cardNo: cleanPhone(e.target.value) }),
             resetAll: e => { stop(e); this.persist({ logo: '', labName: '', address: '', cardNo: '' }); },
 
 
