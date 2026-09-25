@@ -420,9 +420,9 @@
                   <div style="display: flex; justify-content: center; min-width: 0">
                     <div
                       onClick="{{ openZoomPlain }}"
-                      style="container-type: inline-size; position: relative; border-radius: 18px; overflow: hidden; background: #0e2238; box-shadow: 0 16px 40px rgba(14, 34, 51, 0.22); cursor: pointer; height: calc(100vh - 170px); max-height: 820px"
+                      style="container-type: inline-size; position: relative; border-radius: 18px; overflow: hidden; background: #0e2238; box-shadow: 0 16px 40px rgba(14, 34, 51, 0.22); cursor: pointer; max-width: 100%"
                     >
-                      <img src="{{ previewImgSrc }}" alt="{{ pageLabel }}, before customising" style="display: block; height: 100%; width: auto; max-width: 100%; object-fit: contain" />
+                      <img src="{{ previewImgSrc }}" alt="{{ pageLabel }}, before customising" style="display: block; max-height: min(calc(100vh - 170px), 820px); max-width: 100%; width: auto; height: auto" />
                       <a
                         href="#"
                         onClick="{{ goGallery }}"
