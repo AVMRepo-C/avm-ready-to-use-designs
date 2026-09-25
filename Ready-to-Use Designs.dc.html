@@ -668,22 +668,23 @@
                       </div>
 
                       <a href="#" onClick="{{ resetAll }}" style="font-size: 13px; color: #6b7b8a; text-decoration: none" style-hover="color:#0E2238;text-decoration:none">Clear all fields</a>
+
+                      <sc-if value="{{ multiPage }}">
+                        <div style="display: flex; background: #e6ebef; border-radius: 999px; padding: 4px; gap: 4px">
+                          <sc-for list="{{ pageTabs }}" as="t">
+                            <a
+                              href="#"
+                              onClick="{{ t.select }}"
+                              style="flex: 1 1 0; height: 36px; padding: 0 14px; border-radius: 999px; color: {{ t.fg }}; font-size: 13.5px; font-weight: 600; display: flex; align-items: center; justify-content: center; text-decoration: none; background: {{ t.bg }}"
+                              >{{ t.label }}</a
+                            >
+                          </sc-for>
+                        </div>
+                      </sc-if>
                     </section>
                   </div>
 
                   <div style="display: flex; flex-direction: column; gap: 14px; align-items: center; min-height: 0">
-                    <sc-if value="{{ multiPage }}">
-                    <div style="flex: 0 0 auto; display: flex; background: #e6ebef; border-radius: 999px; padding: 4px; gap: 4px">
-                      <sc-for list="{{ pageTabs }}" as="t">
-                        <a
-                          href="#"
-                          onClick="{{ t.select }}"
-                          style="height: 36px; padding: 0 22px; border-radius: 999px; color: {{ t.fg }}; font-size: 13.5px; font-weight: 600; display: flex; align-items: center; text-decoration: none; background: {{ t.bg }}"
-                          >{{ t.label }}</a
-                        >
-                      </sc-for>
-                    </div>
-                    </sc-if>
                     <div style="flex: 1 1 0; min-height: 0; width: 100%; container-type: size; display: flex; justify-content: center; align-items: flex-start">
                     <div style="container-type: inline-size; position: relative; border-radius: 14px; overflow: hidden; background: #0e2238; box-shadow: 0 12px 36px rgba(14, 34, 51, 0.22); width: min(100cqw, calc(100cqh * {{ pageRatio }})); aspect-ratio: {{ pageAspect }}">
                       <img src="{{ pageSrc }}" alt="preview" style="width: 100%; display: block" />
