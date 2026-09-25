@@ -1172,19 +1172,19 @@
 
                 <div style="flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap: 32px; padding: 20px 0 0; max-width: 1180px; width: 100%; margin: 0 auto">
                   <div style="display: flex; flex-direction: column; gap: 16px; min-height: 0; overflow-y: auto">
-                    <section style="background: #fff; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 16px">
+                    <section style="background: #fff; border-radius: 16px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px">
                       <div style="font-size: 11px; letter-spacing: 0.16em; font-weight: 600; color: #107a6e">CLIENT DETAILS</div>
 
-                      <div style="display: flex; flex-direction: column; gap: 8px">
-                        <label style="font-size: 14px; font-weight: 600; color: #12263a">Client logo <span style="font-weight: 500; color: #8fa3b3">(optional)</span></label>
+                      <div style="display: flex; flex-direction: column; gap: 6px">
+                        <label style="font-size: 14px; font-weight: 600; color: #12263a">Client logo</label>
                         <label
                           onDragOver="{{ onDragOver }}"
                           onDrop="{{ onDrop }}"
-                          style="border: 1.5px dashed #c6d1da; background: #f7f9fb; border-radius: 12px; padding: 22px; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; text-align: center"
+                          style="border: 1.5px dashed #c6d1da; background: #f7f9fb; border-radius: 12px; padding: 14px; display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer; text-align: center"
                           style-hover="border-color:#14776B;background:#F2F8F6"
                         >
                           <sc-if value="{{ hasLogo }}">
-                            <img ref="{{ logoRefA }}" alt="logo" style="max-height: 58px; max-width: 100%; object-fit: contain" />
+                            <img ref="{{ logoRefA }}" alt="logo" style="max-height: 48px; max-width: 100%; object-fit: contain" />
                           </sc-if>
                           <sc-if value="{{ noLogo }}">
                             <span style="font-size: 14px; font-weight: 600; color: #12263a">Drop logo or click to upload</span>
@@ -1199,38 +1199,47 @@
                         </sc-if>
                       </div>
 
-                      <div style="display: flex; flex-direction: column; gap: 8px">
-                        <span style="font-size: 14px; font-weight: 600; color: #12263a">Lab name <span style="font-weight: 500; color: #8fa3b3">(optional)</span></span>
+                      <div style="display: flex; flex-direction: column; gap: 6px">
+                        <span style="font-size: 14px; font-weight: 600; color: #12263a">Lab name</span>
                         <input
                           type="text"
                           value="{{ labName }}"
                           onChange="{{ onLabName }}"
                           placeholder="e.g. Sri Balaji Diagnostics"
-                          style="width: 100%; padding: 12px 14px; border: 1px solid #dde4ea; border-radius: 12px; font-size: 14.5px; color: #12263a; outline: none"
+                          style="width: 100%; padding: 10px 14px; border: 1px solid {{ brandBorder }}; border-radius: 12px; font-size: 14.5px; color: #12263a; outline: none"
                           style-focus="border-color:#14776B"
                         />
-                        <span style="font-size: 11.5px; color: #6b7b8a">Shown in the logo spot when no logo is uploaded.</span>
+                        <sc-if value="{{ brandWarn }}">
+                          <span style="font-size: 11.5px; line-height: 1.45; color: #b2405a; font-weight: 600">Add a client logo or lab name to continue.</span>
+                        </sc-if>
+                        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap">
+                          <span style="font-size: 12.5px; font-weight: 600; color: #12263a">Lab name colour</span>
+                          <div style="display: flex; align-items: center; gap: 8px">
+                            <sc-for list="{{ labSwatches }}" as="sw">
+                              <a href="#" onClick="{{ sw.pick }}" title="{{ sw.name }}" aria-label="{{ sw.name }}" style="width: 26px; height: 26px; border-radius: 50%; background: {{ sw.color }}; border: 2px solid {{ sw.ring }}; box-shadow: 0 0 0 1px rgba(14, 34, 56, 0.15); display: block"></a>
+                            </sc-for>
+                            <label title="Custom colour" style="position: relative; width: 26px; height: 26px; border-radius: 50%; overflow: hidden; cursor: pointer; border: 2px solid {{ labCustomRing }}; box-shadow: 0 0 0 1px rgba(14, 34, 56, 0.15); background: conic-gradient(#f44336, #ffeb3b, #4caf50, #00bcd4, #3f51b5, #e91e63, #f44336)">
+                              <input type="color" value="{{ labColor }}" onChange="{{ onLabColor }}" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; border: 0; padding: 0" />
+                            </label>
+                          </div>
+                        </div>
                       </div>
 
-                      <div style="display: flex; flex-direction: column; gap: 8px">
+                      <div style="display: flex; flex-direction: column; gap: 6px">
                         <div style="display: flex; align-items: center; justify-content: space-between">
                           <span style="font-size: 14px; font-weight: 600; color: #12263a">Client address</span>
-                          <label style="font-size: 12.5px; font-weight: 600; color: #107a6e; cursor: pointer"
-                            >Upload .txt
-                            <input type="file" accept=".txt,text/plain" onChange="{{ onTextFile }}" style="display: none" />
-                          </label>
                         </div>
                         <textarea
                           rows="3"
                           value="{{ address }}"
                           onChange="{{ onAddress }}"
                           placeholder="Centre name&#10;Street, area&#10;City – PIN"
-                          style="width: 100%; resize: vertical; padding: 12px 14px; border: 1px solid #dde4ea; border-radius: 12px; font-size: 14px; line-height: 1.55; color: #12263a; background: #fff; outline: none"
+                          style="width: 100%; resize: vertical; padding: 10px 14px; border: 1px solid #dde4ea; border-radius: 12px; font-size: 14px; line-height: 1.45; color: #12263a; background: #fff; outline: none"
                           style-focus="border-color:#14776B"
                         ></textarea>
                       </div>
 
-                      <div style="display: flex; flex-direction: column; gap: 8px">
+                      <div style="display: flex; flex-direction: column; gap: 6px">
                         <span style="font-size: 14px; font-weight: 600; color: #12263a">Client number</span>
                         <input
                           type="text"
@@ -1239,12 +1248,10 @@
                           inputmode="numeric"
                           maxlength="10"
                           placeholder="10-digit mobile number"
-                          style="width: 100%; padding: 12px 14px; border: 1px solid #dde4ea; border-radius: 12px; font-size: 14.5px; color: #12263a; outline: none"
+                          style="width: 100%; padding: 10px 14px; border: 1px solid #dde4ea; border-radius: 12px; font-size: 14.5px; color: #12263a; outline: none"
                           style-focus="border-color:#14776B"
                         />
                       </div>
-
-                      <a href="#" onClick="{{ resetAll }}" style="font-size: 13px; color: #6b7b8a; text-decoration: none" style-hover="color:#0E2238;text-decoration:none">Clear all fields</a>
 
                       <sc-if value="{{ multiPage }}">
                         <div style="display: flex; background: #e6ebef; border-radius: 999px; padding: 4px; gap: 4px">
@@ -1273,7 +1280,7 @@
                             <img ref="{{ logoRefB }}" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain" />
                           </sc-if>
                           <sc-if value="{{ hasLabName }}">
-                            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #0e2238; font-weight: 700; line-height: 1.15; font-size: {{ labBox.font }}; padding: {{ labBox.pad }}">
+                            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: {{ labColor }}; font-weight: 700; line-height: 1.15; font-size: {{ labBox.font }}; padding: {{ labBox.pad }}">
                               <sc-for list="{{ labLines }}" as="ln">
                                 <div style="white-space: pre">{{ ln }}</div>
                               </sc-for>
@@ -1353,7 +1360,7 @@
                       <div style="font-size: 11px; letter-spacing: 0.16em; font-weight: 600; color: #107a6e">CLIENT DETAILS</div>
 
                       <div style="display: flex; flex-direction: column; gap: 8px">
-                        <label style="font-size: 14px; font-weight: 600; color: #12263a">Client logo <span style="font-weight: 500; color: #8fa3b3">(optional)</span></label>
+                        <label style="font-size: 14px; font-weight: 600; color: #12263a">Client logo</label>
                         <label
                           onDragOver="{{ onDragOver }}"
                           onDrop="{{ onDrop }}"
@@ -1375,25 +1382,34 @@
                       </div>
 
                       <div style="display: flex; flex-direction: column; gap: 8px">
-                        <span style="font-size: 14px; font-weight: 600; color: #12263a">Lab name <span style="font-weight: 500; color: #8fa3b3">(optional)</span></span>
+                        <span style="font-size: 14px; font-weight: 600; color: #12263a">Lab name</span>
                         <input
                           type="text"
                           value="{{ labName }}"
                           onChange="{{ onLabName }}"
                           placeholder="e.g. Sri Balaji Diagnostics"
-                          style="width: 100%; padding: 12px 14px; border: 1px solid #dde4ea; border-radius: 12px; font-size: 16px; color: #12263a; outline: none"
+                          style="width: 100%; padding: 12px 14px; border: 1px solid {{ brandBorder }}; border-radius: 12px; font-size: 16px; color: #12263a; outline: none"
                           style-focus="border-color:#14776B"
                         />
-                        <span style="font-size: 11.5px; color: #6b7b8a">Shown in the logo spot when no logo is uploaded.</span>
+                        <sc-if value="{{ brandWarn }}">
+                          <span style="font-size: 11.5px; line-height: 1.45; color: #b2405a; font-weight: 600">Add a client logo or lab name to continue.</span>
+                        </sc-if>
+                        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding-top: 2px">
+                          <span style="font-size: 12.5px; font-weight: 600; color: #12263a">Lab name colour</span>
+                          <div style="display: flex; align-items: center; gap: 8px">
+                            <sc-for list="{{ labSwatches }}" as="sw">
+                              <a href="#" onClick="{{ sw.pick }}" title="{{ sw.name }}" aria-label="{{ sw.name }}" style="width: 26px; height: 26px; border-radius: 50%; background: {{ sw.color }}; border: 2px solid {{ sw.ring }}; box-shadow: 0 0 0 1px rgba(14, 34, 56, 0.15); display: block"></a>
+                            </sc-for>
+                            <label title="Custom colour" style="position: relative; width: 26px; height: 26px; border-radius: 50%; overflow: hidden; cursor: pointer; border: 2px solid {{ labCustomRing }}; box-shadow: 0 0 0 1px rgba(14, 34, 56, 0.15); background: conic-gradient(#f44336, #ffeb3b, #4caf50, #00bcd4, #3f51b5, #e91e63, #f44336)">
+                              <input type="color" value="{{ labColor }}" onChange="{{ onLabColor }}" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; border: 0; padding: 0" />
+                            </label>
+                          </div>
+                        </div>
                       </div>
 
                       <div style="display: flex; flex-direction: column; gap: 8px">
                         <div style="display: flex; align-items: center; justify-content: space-between">
                           <span style="font-size: 14px; font-weight: 600; color: #12263a">Client address</span>
-                          <label style="font-size: 12px; font-weight: 600; color: #107a6e; cursor: pointer"
-                            >Upload .txt
-                            <input type="file" accept=".txt,text/plain" onChange="{{ onTextFile }}" style="display: none" />
-                          </label>
                         </div>
                         <textarea
                           rows="3"
@@ -1418,8 +1434,6 @@
                           style-focus="border-color:#14776B"
                         />
                       </div>
-
-                      <a href="#" onClick="{{ resetAll }}" style="font-size: 13px; color: #6b7b8a; text-decoration: none">Clear all fields</a>
                     </section>
 
                     <div style="display: flex; gap: 9px; align-items: flex-start; padding: 0 4px">
@@ -1472,7 +1486,7 @@
                             <img ref="{{ logoRefD }}" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain" />
                           </sc-if>
                           <sc-if value="{{ hasLabName }}">
-                            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #0e2238; font-weight: 700; line-height: 1.15; font-size: {{ labBox.font }}; padding: {{ labBox.pad }}">
+                            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: {{ labColor }}; font-weight: 700; line-height: 1.15; font-size: {{ labBox.font }}; padding: {{ labBox.pad }}">
                               <sc-for list="{{ labLines }}" as="ln">
                                 <div style="white-space: pre">{{ ln }}</div>
                               </sc-for>
@@ -1637,7 +1651,7 @@
                       <img ref="{{ logoRefE }}" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain" />
                     </sc-if>
                           <sc-if value="{{ hasLabName }}">
-                            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #0e2238; font-weight: 700; line-height: 1.15; font-size: {{ labBox.font }}; padding: {{ labBox.pad }}">
+                            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: {{ labColor }}; font-weight: 700; line-height: 1.15; font-size: {{ labBox.font }}; padding: {{ labBox.pad }}">
                               <sc-for list="{{ labLines }}" as="ln">
                                 <div style="white-space: pre">{{ ln }}</div>
                               </sc-for>
@@ -1747,6 +1761,15 @@
 
       const STORE = 'avm-rtu-brand-v1';
 
+      // Quick colour choices for the lab name (a custom picker sits next to them).
+      const LAB_SWATCHES = [
+        { name: 'Navy', color: '#0E2238' },
+        { name: 'White', color: '#FFFFFF' },
+        { name: 'Teal', color: '#14776B' },
+        { name: 'Maroon', color: '#B2405A' },
+        { name: 'Black', color: '#000000' }
+      ];
+
       // Mobile number: digits only, at most 10. A saved +91 / 0 prefix is dropped.
       const cleanPhone = v => {
         let d = String(v || '').replace(/\D/g, '');
@@ -1772,6 +1795,8 @@
           address: '',
           cardNo: '',
           labName: '',
+          labColor: '#0E2238',
+          brandError: false,
           status: '',
           zoomOpen: false,
           zoomScale: 1,
@@ -1793,6 +1818,7 @@
               this.setState({
                 logo: v.logo || '',
                 labName: typeof v.labName === 'string' ? v.labName : '',
+                labColor: /^#[0-9a-f]{6}$/i.test(v.labColor || '') ? v.labColor : '#0E2238',
                 address: typeof v.address === 'string' && !/Gandhi Road|T\. Nagar/.test(v.address) ? v.address : '',
                 cardNo: typeof v.cardNo === 'string' && v.cardNo.replace(/\D/g, '') !== '917094606386' ? cleanPhone(v.cardNo) : ''
               });
@@ -1852,7 +1878,7 @@
           this.setState(patch, () => {
             try {
               const s = this.state;
-              localStorage.setItem(STORE, JSON.stringify({ logo: s.logo, labName: s.labName, address: s.address, cardNo: s.cardNo }));
+              localStorage.setItem(STORE, JSON.stringify({ logo: s.logo, labName: s.labName, labColor: s.labColor, address: s.address, cardNo: s.cardNo }));
             } catch (e) {}
           });
         }
@@ -1939,6 +1965,8 @@
           return r;
         }
 
+        labColor() { return /^#[0-9a-f]{6}$/i.test(this.state.labColor || '') ? this.state.labColor : '#0E2238'; }
+
         // --- Canvas rendering (shared by every export path) ---
         loadImg(src) {
           return new Promise((res, rej) => {
@@ -1992,14 +2020,7 @@
           const lab = this.fitLabName(page.logo);
           if (lab) {
             const s = page.logo;
-            if (s.patch !== false) {
-              ctx.fillStyle = '#fff';
-              ctx.beginPath();
-              if (ctx.roundRect) ctx.roundRect(s.x, s.y, s.w, s.h, page.w * LOGO_PATCH_RADIUS_RATIO);
-              else ctx.rect(s.x, s.y, s.w, s.h);
-              ctx.fill();
-            }
-            ctx.fillStyle = '#0E2238';
+            ctx.fillStyle = this.labColor();
             ctx.font = '700 ' + lab.size + 'px Poppins, sans-serif';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
@@ -2032,6 +2053,16 @@
           return c;
         }
 
+        // A client logo or a lab name must be filled before previewing, downloading or sharing.
+        hasBrand() { return !!(this.state.logo || String(this.state.labName || '').trim()); }
+
+        requireBrand() {
+          if (this.hasBrand()) return true;
+          this.setState({ brandError: true, view: 'editor', step: 0 });
+          this.say('Add a client logo or lab name first.');
+          return false;
+        }
+
         // --- Export helpers (PDF / JPG / PNG / WhatsApp share) ---
         toBlob(canvas, type, q) {
           return new Promise(res => canvas.toBlob(res, type, q));
@@ -2060,6 +2091,7 @@
         }
 
         async exportRaster(type, ext) {
+          if (!this.requireBrand()) return;
           this.say('Rendering…');
           const list = this.targetPages();
           for (const p of list) {
@@ -2071,6 +2103,7 @@
         }
 
         async exportPdfNow() {
+          if (!this.requireBrand()) return;
           const lib = window.jspdf && window.jspdf.jsPDF;
           if (!lib) { this.say('PDF engine still loading — try again in a second.'); return; }
           this.say('Building PDF…');
@@ -2088,6 +2121,7 @@
         }
 
         async whatsApp() {
+          if (!this.requireBrand()) return;
           this.say('Preparing image…');
           const files = [];
           for (const p of this.targetPages()) {
@@ -2110,7 +2144,7 @@
         readImageFile(file) {
           if (!file || !/^image\//.test(file.type)) return;
           const r = new FileReader();
-          r.onload = () => this.persist({ logo: r.result });
+          r.onload = () => this.persist({ logo: r.result, brandError: false });
           r.readAsDataURL(file);
         }
 
@@ -2135,7 +2169,7 @@
           const isEditor = this.state.view === 'editor';
           const curIdx = Math.min(this.state.page, pages.length - 1);
 
-          const gotoStep = i => e => { stop(e); this.setState({ step: i }); window.scrollTo(0, 0); };
+          const gotoStep = i => e => { stop(e); if (i > 0 && !this.requireBrand()) return; this.setState({ step: i }); window.scrollTo(0, 0); };
 
           let ctaLabel = '', ctaAction = null, ctaCaption = '';
           if (isPreview) {
@@ -2259,14 +2293,25 @@
               width: pct(page.logo.w, page.w), height: pct(page.logo.h, page.h)
             } : { left: '0%', top: '0%', width: '0%', height: '0%' },
             labName: this.state.labName,
+            labColor: this.labColor(),
+            labSwatches: LAB_SWATCHES.map(sw => ({
+              name: sw.name,
+              color: sw.color,
+              ring: sw.color.toLowerCase() === this.labColor().toLowerCase() ? '#14776B' : '#FFFFFF',
+              pick: e => { stop(e); this.persist({ labColor: sw.color }); }
+            })),
+            labCustomRing: LAB_SWATCHES.some(sw => sw.color.toLowerCase() === this.labColor().toLowerCase()) ? '#FFFFFF' : '#14776B',
+            onLabColor: e => this.persist({ labColor: e.target.value }),
+            brandBorder: this.state.brandError && !this.hasBrand() ? '#E3A3B1' : '#DDE4EA',
+            brandWarn: this.state.brandError && !this.hasBrand(),
             hasLabName: !!lab,
             labLines: lab ? lab.lines : [],
             labBox: {
               font: cq(lab ? lab.size : 0),
               pad: cq(page.logo ? page.logo.pad : 0)
             },
-            onLabName: e => this.persist({ labName: e.target.value }),
-            logoPatchBg: (this.state.logo || lab) && page.logo && page.logo.patch !== false ? '#fff' : 'transparent',
+            onLabName: e => this.persist({ labName: e.target.value, brandError: e.target.value.trim() ? false : this.state.brandError }),
+            logoPatchBg: this.state.logo && page.logo && page.logo.patch !== false ? '#fff' : 'transparent',
             logoPatchRadius: cq(page.w * LOGO_PATCH_RADIUS_RATIO),
             textBox: {
               left: pct(page.text.x, page.w), top: pct(page.text.y, page.h),
@@ -2286,16 +2331,8 @@
               if (dt && dt.files && dt.files[0]) this.readImageFile(dt.files[0]);
             },
             clearLogo: e => { stop(e); this.persist({ logo: '' }); },
-            onTextFile: e => {
-              const file = e.target.files && e.target.files[0];
-              if (!file) return;
-              const r = new FileReader();
-              r.onload = () => this.persist({ address: String(r.result).replace(/\r/g, '').trim() });
-              r.readAsText(file);
-            },
             onAddress: e => this.persist({ address: e.target.value }),
             onCardNo: e => this.persist({ cardNo: cleanPhone(e.target.value) }),
-            resetAll: e => { stop(e); this.persist({ logo: '', labName: '', address: '', cardNo: '' }); },
 
 
             exportPdf: e => { stop(e); this.exportPdfNow(); },
