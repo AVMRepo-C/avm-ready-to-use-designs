@@ -165,14 +165,20 @@
             overflow-y: auto;
           "
         >
-          <div style="display: flex; flex-direction: column; align-items: center; width: 100%; gap: 10px">
+          <a
+            href="#"
+            onClick="{{ goGallery }}"
+            aria-label="AVM Labs Marketing Studio — home"
+            style="display: flex; flex-direction: column; align-items: center; width: 100%; gap: 10px; text-decoration: none; cursor: pointer"
+            style-hover="text-decoration:none;opacity:.88"
+          >
             <img
               src="assets/images/avm-logo-transparent.png"
               alt="AVM Labs"
               style="height: 92px; width: auto; max-width: 156px; object-fit: contain"
             />
             <span style="color: #fff; font-size: 14px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase">Marketing Studio</span>
-          </div>
+          </a>
 
           <nav style="display: flex; flex-direction: column; gap: 4px">
             <a
@@ -218,11 +224,13 @@
               </svg>
             </a>
             <span style="color: #fff; font-size: 16px; font-weight: 600; flex: 1 1 0">{{ activeName }}</span>
-            <img
-              src="assets/images/avm-logo-transparent.png"
-              alt=""
-              style="height: 34px; width: auto; max-width: 56px; object-fit: contain; flex: 0 0 auto"
-            />
+            <a href="#" onClick="{{ goGallery }}" aria-label="Home" style="display: flex; flex: 0 0 auto; text-decoration: none">
+              <img
+                src="assets/images/avm-logo-transparent.png"
+                alt=""
+                style="height: 34px; width: auto; max-width: 56px; object-fit: contain"
+              />
+            </a>
           </sc-if>
           <sc-if value="{{ topbarBrand }}" hint-placeholder-val="{{ true }}">
             <div style="display: flex; flex-direction: column; align-items: center; width: 100%; gap: 6px">
@@ -415,24 +423,25 @@
           <sc-if value="{{ isPreview }}">
             <div style="animation: rtuFade 0.3s ease both; height: 100%">
               <!-- ============ Desktop preview-before-customising (1c-style) ============ -->
-              <div class="rtu-desktop-only" style="flex-direction: column; gap: 0; max-width: 980px; width: 100%; margin: 0 auto">
-                <div style="display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 36px; align-items: start">
+              <div class="rtu-desktop-only" style="flex-direction: column; justify-content: center; gap: 0; max-width: 1040px; width: 100%; min-height: 100%; margin: 0 auto">
+                <div style="display: grid; grid-template-columns: auto auto 320px; justify-content: center; gap: 28px; align-items: center">
+                  <a
+                    href="#"
+                    onClick="{{ goGallery }}"
+                    aria-label="Back to all designs"
+                    style="align-self: start; display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px; border-radius: 9px; border: 1px solid #dde4ea; background: #fff; color: #12263a; font-size: 13px; font-weight: 600; text-decoration: none; white-space: nowrap"
+                    style-hover="border-color:#14776B;color:#14776B;text-decoration:none"
+                  >
+                    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5 8 12l6.5 6.5"></path></svg>
+                    All designs
+                  </a>
+
                   <div style="display: flex; justify-content: center; min-width: 0">
                     <div
                       onClick="{{ openZoomPlain }}"
-                      style="container-type: inline-size; position: relative; border-radius: 18px; overflow: hidden; background: #0e2238; box-shadow: 0 16px 40px rgba(14, 34, 51, 0.22); cursor: pointer; max-width: 100%"
+                      style="position: relative; border-radius: 18px; overflow: hidden; background: #0e2238; box-shadow: 0 16px 40px rgba(14, 34, 51, 0.22); cursor: pointer"
                     >
-                      <img src="{{ previewImgSrc }}" alt="{{ pageLabel }}, before customising" style="display: block; max-height: min(calc(100vh - 170px), 820px); max-width: 100%; width: auto; height: auto" />
-                      <a
-                        href="#"
-                        onClick="{{ goGallery }}"
-                        aria-label="Back to all designs"
-                        style="position: absolute; left: 12px; top: 12px; display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px; border-radius: 999px; background: rgba(14, 34, 51, 0.72); color: #fff; font-size: 13px; font-weight: 600; text-decoration: none"
-                        style-hover="background:rgba(14,34,51,.92);color:#fff;text-decoration:none"
-                      >
-                        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5 8 12l6.5 6.5"></path></svg>
-                        All designs
-                      </a>
+                      <img src="{{ previewImgSrc }}" alt="{{ pageLabel }}, before customising" style="display: block; height: min(calc(100vh - 56px), 900px); width: auto; aspect-ratio: {{ pageAspect }}" />
                       <div
                         style="position: absolute; right: 12px; bottom: 12px; background: rgba(14, 34, 51, 0.86); color: #fff; font-size: 12px; font-weight: 600; padding: 8px 12px; border-radius: 999px; display: flex; align-items: center; gap: 6px"
                       >
@@ -441,7 +450,7 @@
                     </div>
                   </div>
 
-                  <div style="display: flex; flex-direction: column; gap: 18px; position: sticky; top: 24px">
+                  <div style="display: flex; flex-direction: column; gap: 18px">
                     <div style="display: flex; flex-direction: column; gap: 6px">
                       <span style="font-size: 26px; font-weight: 700; color: #12263a">{{ pageLabel }}</span>
                       <span style="font-size: 13.5px; color: #6b7b8a; line-height: 1.5">{{ previewNote }}</span>
@@ -532,16 +541,14 @@
           <sc-if value="{{ isEditor }}">
             <div style="animation: rtuFade 0.3s ease both; height: 100%">
               <!-- ============ Desktop editor (1c — tightened shell) ============ -->
-              <div class="rtu-desktop-only" style="flex-direction: column; gap: 0; min-height: 100%">
+              <div class="rtu-desktop-only" style="flex-direction: column; gap: 0; height: calc(100vh - 56px)">
                 <div
                   style="
-                    position: sticky;
-                    top: 0;
-                    z-index: 5;
+                    flex: 0 0 auto;
                     background: #fff;
                     border-bottom: 1px solid #dde4ea;
                     margin: -24px -28px 0;
-                    padding: 16px 28px;
+                    padding: 14px 28px;
                     display: flex;
                     align-items: center;
                     flex-wrap: wrap;
@@ -598,11 +605,11 @@
                 </div>
 
                 <sc-if value="{{ hasStatus }}">
-                  <div style="margin: 14px 0 0; padding: 8px 14px; border-radius: 9px; background: #eef6f4; color: #0f6157; font-size: 12.5px; font-weight: 600">{{ status }}</div>
+                  <div style="position: fixed; right: 28px; bottom: 24px; z-index: 20; padding: 10px 16px; border-radius: 10px; background: #0e2238; color: #fff; font-size: 13px; font-weight: 600; box-shadow: 0 10px 28px rgba(14, 34, 51, 0.25)">{{ status }}</div>
                 </sc-if>
 
-                <div style="flex: 1 1 0; display: grid; grid-template-columns: minmax(0, 400px) minmax(0, 1fr); gap: 28px; padding: 24px 0 8px">
-                  <div style="display: flex; flex-direction: column; gap: 16px">
+                <div style="flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap: 32px; padding: 20px 0 0; max-width: 1180px; width: 100%; margin: 0 auto">
+                  <div style="display: flex; flex-direction: column; gap: 16px; min-height: 0; overflow-y: auto">
                     <section style="background: #fff; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 16px">
                       <div style="font-size: 11px; letter-spacing: 0.16em; font-weight: 600; color: #107a6e">YOUR DETAILS</div>
 
@@ -664,18 +671,21 @@
                     </section>
                   </div>
 
-                  <div style="position: sticky; top: 92px; align-self: start; display: flex; flex-direction: column; gap: 14px; align-items: center">
-                    <div style="align-self: flex-start; display: flex; background: #e6ebef; border-radius: 999px; padding: 4px; gap: 4px">
+                  <div style="display: flex; flex-direction: column; gap: 14px; align-items: center; min-height: 0">
+                    <sc-if value="{{ multiPage }}">
+                    <div style="flex: 0 0 auto; display: flex; background: #e6ebef; border-radius: 999px; padding: 4px; gap: 4px">
                       <sc-for list="{{ pageTabs }}" as="t">
                         <a
                           href="#"
                           onClick="{{ t.select }}"
-                          style="height: 38px; padding: 0 22px; border-radius: 999px; color: {{ t.fg }}; font-size: 13.5px; font-weight: 600; display: flex; align-items: center; text-decoration: none; background: {{ t.bg }}"
+                          style="height: 36px; padding: 0 22px; border-radius: 999px; color: {{ t.fg }}; font-size: 13.5px; font-weight: 600; display: flex; align-items: center; text-decoration: none; background: {{ t.bg }}"
                           >{{ t.label }}</a
                         >
                       </sc-for>
                     </div>
-                    <div style="container-type: inline-size; position: relative; border-radius: 16px; overflow: hidden; background: #0e2238; box-shadow: 0 12px 36px rgba(14, 34, 51, 0.22); max-width: 430px; width: 100%">
+                    </sc-if>
+                    <div style="flex: 1 1 0; min-height: 0; width: 100%; container-type: size; display: flex; justify-content: center; align-items: flex-start">
+                    <div style="container-type: inline-size; position: relative; border-radius: 14px; overflow: hidden; background: #0e2238; box-shadow: 0 12px 36px rgba(14, 34, 51, 0.22); width: min(100cqw, calc(100cqh * {{ pageRatio }})); aspect-ratio: {{ pageAspect }}">
                       <img src="{{ pageSrc }}" alt="preview" style="width: 100%; display: block" />
                       <sc-if value="{{ hasLogoSlot }}">
                         <div
@@ -729,6 +739,7 @@
                           </div>
                         </sc-if>
                       </div>
+                    </div>
                     </div>
                   </div>
                 </div>
@@ -1548,6 +1559,8 @@
             ctaCaption: ctaCaption,
 
             previewImgSrc: page.previewSrc || page.src,
+            pageAspect: page.w + ' / ' + page.h,
+            pageRatio: (page.w / page.h).toFixed(4),
             hasZoom: this.state.zoomOpen,
             zoomPlainView: this.state.zoomOpen && this.state.zoomPlain,
             zoomComposited: this.state.zoomOpen && !this.state.zoomPlain,
