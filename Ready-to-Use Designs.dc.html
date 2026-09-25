@@ -535,7 +535,7 @@
                 Create. Personalize.
                 <span class="rtu-login-grad">Promote.</span>
               </h1>
-              <p class="rtu-in" style="--d: 0.35s; margin: 14px 0 0; font-size: 15.5px; line-height: 1.6; color: #b9cbdb">Ready-to-use marketing designs for your lab. Add your logo and address, then download and share.</p>
+              <p class="rtu-in" style="--d: 0.35s; margin: 14px 0 0; font-size: 15.5px; line-height: 1.6; color: #b9cbdb">Ready-to-use marketing designs for your lab. Add the client logo and address, then download and share.</p>
               <div class="rtu-login-showcase rtu-in" style="--d: 0.5s">
                 <svg class="rtu-el-line" viewBox="0 0 540 300" fill="none" aria-hidden="true">
                   <path d="M190 46 C 235 46, 215 138, 252 142" stroke="rgba(126,232,216,0.55)" stroke-width="2" stroke-dasharray="4 8" stroke-linecap="round"></path>
@@ -716,7 +716,7 @@
           </div>
 
           <div style="color: #7d93a5; font-size: 11px; line-height: 1.55">
-            Artwork stays locked. Only the logo and address blocks are yours to fill.
+            Artwork stays locked. Only the client logo and address blocks can be filled.
           </div>
         </aside>
 
@@ -781,7 +781,7 @@
                     text-wrap: pretty;
                   "
                 >
-                  Choose a design, add your lab details, and download a ready-to-share creative.
+                  Choose a design, add the client details, and download a ready-to-share creative.
                 </p>
               </div>
 
@@ -1173,10 +1173,10 @@
                 <div style="flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap: 32px; padding: 20px 0 0; max-width: 1180px; width: 100%; margin: 0 auto">
                   <div style="display: flex; flex-direction: column; gap: 16px; min-height: 0; overflow-y: auto">
                     <section style="background: #fff; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 16px">
-                      <div style="font-size: 11px; letter-spacing: 0.16em; font-weight: 600; color: #107a6e">YOUR DETAILS</div>
+                      <div style="font-size: 11px; letter-spacing: 0.16em; font-weight: 600; color: #107a6e">CLIENT DETAILS</div>
 
                       <div style="display: flex; flex-direction: column; gap: 8px">
-                        <label style="font-size: 14px; font-weight: 600; color: #12263a">Your logo <span style="font-weight: 500; color: #8fa3b3">(optional)</span></label>
+                        <label style="font-size: 14px; font-weight: 600; color: #12263a">Client logo <span style="font-weight: 500; color: #8fa3b3">(optional)</span></label>
                         <label
                           onDragOver="{{ onDragOver }}"
                           onDrop="{{ onDrop }}"
@@ -1214,7 +1214,7 @@
 
                       <div style="display: flex; flex-direction: column; gap: 8px">
                         <div style="display: flex; align-items: center; justify-content: space-between">
-                          <span style="font-size: 14px; font-weight: 600; color: #12263a">Your address</span>
+                          <span style="font-size: 14px; font-weight: 600; color: #12263a">Client address</span>
                           <label style="font-size: 12.5px; font-weight: 600; color: #107a6e; cursor: pointer"
                             >Upload .txt
                             <input type="file" accept=".txt,text/plain" onChange="{{ onTextFile }}" style="display: none" />
@@ -1231,7 +1231,7 @@
                       </div>
 
                       <div style="display: flex; flex-direction: column; gap: 8px">
-                        <span style="font-size: 14px; font-weight: 600; color: #12263a">Your phone number</span>
+                        <span style="font-size: 14px; font-weight: 600; color: #12263a">Client number</span>
                         <input
                           type="text"
                           value="{{ cardNo }}"
@@ -1350,10 +1350,10 @@
                     </sc-if>
 
                     <section style="background: #fff; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 14px">
-                      <div style="font-size: 11px; letter-spacing: 0.16em; font-weight: 600; color: #107a6e">YOUR DETAILS</div>
+                      <div style="font-size: 11px; letter-spacing: 0.16em; font-weight: 600; color: #107a6e">CLIENT DETAILS</div>
 
                       <div style="display: flex; flex-direction: column; gap: 8px">
-                        <label style="font-size: 14px; font-weight: 600; color: #12263a">Your logo <span style="font-weight: 500; color: #8fa3b3">(optional)</span></label>
+                        <label style="font-size: 14px; font-weight: 600; color: #12263a">Client logo <span style="font-weight: 500; color: #8fa3b3">(optional)</span></label>
                         <label
                           onDragOver="{{ onDragOver }}"
                           onDrop="{{ onDrop }}"
@@ -1389,7 +1389,7 @@
 
                       <div style="display: flex; flex-direction: column; gap: 8px">
                         <div style="display: flex; align-items: center; justify-content: space-between">
-                          <span style="font-size: 14px; font-weight: 600; color: #12263a">Your address</span>
+                          <span style="font-size: 14px; font-weight: 600; color: #12263a">Client address</span>
                           <label style="font-size: 12px; font-weight: 600; color: #107a6e; cursor: pointer"
                             >Upload .txt
                             <input type="file" accept=".txt,text/plain" onChange="{{ onTextFile }}" style="display: none" />
@@ -1406,7 +1406,7 @@
                       </div>
 
                       <div style="display: flex; flex-direction: column; gap: 8px">
-                        <span style="font-size: 14px; font-weight: 600; color: #12263a">Your phone number</span>
+                        <span style="font-size: 14px; font-weight: 600; color: #12263a">Client number</span>
                         <input
                           type="text"
                           value="{{ cardNo }}"
@@ -1424,7 +1424,7 @@
 
                     <div style="display: flex; gap: 9px; align-items: flex-start; padding: 0 4px">
                       <div style="width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid #8fa3b3; flex: 0 0 auto; margin-top: 1px"></div>
-                      <div style="font-size: 11.5px; color: #6b7b8a; line-height: 1.5">Artwork stays locked. Only the logo and address blocks are yours to fill.</div>
+                      <div style="font-size: 11.5px; color: #6b7b8a; line-height: 1.5">Artwork stays locked. Only the client logo and address blocks can be filled.</div>
                     </div>
                   </div>
                 </sc-if>
@@ -1701,7 +1701,7 @@
         w: 2526, h: 3508,
         logo: { x: 70, y: 80, w: 560, h: 300, pad: 24 },
         text: { x: 60, y: 3215, w: 1430, h: 260, pad: 26, max: 70 },
-        previewNote: 'Your logo goes top-left. Your address and phone go in the "To Avail Service" block at the bottom.'
+        previewNote: 'Client logo goes top-left. Client address and number go in the "To Avail Service" block at the bottom.'
       };
       // Same canvas, footer and logo slot as POSTER.
       const WOMEN_CAMP = {
@@ -1711,7 +1711,7 @@
         w: 2526, h: 3508,
         logo: { x: 70, y: 80, w: 560, h: 300, pad: 24 },
         text: { x: 60, y: 3215, w: 1430, h: 260, pad: 26, max: 70 },
-        previewNote: 'Your logo goes top-left. Your address and phone go in the "To Avail Service" block at the bottom.'
+        previewNote: 'Client logo goes top-left. Client address and number go in the "To Avail Service" block at the bottom.'
       };
       const DETAILS = {
         id: 'details',
@@ -1720,7 +1720,7 @@
         w: 2484, h: 3512,
         logo: { x: 60, y: 60, w: 520, h: 280, pad: 22 },
         text: { x: 220, y: 2980, w: 1240, h: 440, pad: 30, max: 80 },
-        previewNote: 'Your logo goes top-left. Your address and phone go in the "To Avail Service" block at the bottom.'
+        previewNote: 'Client logo goes top-left. Client address and number go in the "To Avail Service" block at the bottom.'
       };
 
       // White card drawn behind the customer's logo when a page's artwork
@@ -2226,7 +2226,7 @@
             previewNote: page.previewNote,
             pageOfTotal: (curIdx + 1) + ' of ' + pages.length,
             pageCountLabel: pages.length + ' page' + (pages.length > 1 ? 's' : ''),
-            detailsAddedLabel: detailsAdded ? 'Your details added' : 'Add your details above',
+            detailsAddedLabel: detailsAdded ? 'Client details added' : 'Add the client details above',
             multiPage: pages.length > 1,
             pageSrc: page.src,
             dots: pages.map((p, i) => ({
