@@ -659,7 +659,7 @@
                       <img src="{{ pageSrc }}" alt="preview" style="width: 100%; display: block" />
                       <sc-if value="{{ hasLogoSlot }}">
                         <div
-                          style="position: absolute; display: flex; align-items: center; justify-content: center; overflow: hidden; left: {{ logoBox.left }}; top: {{ logoBox.top }}; width: {{ logoBox.width }}; height: {{ logoBox.height }}"
+                          style="position: absolute; display: flex; align-items: center; justify-content: center; overflow: hidden; left: {{ logoBox.left }}; top: {{ logoBox.top }}; width: {{ logoBox.width }}; height: {{ logoBox.height }}; background: {{ logoPatchBg }}; border-radius: {{ logoPatchRadius }}"
                         >
                           <sc-if value="{{ hasLogo }}">
                             <img ref="{{ logoRefB }}" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain" />
@@ -842,7 +842,7 @@
                       <img src="{{ pageSrc }}" alt="preview" style="display: block; width: 100%; height: auto" />
                       <sc-if value="{{ hasLogoSlot }}">
                         <div
-                          style="position: absolute; display: flex; align-items: center; justify-content: center; overflow: hidden; left: {{ logoBox.left }}; top: {{ logoBox.top }}; width: {{ logoBox.width }}; height: {{ logoBox.height }}"
+                          style="position: absolute; display: flex; align-items: center; justify-content: center; overflow: hidden; left: {{ logoBox.left }}; top: {{ logoBox.top }}; width: {{ logoBox.width }}; height: {{ logoBox.height }}; background: {{ logoPatchBg }}; border-radius: {{ logoPatchRadius }}"
                         >
                           <sc-if value="{{ hasLogo }}">
                             <img ref="{{ logoRefD }}" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain" />
@@ -998,7 +998,7 @@
                 <img src="{{ pageSrc }}" alt="preview" style="display: block; width: 100%" />
                 <sc-if value="{{ hasLogoSlot }}">
                   <div
-                    style="position: absolute; display: flex; align-items: center; justify-content: center; overflow: hidden; left: {{ logoBox.left }}; top: {{ logoBox.top }}; width: {{ logoBox.width }}; height: {{ logoBox.height }}"
+                    style="position: absolute; display: flex; align-items: center; justify-content: center; overflow: hidden; left: {{ logoBox.left }}; top: {{ logoBox.top }}; width: {{ logoBox.width }}; height: {{ logoBox.height }}; background: {{ logoPatchBg }}; border-radius: {{ logoPatchRadius }}"
                   >
                     <sc-if value="{{ hasLogo }}">
                       <img ref="{{ logoRefE }}" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain" />
@@ -1073,6 +1073,10 @@
         text: { x: 104, y: 1440, w: 618, h: 152, pad: 24, max: 36 },
         previewNote: 'This is the full test list. No logo or address needed on this page.'
       };
+
+      // White card drawn behind the customer's logo when a page's artwork
+      // doesn't already bake in a light patch at the logo slot.
+      const LOGO_PATCH_RADIUS = 14;
 
       const PIN_PATHS = [
         'M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z',
@@ -1235,6 +1239,13 @@
             try {
               const l = await this.loadImg(this.state.logo);
               const s = page.logo;
+              if (s.patch !== false) {
+                ctx.fillStyle = '#fff';
+                ctx.beginPath();
+                if (ctx.roundRect) ctx.roundRect(s.x, s.y, s.w, s.h, LOGO_PATCH_RADIUS);
+                else ctx.rect(s.x, s.y, s.w, s.h);
+                ctx.fill();
+              }
               const bw = s.w - s.pad * 2, bh = s.h - s.pad * 2;
               const lw = l.naturalWidth || l.width, lh = l.naturalHeight || l.height;
               const r = Math.min(bw / lw, bh / lh);
@@ -1466,6 +1477,8 @@
               left: pct(page.logo.x, page.w), top: pct(page.logo.y, page.h),
               width: pct(page.logo.w, page.w), height: pct(page.logo.h, page.h)
             } : { left: '0%', top: '0%', width: '0%', height: '0%' },
+            logoPatchBg: this.state.logo && page.logo && page.logo.patch !== false ? '#fff' : 'transparent',
+            logoPatchRadius: cq(LOGO_PATCH_RADIUS),
             textBox: {
               left: pct(page.text.x, page.w), top: pct(page.text.y, page.h),
               width: pct(page.text.w, page.w), height: pct(page.text.h, page.h),
