@@ -178,26 +178,64 @@
             opacity: 0;
           }
 
-          /* --- Client-code login: single centered card --- */
+          /* --- Client-code login: minimal split --- */
           .rtu-login {
             position: fixed;
             inset: 0;
             z-index: 100;
             display: flex;
+            background: #fff;
+            overflow-y: auto;
+          }
+          .rtu-login-brand {
+            flex: 1 1 50%;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 36px 48px;
+            color: #fff;
+            background: radial-gradient(600px 360px at 100% 0%, rgba(74, 208, 190, 0.28), transparent 60%), linear-gradient(140deg, #0a1a2d 0%, #0e2b45 55%, #0f3b4d 100%);
+          }
+          .rtu-login-form {
+            flex: 1 1 50%;
+            min-width: 0;
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            overflow-y: auto;
-            background: #f3f6f9;
+            padding: 40px 32px;
           }
-          .rtu-login-card {
+          .rtu-login-inner {
             width: 100%;
-            max-width: 380px;
-            border-radius: 20px;
-            overflow: hidden;
-            background: #fff;
-            box-shadow: 0 20px 50px rgba(14, 34, 56, 0.14);
+            max-width: 340px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
             animation: rtuFade 0.4s ease both;
+          }
+          .rtu-login-mobile-head {
+            display: none;
+          }
+          @media (max-width: 860px) {
+            .rtu-login {
+              flex-direction: column;
+            }
+            .rtu-login-brand {
+              display: none;
+            }
+            .rtu-login-mobile-head {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              gap: 8px;
+              padding: 28px 20px 24px;
+              background: linear-gradient(140deg, #0a1a2d 0%, #0e2b45 60%, #0f3b4d 100%);
+            }
+            .rtu-login-form {
+              flex: 1 0 auto;
+              align-items: flex-start;
+              padding: 28px 20px 32px;
+            }
           }
 
           .rtu-zoom-overlay {
@@ -213,16 +251,32 @@
       <!-- ============ Client-code login ============ -->
       <sc-if value="{{ needLogin }}">
         <div class="rtu-login">
-          <div class="rtu-login-card">
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 26px 20px 22px; background: linear-gradient(140deg, #0a1a2d 0%, #0e2b45 60%, #0f3b4d 100%)">
-              <img src="assets/images/avm-logo-transparent.png" alt="AVM Labs" style="height: 72px; width: auto; object-fit: contain" />
-              <span style="color: #fff; font-size: 12.5px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase">Marketing Studio</span>
+          <div class="rtu-login-brand">
+            <div style="display: flex; align-items: center; gap: 14px">
+              <img src="assets/images/avm-logo-transparent.png" alt="AVM Labs" style="height: 64px; width: auto; object-fit: contain" />
+              <div style="width: 1px; height: 32px; background: rgba(255, 255, 255, 0.22)"></div>
+              <span style="font-size: 12.5px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase">Marketing Studio</span>
             </div>
+            <div style="max-width: 440px">
+              <h1 style="margin: 0; font-size: 40px; line-height: 1.12; font-weight: 800; letter-spacing: -0.03em">
+                Create. Personalize.
+                <span style="background: linear-gradient(90deg, #4ad0be, #8ff0e2); -webkit-background-clip: text; background-clip: text; color: transparent">Promote.</span>
+              </h1>
+              <p style="margin: 14px 0 0; font-size: 15px; line-height: 1.6; color: #b9cbdb">Ready-to-use marketing designs for your lab.</p>
+            </div>
+            <div style="font-size: 11.5px; color: #7d93a5">&copy; AVM Labs</div>
+          </div>
 
-            <div style="display: flex; flex-direction: column; gap: 16px; padding: 26px 24px 28px">
-              <div style="display: flex; flex-direction: column; gap: 4px; text-align: center">
-                <span style="font-size: 22px; font-weight: 800; color: #0e2238; letter-spacing: -0.01em">Welcome</span>
-                <span style="font-size: 13.5px; color: #6b7b8a; line-height: 1.5">Enter your client code to continue.</span>
+          <div class="rtu-login-mobile-head">
+            <img src="assets/images/avm-logo-transparent.png" alt="AVM Labs" style="height: 72px; width: auto; object-fit: contain" />
+            <span style="color: #fff; font-size: 12.5px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase">Marketing Studio</span>
+          </div>
+
+          <div class="rtu-login-form">
+            <div class="rtu-login-inner">
+              <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 4px">
+                <span style="font-size: 26px; font-weight: 800; color: #0e2238; letter-spacing: -0.02em">Welcome</span>
+                <span style="font-size: 14px; color: #6b7b8a">Enter your client code to continue.</span>
               </div>
 
               <input
@@ -234,28 +288,27 @@
                 autocomplete="off"
                 autocapitalize="characters"
                 spellcheck="false"
-                style="width: 100%; height: 50px; padding: 0 16px; border: 1.5px solid {{ loginBorder }}; border-radius: 12px; font-size: 16px; font-weight: 700; letter-spacing: 0.08em; text-align: center; text-transform: uppercase; color: #0e2238; background: #f6f9fb; outline: none"
-                style-focus="border-color:#14776B;background:#fff"
+                style="width: 100%; height: 52px; padding: 0 16px; border: 1.5px solid {{ loginBorder }}; border-radius: 12px; font-size: 16px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #0e2238; background: #f6f9fb; outline: none"
+                style-focus="border-color:#14776B;background:#fff;box-shadow:0 0 0 4px rgba(20,119,107,.12)"
               />
 
               <sc-if value="{{ hasLoginError }}">
-                <div style="padding: 10px 12px; border-radius: 10px; background: #fdf0f2; border: 1px solid #f3d0d7; color: #a3304a; font-size: 12.5px; font-weight: 600; line-height: 1.45; text-align: center">{{ loginError }}</div>
+                <div style="padding: 10px 12px; border-radius: 10px; background: #fdf0f2; border: 1px solid #f3d0d7; color: #a3304a; font-size: 12.5px; font-weight: 600; line-height: 1.45">{{ loginError }}</div>
               </sc-if>
 
               <a
                 href="#"
                 onClick="{{ doLogin }}"
-                style="height: 50px; border-radius: 12px; background: {{ loginBtnBg }}; color: #fff; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none; pointer-events: {{ loginBtnEvents }}"
+                style="height: 52px; border-radius: 12px; background: {{ loginBtnBg }}; color: #fff; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none; pointer-events: {{ loginBtnEvents }}"
                 style-hover="background:#183253;color:#fff;text-decoration:none"
                 >{{ loginBtnLabel }}</a
               >
 
-              <span style="font-size: 12px; color: #8aa0b3; text-align: center">No code? Contact your AVM Labs representative.</span>
+              <span style="font-size: 12.5px; color: #8aa0b3">No code? Contact your AVM Labs representative.</span>
             </div>
           </div>
         </div>
       </sc-if>
-
 
       <sc-if value="{{ isAuthed }}">
       <div class="rtu-shell" style="display: flex; align-items: stretch; height: 100vh; overflow: hidden; color: #0e2238">
