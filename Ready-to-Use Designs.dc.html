@@ -110,7 +110,7 @@
               gap: 12px !important;
             }
             .rtu-cover-box {
-              aspect-ratio: 1672 / 941 !important;
+              aspect-ratio: 1774 / 887 !important;
             }
             input[type="text"],
             textarea {
@@ -275,7 +275,7 @@
                     style-hover="box-shadow:0 14px 32px rgba(14,34,56,.14);transform:translateY(-3px);text-decoration:none;color:inherit"
                   >
                     <sc-if value="{{ p.hasCover }}">
-                      <div class="rtu-cover-box" style="position: relative; aspect-ratio: 1758 / 894; background: #0e2238; overflow: hidden">
+                      <div class="rtu-cover-box" style="position: relative; aspect-ratio: 1774 / 887; background: #0e2238; overflow: hidden">
                         <img
                           class="rtu-desktop-only"
                           src="assets/artworks/avm-wellness-profiles-card-cover.png"
@@ -1112,8 +1112,8 @@
               const v = JSON.parse(raw);
               this.setState({
                 logo: v.logo || '',
-                address: typeof v.address === 'string' ? v.address : this.state.address,
-                cardNo: typeof v.cardNo === 'string' ? v.cardNo : this.state.cardNo
+                address: typeof v.address === 'string' && !/Gandhi Road|T\. Nagar/.test(v.address) ? v.address : '',
+                cardNo: typeof v.cardNo === 'string' && v.cardNo.replace(/\D/g, '') !== '917094606386' ? v.cardNo : ''
               });
             }
           } catch (e) {}
