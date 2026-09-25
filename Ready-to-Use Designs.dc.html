@@ -1057,26 +1057,26 @@
       const POSTER = {
         id: 'poster',
         label: 'Offer Poster',
-        src: 'assets/artworks/avm-wellness-profiles-poster.png',
-        previewSrc: 'assets/artworks/avm-wellness-profiles-poster-preview.jpg',
-        w: 1152, h: 1600,
-        logo: { x: 51, y: 72, w: 318, h: 168, pad: 16 },
-        text: { x: 26, y: 1442, w: 716, h: 156, pad: 12, max: 38 },
-        previewNote: 'This is the artwork. Your logo and address go in the blank block at the bottom.'
+        src: 'assets/artworks/avm-wellness-profiles-poster.jpg',
+        w: 2526, h: 3508,
+        logo: { x: 40, y: 3215, w: 500, h: 260, pad: 18 },
+        text: { x: 590, y: 3215, w: 900, h: 260, pad: 22, max: 62 },
+        previewNote: 'This is the artwork. Your logo and address go in the blank "To Avail Service" block at the bottom.'
       };
       const DETAILS = {
         id: 'details',
         label: 'Test Details',
-        src: 'assets/artworks/avm-profile-test-details.png',
-        w: 1137, h: 1600,
-        logo: null,
-        text: { x: 104, y: 1440, w: 618, h: 152, pad: 24, max: 36 },
-        previewNote: 'This is the full test list. No logo or address needed on this page.'
+        src: 'assets/artworks/avm-profile-test-details.jpg',
+        w: 2484, h: 3512,
+        logo: { x: 220, y: 2980, w: 480, h: 440, pad: 26 },
+        text: { x: 760, y: 2980, w: 700, h: 440, pad: 28, max: 70 },
+        previewNote: 'Your logo and address go in the blank "To Avail Service" block at the bottom, same as the poster.'
       };
 
       // White card drawn behind the customer's logo when a page's artwork
-      // doesn't already bake in a light patch at the logo slot.
-      const LOGO_PATCH_RADIUS = 14;
+      // doesn't already bake in a light patch at the logo slot. Scaled to
+      // each artwork's own resolution rather than a fixed pixel size.
+      const LOGO_PATCH_RADIUS_RATIO = 0.012;
 
       const PIN_PATHS = [
         'M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z',
@@ -1242,7 +1242,7 @@
               if (s.patch !== false) {
                 ctx.fillStyle = '#fff';
                 ctx.beginPath();
-                if (ctx.roundRect) ctx.roundRect(s.x, s.y, s.w, s.h, LOGO_PATCH_RADIUS);
+                if (ctx.roundRect) ctx.roundRect(s.x, s.y, s.w, s.h, page.w * LOGO_PATCH_RADIUS_RATIO);
                 else ctx.rect(s.x, s.y, s.w, s.h);
                 ctx.fill();
               }
@@ -1478,7 +1478,7 @@
               width: pct(page.logo.w, page.w), height: pct(page.logo.h, page.h)
             } : { left: '0%', top: '0%', width: '0%', height: '0%' },
             logoPatchBg: this.state.logo && page.logo && page.logo.patch !== false ? '#fff' : 'transparent',
-            logoPatchRadius: cq(LOGO_PATCH_RADIUS),
+            logoPatchRadius: cq(page.w * LOGO_PATCH_RADIUS_RATIO),
             textBox: {
               left: pct(page.text.x, page.w), top: pct(page.text.y, page.h),
               width: pct(page.text.w, page.w), height: pct(page.text.h, page.h),
