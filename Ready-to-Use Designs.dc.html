@@ -201,7 +201,7 @@
                 gap: 10px;
                 padding: 11px 13px;
                 border-radius: 10px;
-                background: #1b3a52;
+                background: {{ navDesignsBg }};
                 color: #fff;
                 font-size: 14px;
                 font-weight: 600;
@@ -216,6 +216,29 @@
                 <rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.6"></rect>
               </svg>
               Designs
+            </a>
+            <a
+              href="#"
+              onClick="{{ goDetails }}"
+              style="
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 11px 13px;
+                border-radius: 10px;
+                background: {{ navDetailsBg }};
+                color: #fff;
+                font-size: 14px;
+                font-weight: 600;
+                text-decoration: none;
+              "
+              style-hover="background:#21405C;color:#fff;text-decoration:none"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="#4AD0BE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px; flex: 0 0 auto">
+                <circle cx="12" cy="8" r="4"></circle>
+                <path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path>
+              </svg>
+              My Details
             </a>
           </nav>
 
@@ -234,7 +257,7 @@
                 <path d="M14.5 5.5 8 12l6.5 6.5"></path>
               </svg>
             </a>
-            <span style="color: #fff; font-size: 16px; font-weight: 600; flex: 1 1 0">{{ activeName }}</span>
+            <span style="color: #fff; font-size: 16px; font-weight: 600; flex: 1 1 0">{{ topbarTitle }}</span>
             <a href="#" onClick="{{ goGallery }}" aria-label="Home" style="display: flex; flex: 0 0 auto; text-decoration: none">
               <img
                 src="assets/images/avm-logo-transparent.png"
@@ -317,6 +340,25 @@
 
               <div class="rtu-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(245px, 1fr)); gap: 18px">
                 <sc-for list="{{ profiles }}" as="p">
+                  <sc-if value="{{ p.isSoon }}">
+                    <div
+                      style="
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: flex-end;
+                        gap: 8px;
+                        min-height: 100%;
+                        padding: 18px;
+                        border: 1.5px dashed #c7d4df;
+                        border-radius: 18px;
+                        background: repeating-linear-gradient(135deg, #f7fafc 0 10px, #eff4f8 10px 20px);
+                      "
+                    >
+                      <div style="font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #8aa0b3; font-weight: 700">Coming soon</div>
+                      <div style="font-size: 16px; font-weight: 700; color: #6b8297; line-height: 1.3">{{ p.name }}</div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ p.isLive }}">
                   <a
                     href="#"
                     onClick="{{ p.open }}"
@@ -457,6 +499,7 @@
                       </div>
                     </div>
                   </a>
+                  </sc-if>
                 </sc-for>
               </div>
             </div>
@@ -1014,13 +1057,89 @@
               </div>
             </div>
           </sc-if>
+
+          <!-- ============ My Details: saved logo, address & phone ============ -->
+          <sc-if value="{{ isDetailsView }}">
+            <div style="animation: rtuFade 0.3s ease both; max-width: 640px; margin: 0 auto; padding: 12px 0 16px; display: flex; flex-direction: column; gap: 18px">
+              <div style="display: flex; flex-direction: column; gap: 6px">
+                <span class="rtu-desktop-only" style="font-size: 26px; font-weight: 700; color: #12263a">My Details</span>
+                <span style="font-size: 13.5px; color: #6b7b8a; line-height: 1.55">Save your logo and contact details once. They're filled into every design automatically.</span>
+              </div>
+
+              <section style="background: #fff; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 18px; box-shadow: 0 2px 8px rgba(14, 34, 56, 0.05)">
+                <div style="display: flex; flex-direction: column; gap: 8px">
+                  <label style="font-size: 14px; font-weight: 600; color: #12263a">Your logo</label>
+                  <label
+                    onDragOver="{{ onDragOver }}"
+                    onDrop="{{ onDraftDrop }}"
+                    style="border: 1.5px dashed #c6d1da; background: #f7f9fb; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; text-align: center"
+                    style-hover="border-color:#14776B;background:#F2F8F6"
+                  >
+                    <sc-if value="{{ hasDraftLogo }}">
+                      <img ref="{{ logoRefF }}" alt="logo" style="max-height: 80px; max-width: 100%; object-fit: contain" />
+                    </sc-if>
+                    <sc-if value="{{ noDraftLogo }}">
+                      <span style="font-size: 14px; font-weight: 600; color: #12263a">Drop logo or click to upload</span>
+                    </sc-if>
+                    <span style="font-size: 11.5px; color: #6b7b8a">PNG with transparent background works best</span>
+                    <input type="file" accept="image/png,image/jpeg,image/svg+xml,image/webp" onChange="{{ onDraftLogoFile }}" style="display: none" />
+                  </label>
+                  <sc-if value="{{ hasDraftLogo }}">
+                    <a href="#" onClick="{{ clearDraftLogo }}" style="align-self: flex-start; font-size: 11.5px; color: #b2405a; text-decoration: none" style-hover="color:#8F2C44;text-decoration:none">Remove logo</a>
+                  </sc-if>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 8px">
+                  <span style="font-size: 14px; font-weight: 600; color: #12263a">Your address</span>
+                  <textarea
+                    rows="3"
+                    value="{{ draftAddress }}"
+                    onChange="{{ onDraftAddress }}"
+                    placeholder="Centre name&#10;Street, area&#10;City – PIN"
+                    style="width: 100%; resize: vertical; padding: 12px 14px; border: 1px solid #dde4ea; border-radius: 12px; font-size: 14px; line-height: 1.55; color: #12263a; background: #fff; outline: none"
+                    style-focus="border-color:#14776B"
+                  ></textarea>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 8px">
+                  <span style="font-size: 14px; font-weight: 600; color: #12263a">Your phone number</span>
+                  <input
+                    type="text"
+                    value="{{ draftCardNo }}"
+                    onChange="{{ onDraftCardNo }}"
+                    placeholder="Phone number"
+                    style="width: 100%; padding: 12px 14px; border: 1px solid #dde4ea; border-radius: 12px; font-size: 14.5px; color: #12263a; outline: none"
+                    style-focus="border-color:#14776B"
+                  />
+                </div>
+
+                <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 12px; padding-top: 4px">
+                  <a
+                    href="#"
+                    onClick="{{ saveDetails }}"
+                    style="height: 48px; padding: 0 26px; background: #0e2238; border-radius: 12px; color: #fff; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none"
+                    style-hover="background:#183253;color:#fff;text-decoration:none"
+                    >Save details</a
+                  >
+                  <a href="#" onClick="{{ discardDetails }}" style="font-size: 13px; color: #6b7b8a; text-decoration: none" style-hover="color:#0E2238;text-decoration:none">{{ discardLabel }}</a>
+                  <span style="margin-left: auto; font-size: 12.5px; font-weight: 600; color: {{ saveStateColor }}">{{ saveStateLabel }}</span>
+                </div>
+              </section>
+
+              <sc-if value="{{ hasStatus }}">
+                <div style="padding: 10px 14px; border-radius: 10px; background: #eef6f4; color: #0f6157; font-size: 13px; font-weight: 600">{{ status }}</div>
+              </sc-if>
+
+              <a href="#" onClick="{{ goGallery }}" style="align-self: flex-start; font-size: 13.5px; font-weight: 600; color: #107a6e; text-decoration: none" style-hover="color:#0E2238;text-decoration:none">Browse designs →</a>
+            </div>
+          </sc-if>
         </main>
 
         <!-- ============ Mobile bottom bar: tabs or sticky step CTA (1a) ============ -->
         <footer class="rtu-bottom-tabs">
           <sc-if value="{{ hasBottomTabs }}">
             <div style="display: grid; grid-template-columns: repeat(2, 1fr); padding: 6px 0 calc(6px + env(safe-area-inset-bottom, 0px))">
-              <a href="#" onClick="{{ goGallery }}" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; color: #0e2238; text-decoration: none">
+              <a href="#" onClick="{{ goGallery }}" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; color: {{ tabDesignsFg }}; text-decoration: none">
                 <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
                   <rect x="3" y="3" width="7.5" height="7.5" rx="1.6"></rect>
                   <rect x="13.5" y="3" width="7.5" height="7.5" rx="1.6"></rect>
@@ -1029,13 +1148,12 @@
                 </svg>
                 <span style="font-size: 11px; font-weight: 600">Designs</span>
               </a>
-              <a href="#" onClick="{{ goMore }}" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; color: #8fa3b3; text-decoration: none">
-                <svg width="23" height="23" viewBox="0 0 24 24" fill="currentColor">
-                  <circle cx="5.2" cy="12" r="1.9"></circle>
-                  <circle cx="12" cy="12" r="1.9"></circle>
-                  <circle cx="18.8" cy="12" r="1.9"></circle>
+              <a href="#" onClick="{{ goDetails }}" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; color: {{ tabDetailsFg }}; text-decoration: none">
+                <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="8" r="4"></circle>
+                  <path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path>
                 </svg>
-                <span style="font-size: 11px; font-weight: 500">More</span>
+                <span style="font-size: 11px; font-weight: 600">My Details</span>
               </a>
             </div>
           </sc-if>
@@ -1168,8 +1286,8 @@
       const PROFILES = [
         { id: 'all', name: 'AVM Wellness Profiles', cover: 'assets/artworks/avm-wellness-profiles-card-cover.jpg', coverMobile: 'assets/artworks/avm-wellness-profiles-card-cover-mobile.jpg', tag: 'Complete Profile Collection', tests: 'Profiles 1–5', ctaLabel: 'Personalize Design', pages: [POSTER, DETAILS], note: 'The complete AVM Wellness Profiles set — offer poster plus the full test-details sheet.' },
         { id: 'p1', name: 'Sumathi Offer Camp', num: '1', cover: 'assets/artworks/avm-women-camp-card-cover.jpg', tests: '37 Tests', ctaLabel: 'Personalize', pages: [WOMEN_CAMP], note: 'Only for Women camp poster — TSH + HbA1c at ₹100.' },
-        { id: 'p2', name: 'AVM Profile 2', num: '2', tests: '69 Tests', ctaLabel: 'Personalize', pages: [POSTER, DETAILS], note: 'Using the AVM Wellness Profiles artwork until dedicated Profile 2 artwork is ready.' },
-        { id: 'p3', name: 'AVM Profile 3', num: '3', tests: '75 Tests', ctaLabel: 'Personalize', pages: [POSTER, DETAILS], note: 'Using the AVM Wellness Profiles artwork until dedicated Profile 3 artwork is ready.' },
+        { id: 'p2', name: 'AVM Profile 2', soon: true, num: '2', tests: '69 Tests', ctaLabel: 'Personalize', pages: [POSTER, DETAILS], note: 'Using the AVM Wellness Profiles artwork until dedicated Profile 2 artwork is ready.' },
+        { id: 'p3', name: 'AVM Profile 3', soon: true, num: '3', tests: '75 Tests', ctaLabel: 'Personalize', pages: [POSTER, DETAILS], note: 'Using the AVM Wellness Profiles artwork until dedicated Profile 3 artwork is ready.' },
       ];
 
       const STORE = 'avm-rtu-brand-v1';
@@ -1187,7 +1305,10 @@
           status: '',
           zoomOpen: false,
           zoomScale: 1,
-          zoomPlain: false
+          zoomPlain: false,
+          draftLogo: '',
+          draftAddress: '',
+          draftCardNo: ''
         };
 
         componentDidMount() {
@@ -1216,6 +1337,12 @@
               else r.current.removeAttribute('src');
             }
           });
+          const f = this._logoF;
+          const d = this.state.draftLogo || '';
+          if (f && f.current && f.current.getAttribute('src') !== d) {
+            if (d) f.current.setAttribute('src', d);
+            else f.current.removeAttribute('src');
+          }
         }
 
         persist(patch) {
@@ -1437,6 +1564,18 @@
           r.readAsDataURL(file);
         }
 
+        readDraftImageFile(file) {
+          if (!file || !/^image\//.test(file.type)) return;
+          const r = new FileReader();
+          r.onload = () => this.setState({ draftLogo: r.result });
+          r.readAsDataURL(file);
+        }
+
+        draftDirty() {
+          const s = this.state;
+          return s.draftLogo !== s.logo || s.draftAddress !== s.address || s.draftCardNo !== s.cardNo;
+        }
+
         // --- View-model: everything the template binds to via {{ }} ---
         renderVals() {
           const stop = e => { if (e && e.preventDefault) e.preventDefault(); };
@@ -1451,11 +1590,15 @@
           if (!this._logoC) this._logoC = React.createRef();
           if (!this._logoD) this._logoD = React.createRef();
           if (!this._logoE) this._logoE = React.createRef();
+          if (!this._logoF) this._logoF = React.createRef();
 
           const step = this.state.step;
           const isGallery = this.state.view === 'gallery';
           const isPreview = this.state.view === 'preview';
           const isEditor = this.state.view === 'editor';
+          const isDetailsView = this.state.view === 'details';
+          const dirty = isDetailsView && this.draftDirty();
+          const hasSaved = !!(this.state.logo || this.state.address || this.state.cardNo);
           const curIdx = Math.min(this.state.page, pages.length - 1);
 
           const gotoStep = i => e => { stop(e); this.setState({ step: i }); window.scrollTo(0, 0); };
@@ -1481,6 +1624,7 @@
             logoRefC: this._logoC,
             logoRefD: this._logoD,
             logoRefE: this._logoE,
+            logoRefF: this._logoF,
 
             isPoster: page.id === 'poster',
             isDetails: page.id === 'details',
@@ -1490,8 +1634,14 @@
             isStep0: isEditor && step === 0,
             isStep1: isEditor && step === 1,
             isStep2: isEditor && step === 2,
-            topbarBack: isPreview || isEditor,
+            isDetailsView: isDetailsView,
+            topbarBack: isPreview || isEditor || isDetailsView,
             topbarBrand: isGallery,
+            topbarTitle: isDetailsView ? 'My Details' : prof.name,
+            navDesignsBg: isDetailsView ? 'transparent' : '#1B3A52',
+            navDetailsBg: isDetailsView ? '#1B3A52' : 'transparent',
+            tabDesignsFg: isDetailsView ? '#8FA3B3' : '#0E2238',
+            tabDetailsFg: isDetailsView ? '#0E2238' : '#8FA3B3',
 
             profiles: PROFILES.map(p => ({
               name: p.name,
@@ -1502,6 +1652,8 @@
               coverMobile: p.coverMobile || p.cover || '',
               hasCover: !!p.cover,
               noCover: !p.cover,
+              isSoon: !!p.soon,
+              isLive: !p.soon,
               tag: p.tag || '',
               hasTag: !!p.tag,
               hasOffer: !!p.offerLabel,
@@ -1514,7 +1666,12 @@
               }
             })),
             goGallery: e => { stop(e); this.setState({ view: 'gallery', step: 0, status: '' }); window.scrollTo(0, 0); },
-            goMore: e => { stop(e); this.say('More pages coming soon.'); },
+            goDetails: e => {
+              stop(e);
+              const s = this.state;
+              this.setState({ view: 'details', status: '', draftLogo: s.logo, draftAddress: s.address, draftCardNo: s.cardNo });
+              window.scrollTo(0, 0);
+            },
             toStep0: gotoStep(0),
             toStep1: gotoStep(1),
             toStep2: gotoStep(2),
@@ -1588,6 +1745,35 @@
             onCardNo: e => this.persist({ cardNo: e.target.value }),
             resetAll: e => { stop(e); this.persist({ logo: '', address: '', cardNo: '' }); },
 
+            draftAddress: this.state.draftAddress,
+            draftCardNo: this.state.draftCardNo,
+            hasDraftLogo: !!this.state.draftLogo,
+            noDraftLogo: !this.state.draftLogo,
+            onDraftLogoFile: e => this.readDraftImageFile(e.target.files && e.target.files[0]),
+            onDraftDrop: e => {
+              e.preventDefault();
+              const dt = e.dataTransfer;
+              if (dt && dt.files && dt.files[0]) this.readDraftImageFile(dt.files[0]);
+            },
+            clearDraftLogo: e => { stop(e); this.setState({ draftLogo: '' }); },
+            onDraftAddress: e => this.setState({ draftAddress: e.target.value }),
+            onDraftCardNo: e => this.setState({ draftCardNo: e.target.value }),
+            saveDetails: e => {
+              stop(e);
+              const s = this.state;
+              this.persist({ logo: s.draftLogo, address: s.draftAddress, cardNo: s.draftCardNo });
+              this.say('Details saved — they will appear on every design.');
+            },
+            discardDetails: e => {
+              stop(e);
+              const s = this.state;
+              if (dirty) this.setState({ draftLogo: s.logo, draftAddress: s.address, draftCardNo: s.cardNo });
+              else this.setState({ draftLogo: '', draftAddress: '', draftCardNo: '' });
+            },
+            discardLabel: dirty ? 'Discard changes' : 'Clear all fields',
+            saveStateLabel: dirty ? 'Unsaved changes' : (hasSaved ? '✓ Saved' : ''),
+            saveStateColor: dirty ? '#B2405A' : '#107A6E',
+
             exportPdf: e => { stop(e); this.exportPdfNow(); },
             exportJpg: e => { stop(e); this.exportRaster('image/jpeg', 'jpg'); },
             exportPng: e => { stop(e); this.exportRaster('image/png', 'png'); },
@@ -1596,7 +1782,7 @@
             status: this.state.status,
             hasStatus: !!this.state.status,
 
-            hasBottomTabs: isGallery || (isEditor && step === 2),
+            hasBottomTabs: isGallery || isDetailsView || (isEditor && step === 2),
             hasStickyCta: isPreview || (isEditor && (step === 0 || step === 1)),
             ctaLabel: ctaLabel,
             ctaAction: ctaAction,
