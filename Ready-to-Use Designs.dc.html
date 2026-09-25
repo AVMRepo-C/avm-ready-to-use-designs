@@ -426,6 +426,45 @@
           .rtu-bubble.b1 { right: 40px; top: 214px; background: linear-gradient(135deg, #4ad0be, #8ff0e2); animation: rtuRipple 2.6s ease-out infinite, rtuFloatC 6s ease-in-out infinite; }
           .rtu-bubble.b2 { right: 18px; top: 8px; width: 40px; height: 40px; background: #14776b; border: 2px solid rgba(255, 255, 255, 0.7); animation: rtuFloatD 7s ease-in-out infinite; }
           @keyframes rtuRipple { 0% { box-shadow: 0 0 0 0 rgba(74, 208, 190, 0.55), 0 16px 30px rgba(0, 0, 0, 0.3); } 100% { box-shadow: 0 0 0 26px rgba(74, 208, 190, 0), 0 16px 30px rgba(0, 0, 0, 0.3); } }
+          @keyframes rtuPopIn {
+            from { opacity: 0; scale: 0.82; filter: blur(8px); }
+            to { opacity: 1; scale: 1; filter: blur(0); }
+          }
+          @keyframes rtuStepGlow {
+            0%, 26%, 100% { border-color: rgba(255, 255, 255, 0.22); box-shadow: 0 24px 46px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.18); }
+            8%, 18% { border-color: rgba(126, 232, 216, 0.95); box-shadow: 0 24px 46px rgba(0, 0, 0, 0.3), 0 0 0 5px rgba(74, 208, 190, 0.2), 0 0 34px rgba(74, 208, 190, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.2); }
+          }
+          .rtu-el { animation-name: rtuPopIn, rtuStepGlow; }
+          .rtu-el.e1 { animation: rtuPopIn 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.2) 0.7s backwards, rtuFloatC 7s ease-in-out 1.4s infinite, rtuStepGlow 9s ease-in-out 1.5s infinite; }
+          .rtu-el.e2 { animation: rtuPopIn 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.2) 0.95s backwards, rtuFloatD 8s ease-in-out 1.6s infinite, rtuStepGlow 9s ease-in-out 4.5s infinite; }
+          .rtu-el.e3 { animation: rtuPopIn 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.2) 1.2s backwards, rtuFloatC 9s ease-in-out 1.9s infinite reverse, rtuStepGlow 9s ease-in-out 7.5s infinite; }
+          .rtu-bubble { animation-name: rtuPopIn; }
+          .rtu-ready {
+            position: absolute;
+            right: 6px;
+            top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px 8px 8px;
+            border-radius: 999px;
+            background: rgba(20, 119, 107, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: #fff;
+            font-size: 12.5px;
+            font-weight: 700;
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
+            animation: rtuPopIn 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.2) 1.5s backwards, rtuFloatD 7s ease-in-out 2.2s infinite;
+          }
+          .rtu-ready span {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #4ad0be;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
           .rtu-login-field {
             position: relative;
           }
@@ -454,6 +493,7 @@
             .rtu-in,
             .rtu-login-shot,
             .rtu-login-glass,
+            .rtu-ready,
             .rtu-el,
             .rtu-bubble,
             .rtu-el-line path,
@@ -529,7 +569,8 @@
               <div class="rtu-login-showcase rtu-in" style="--d: 0.5s">
                 <svg class="rtu-el-line" viewBox="0 0 540 300" fill="none" aria-hidden="true">
                   <path d="M190 46 C 235 46, 215 138, 252 142" stroke="rgba(126,232,216,0.55)" stroke-width="2" stroke-dasharray="4 8" stroke-linecap="round"></path>
-                  <path d="M330 186 C 350 232, 415 214, 456 244" stroke="rgba(126,232,216,0.55)" stroke-width="2" stroke-dasharray="4 8" stroke-linecap="round"></path>
+                  <path d="M340 186 C 345 205, 300 200, 285 222" stroke="rgba(126,232,216,0.55)" stroke-width="2" stroke-dasharray="4 8" stroke-linecap="round"></path>
+                  <path d="M296 262 C 350 262, 400 250, 456 244" stroke="rgba(126,232,216,0.55)" stroke-width="2" stroke-dasharray="4 8" stroke-linecap="round"></path>
                 </svg>
 
                 <div class="rtu-el e1">
@@ -574,9 +615,10 @@
                 <span class="rtu-bubble b1">
                   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#06282b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="m8.6 13.5 6.8 4"></path><path d="m15.4 6.5-6.8 4"></path></svg>
                 </span>
-                <span class="rtu-bubble b2">
-                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"></path></svg>
-                </span>
+                <div class="rtu-ready">
+                  <span><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#06282b" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"></path></svg></span>
+                  Ready to share
+                </div>
               </div>
             </div>
             <div style="font-size: 11.5px; color: #7d93a5">&copy; AVM Labs</div>
@@ -1807,7 +1849,7 @@
       // To change the credentials, recompute AUTH_HASH = sha256(AUTH_SALT + ID + '\n' + password).
       const AUTH_STORE = 'avm-rtu-login-v2';
       const AUTH_SALT = 'avm-ms-v2:';
-      const AUTH_HASH = '6b18c812c0e2bf46edd87eca559e3462bce488230b84b26afd2da68f8128e4ea';
+      const AUTH_HASH = 'c285c94cc013d5c27aa65de5a739cc6c114004ac8b61b12eb0c28e616d3a195d';
 
       class Component extends DCLogic {
         // --- State & lifecycle ---
