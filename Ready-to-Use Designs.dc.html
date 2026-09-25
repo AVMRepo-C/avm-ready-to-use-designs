@@ -1510,6 +1510,10 @@
       // Paste the web-app /exec URL from Deploy > Manage deployments here.
       const AUTH_URL = 'https://script.google.com/macros/s/AKfycbznl9N6rPNXG1fkrFrZWI7hiWJUUSll5T5UZTYYnxNEnwFttJ9zA3TYVxl6Bu8Hv1D3cw/exec';
       const AUTH_STORE = 'avm-rtu-client-v1';
+      // Cached salted-hash list of active codes, so a login can be checked instantly on the device.
+      // AUTH_SALT must match SALT in apps-script/Code.gs.
+      const AUTH_LIST_STORE = 'avm-rtu-codes-v1';
+      const AUTH_SALT = 'avm-ms-v1:';
       // How often a signed-in session re-checks that its code is still in the sheet.
       const AUTH_RECHECK_MS = 5 * 60 * 1000;
 
@@ -1553,6 +1557,8 @@
           if (document.fonts && document.fonts.load) document.fonts.load('600 40px Poppins');
           this.syncLogo();
           this.restoreSession();
+          // Start fetching the code list straight away so it's ready by the time the user presses Continue.
+          if (!this.state.authed) this.loadCodeList().catch(() => {});
         }
 
         componentWillUnmount() {
@@ -1566,6 +1572,39 @@
           const res = await fetch(AUTH_URL + (AUTH_URL.includes('?') ? '&' : '?') + 'code=' + encodeURIComponent(code), { cache: 'no-store' });
           if (!res.ok) throw new Error('network');
           return res.json();
+        }
+
+        // Fetches the salted-hash list of active codes (one request, shared by concurrent callers)
+        // and caches it for the next visit. force=true always goes to the network.
+        loadCodeList(force) {
+          if (this._listPromise && !force) return this._listPromise;
+          if (!AUTH_URL) return Promise.reject(new Error('not_configured'));
+          const p = fetch(AUTH_URL + (AUTH_URL.includes('?') ? '&' : '?') + 'list=1', { cache: 'no-store' })
+            .then(res => { if (!res.ok) throw new Error('network'); return res.json(); })
+            .then(r => {
+              if (!r || !r.ok || !Array.isArray(r.items)) throw new Error('bad_list');
+              this._freshList = r;
+              try { localStorage.setItem(AUTH_LIST_STORE, JSON.stringify(r)); } catch (e) {}
+              return r;
+            });
+          p.catch(() => { if (this._listPromise === p) this._listPromise = null; });
+          this._listPromise = p;
+          return p;
+        }
+
+        cachedCodeList() {
+          try { return JSON.parse(localStorage.getItem(AUTH_LIST_STORE) || 'null'); } catch (e) { return null; }
+        }
+
+        async hashCode(code, salt) {
+          const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode((salt || AUTH_SALT) + code));
+          return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async findInList(list, code) {
+          if (!list || !Array.isArray(list.items)) return null;
+          const h = await this.hashCode(code, list.salt);
+          return list.items.find(it => it.h === h) || null;
         }
 
         restoreSession() {
@@ -1591,9 +1630,9 @@
           const code = this.state.clientCode;
           if (!code) return;
           try {
-            const r = await this.checkCode(code);
-            if (r && r.ok) {
-              if ((r.name || '') !== this.state.clientName) this.saveSession(code, r.name || '');
+            const hit = await this.findInList(await this.loadCodeList(true), code);
+            if (hit) {
+              if ((hit.n || '') !== this.state.clientName) this.saveSession(code, hit.n || '');
             } else {
               this.endSession('Your client code is no longer active. Please contact AVM Labs.');
             }
@@ -1611,28 +1650,46 @@
           clearInterval(this._authTimer);
           try { localStorage.removeItem(AUTH_STORE); } catch (e) {}
           this.setState({ authed: false, clientCode: '', clientName: '', loginInput: '', loginError: msg || '', loginBusy: false, view: 'gallery', zoomOpen: false });
+          this.loadCodeList(true).catch(() => {});
+        }
+
+        acceptLogin(code, name) {
+          this.saveSession(code, name || '');
+          this.setState({ authed: true, loginBusy: false, loginInput: '', loginError: '', view: 'gallery' });
+          this.startRecheck();
         }
 
         async login() {
           const code = String(this.state.loginInput || '').trim().toUpperCase();
           if (!code) { this.setState({ loginError: 'Please enter your client code.' }); return; }
           if (this.state.loginBusy) return;
-          this.setState({ loginBusy: true, loginError: '' });
+          const reject = () => this.setState({ loginBusy: false, loginError: 'That client code isn’t recognised. Check the code and try again.' });
           try {
-            const r = await this.checkCode(code);
-            if (r && r.ok) {
-              this.saveSession(code, r.name || '');
-              this.setState({ authed: true, loginBusy: false, loginInput: '', view: 'gallery' });
-              this.startRecheck();
-            } else {
-              this.setState({ loginBusy: false, loginError: 'That client code isn\u2019t recognised. Check the code and try again.' });
+            if (window.crypto && crypto.subtle) {
+              // 1. Fresh list already downloaded in the background: answer instantly.
+              if (this._freshList) {
+                const hit = await this.findInList(this._freshList, code);
+                return hit ? this.acceptLogin(code, hit.n) : reject();
+              }
+              // 2. Code is in the list cached from a previous visit: let them in now;
+              //    startRecheck() confirms against the sheet straight after.
+              const cachedHit = await this.findInList(this.cachedCodeList(), code);
+              if (cachedHit) { this.acceptLogin(code, cachedHit.n); this.recheck(); return; }
+              // 3. Otherwise wait for the in-flight list download.
+              this.setState({ loginBusy: true, loginError: '' });
+              const hit = await this.findInList(await this.loadCodeList(), code);
+              return hit ? this.acceptLogin(code, hit.n) : reject();
             }
+            // No Web Crypto (non-HTTPS page): fall back to a single-code check.
+            this.setState({ loginBusy: true, loginError: '' });
+            const r = await this.checkCode(code);
+            return r && r.ok ? this.acceptLogin(code, r.name) : reject();
           } catch (e) {
             this.setState({
               loginBusy: false,
               loginError: e.message === 'not_configured'
                 ? 'Login is not set up yet. Please contact AVM Labs.'
-                : 'Couldn\u2019t reach the server. Check your internet connection and try again.'
+                : 'Couldn’t reach the server. Check your internet connection and try again.'
             });
           }
         }
