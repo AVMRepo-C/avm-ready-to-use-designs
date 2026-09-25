@@ -390,6 +390,42 @@
             font-weight: 700;
             animation: rtuBadgePop 3.2s ease-in-out infinite;
           }
+          .rtu-el-line { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+          .rtu-el-line path { animation: rtuDash 2.4s linear infinite; }
+          @keyframes rtuDash { to { stroke-dashoffset: -36; } }
+          .rtu-el {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 18px 14px 14px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.11);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            box-shadow: 0 24px 46px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            will-change: transform;
+          }
+          .rtu-el.e1 { left: 0; top: 4px; animation: rtuFloatC 7s ease-in-out infinite; }
+          .rtu-el.e2 { left: 250px; top: 108px; animation: rtuFloatD 8s ease-in-out infinite; }
+          .rtu-el.e3 { left: 60px; top: 212px; animation: rtuFloatC 9s ease-in-out infinite reverse; }
+          @keyframes rtuFloatC { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+          @keyframes rtuFloatD { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(6px, 10px); } }
+          .rtu-el-k { font-size: 10.5px; font-weight: 800; letter-spacing: 0.16em; color: #7ee8d8; }
+          .rtu-el-t { font-size: 14px; font-weight: 700; color: #fff; }
+          .rtu-el-ic { width: 46px; height: 46px; flex: 0 0 auto; border-radius: 14px; background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(126, 232, 216, 0.4); display: flex; align-items: center; justify-content: center; }
+          .rtu-chip { padding: 3px 9px; border-radius: 999px; background: rgba(255, 255, 255, 0.14); border: 1px solid rgba(255, 255, 255, 0.24); font-size: 11px; font-weight: 700; color: #e4fbf7; }
+          .rtu-mock { width: 46px; height: 58px; flex: 0 0 auto; border-radius: 9px; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
+          .rtu-mock-head { height: 18px; background: linear-gradient(135deg, #0e2b45, #1fb3a0); }
+          .rtu-mock-body { flex: 1; display: flex; flex-direction: column; gap: 4px; padding: 6px 5px; }
+          .rtu-mock-line { height: 4px; border-radius: 2px; background: #d8e3ea; }
+          .rtu-mock-slot { margin-top: auto; height: 12px; border-radius: 3px; border: 1.5px dashed #14776b; animation: rtuSlot 2.4s ease-in-out infinite; }
+          @keyframes rtuSlot { 0%, 100% { background: rgba(20, 119, 107, 0); } 50% { background: rgba(20, 119, 107, 0.3); } }
+          .rtu-bubble { position: absolute; width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; will-change: transform; }
+          .rtu-bubble.b1 { right: 40px; top: 214px; background: linear-gradient(135deg, #4ad0be, #8ff0e2); animation: rtuRipple 2.6s ease-out infinite, rtuFloatC 6s ease-in-out infinite; }
+          .rtu-bubble.b2 { right: 18px; top: 8px; width: 40px; height: 40px; background: #14776b; border: 2px solid rgba(255, 255, 255, 0.7); animation: rtuFloatD 7s ease-in-out infinite; }
+          @keyframes rtuRipple { 0% { box-shadow: 0 0 0 0 rgba(74, 208, 190, 0.55), 0 16px 30px rgba(0, 0, 0, 0.3); } 100% { box-shadow: 0 0 0 26px rgba(74, 208, 190, 0), 0 16px 30px rgba(0, 0, 0, 0.3); } }
           .rtu-login-field {
             position: relative;
           }
@@ -414,17 +450,14 @@
             animation: rtuShine 3.6s ease-in-out infinite;
             pointer-events: none;
           }
-          .rtu-login-help {
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-          }
-          .rtu-login-help:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 22px rgba(20, 119, 107, 0.14);
-          }
           @media (prefers-reduced-motion: reduce) {
             .rtu-in,
             .rtu-login-shot,
             .rtu-login-glass,
+            .rtu-el,
+            .rtu-bubble,
+            .rtu-el-line path,
+            .rtu-mock-slot,
             .rtu-login-btn::after,
             .rtu-login-grad,
             .rtu-login-orb,
@@ -494,12 +527,56 @@
               </h1>
               <p class="rtu-in" style="--d: 0.35s; margin: 14px 0 0; font-size: 15.5px; line-height: 1.6; color: #b9cbdb">Ready-to-use marketing designs for your lab. Add your logo and address, then download and share.</p>
               <div class="rtu-login-showcase rtu-in" style="--d: 0.5s">
-                <div class="rtu-login-shot s1"><img src="assets/artworks/avm-wellness-profiles-card-cover.jpg" alt="" /></div>
-                <div class="rtu-login-shot s2"><img src="assets/artworks/avm-women-camp-card-cover.jpg" alt="" /></div>
-                <div class="rtu-login-glass">
-                  <span style="width: 8px; height: 8px; border-radius: 50%; background: #4ad0be; box-shadow: 0 0 0 4px rgba(74, 208, 190, 0.3)"></span>
-                  Ready in seconds
+                <svg class="rtu-el-line" viewBox="0 0 540 300" fill="none" aria-hidden="true">
+                  <path d="M190 46 C 235 46, 215 138, 252 142" stroke="rgba(126,232,216,0.55)" stroke-width="2" stroke-dasharray="4 8" stroke-linecap="round"></path>
+                  <path d="M330 186 C 350 232, 415 214, 456 244" stroke="rgba(126,232,216,0.55)" stroke-width="2" stroke-dasharray="4 8" stroke-linecap="round"></path>
+                </svg>
+
+                <div class="rtu-el e1">
+                  <div class="rtu-mock">
+                    <div class="rtu-mock-head"></div>
+                    <div class="rtu-mock-body">
+                      <span class="rtu-mock-line" style="width: 86%"></span>
+                      <span class="rtu-mock-line" style="width: 62%"></span>
+                      <span class="rtu-mock-slot"></span>
+                    </div>
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 3px">
+                    <span class="rtu-el-k">01</span>
+                    <span class="rtu-el-t">Pick a design</span>
+                  </div>
                 </div>
+
+                <div class="rtu-el e2">
+                  <span class="rtu-el-ic">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#7ee8d8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"></path><path d="m7 9 5-5 5 5"></path><path d="M5 20h14"></path></svg>
+                  </span>
+                  <div style="display: flex; flex-direction: column; gap: 3px">
+                    <span class="rtu-el-k">02</span>
+                    <span class="rtu-el-t">Add your logo</span>
+                  </div>
+                </div>
+
+                <div class="rtu-el e3">
+                  <span class="rtu-el-ic" style="background: rgba(74, 208, 190, 0.22)">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#7ee8d8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12"></path><path d="m7 11 5 5 5-5"></path><path d="M5 20h14"></path></svg>
+                  </span>
+                  <div style="display: flex; flex-direction: column; gap: 6px">
+                    <span class="rtu-el-t">Download</span>
+                    <div style="display: flex; gap: 6px">
+                      <span class="rtu-chip">PDF</span>
+                      <span class="rtu-chip">JPG</span>
+                      <span class="rtu-chip">PNG</span>
+                    </div>
+                  </div>
+                </div>
+
+                <span class="rtu-bubble b1">
+                  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#06282b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="m8.6 13.5 6.8 4"></path><path d="m15.4 6.5-6.8 4"></path></svg>
+                </span>
+                <span class="rtu-bubble b2">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"></path></svg>
+                </span>
               </div>
             </div>
             <div style="font-size: 11.5px; color: #7d93a5">&copy; AVM Labs</div>
@@ -566,11 +643,6 @@
                 style-hover="background:#183253;color:#fff;text-decoration:none;transform:translateY(-2px)"
                 >{{ loginBtnLabel }}</a
               >
-
-              <div class="rtu-login-help rtu-in" style="--d: 0.62s; display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 12px; background: #eef7f5; border: 1px solid #cfe4df">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#14776B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
-                <span style="font-size: 13px; line-height: 1.45; color: #0f6157; font-weight: 600">No login? <b style="font-weight: 800; color: #0e2238">Contact your AVM Labs representative.</b></span>
-              </div>
             </div>
           </div>
         </div>
@@ -1731,13 +1803,11 @@
       const STORE = 'avm-rtu-brand-v1';
 
       // --- Internal login: one shared ID + password ---
-      // Only a salted SHA-256 of "ID
-password" is kept here, never the password itself.
-      // To change the credentials, recompute AUTH_HASH = sha256(AUTH_SALT + ID + '
-' + password).
+      // Only a salted SHA-256 of "ID\npassword" is kept here, never the password itself.
+      // To change the credentials, recompute AUTH_HASH = sha256(AUTH_SALT + ID + '\n' + password).
       const AUTH_STORE = 'avm-rtu-login-v2';
       const AUTH_SALT = 'avm-ms-v2:';
-      const AUTH_HASH = 'c16e3d872424ba69366f131a0b94ec03f86fc927b1d9baa4a41cc582779d579e';
+      const AUTH_HASH = '6b18c812c0e2bf46edd87eca559e3462bce488230b84b26afd2da68f8128e4ea';
 
       class Component extends DCLogic {
         // --- State & lifecycle ---
@@ -1784,8 +1854,7 @@ password" is kept here, never the password itself.
 
         // --- Auth ---
         async hashLogin(id, pass) {
-          const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(AUTH_SALT + id + '
-' + pass));
+          const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(AUTH_SALT + id + '\n' + pass));
           return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
         }
 
