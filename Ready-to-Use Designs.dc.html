@@ -308,7 +308,125 @@
             0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
           }
+          @keyframes rtuRise {
+            from { opacity: 0; transform: translateY(26px); filter: blur(6px); }
+            to { opacity: 1; transform: none; filter: blur(0); }
+          }
+          @keyframes rtuFloatA {
+            0%, 100% { transform: translateY(0) rotate(-4deg); }
+            50% { transform: translateY(-14px) rotate(-2deg); }
+          }
+          @keyframes rtuFloatB {
+            0%, 100% { transform: translateY(0) rotate(4deg); }
+            50% { transform: translateY(12px) rotate(2.5deg); }
+          }
+          @keyframes rtuShine {
+            0% { transform: translateX(-130%) skewX(-20deg); }
+            55%, 100% { transform: translateX(330%) skewX(-20deg); }
+          }
+          @keyframes rtuBadgePop {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.06); }
+          }
+          .rtu-in {
+            animation: rtuRise 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+            animation-delay: var(--d, 0s);
+          }
+          .rtu-login-grad {
+            background: linear-gradient(90deg, #4ad0be, #b7fff3, #4ad0be, #1fb3a0);
+            background-size: 250% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: rtuHeadShift 6s ease-in-out infinite;
+          }
+          .rtu-login-showcase {
+            position: relative;
+            height: 300px;
+            max-width: 540px;
+            margin-top: 34px;
+          }
+          .rtu-login-shot {
+            position: absolute;
+            aspect-ratio: 2 / 1;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 3px solid rgba(255, 255, 255, 0.92);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+            will-change: transform;
+          }
+          .rtu-login-shot img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+          .rtu-login-shot.s1 {
+            left: 0;
+            top: 0;
+            width: 330px;
+            animation: rtuFloatA 7s ease-in-out infinite;
+          }
+          .rtu-login-shot.s2 {
+            left: 240px;
+            top: 118px;
+            width: 285px;
+            animation: rtuFloatB 8s ease-in-out infinite;
+          }
+          .rtu-login-glass {
+            position: absolute;
+            left: 20px;
+            top: 190px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 15px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            font-size: 12.5px;
+            font-weight: 700;
+            animation: rtuBadgePop 3.2s ease-in-out infinite;
+          }
+          .rtu-login-field {
+            position: relative;
+          }
+          .rtu-login-field svg {
+            transition: transform 0.35s ease, stroke 0.2s ease;
+          }
+          .rtu-login-field:focus-within svg {
+            transform: translateY(-50%) rotate(-25deg) scale(1.15) !important;
+          }
+          .rtu-login-btn {
+            position: relative;
+            overflow: hidden;
+          }
+          .rtu-login-btn::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 34%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+            animation: rtuShine 3.6s ease-in-out infinite;
+            pointer-events: none;
+          }
+          .rtu-login-help {
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+          }
+          .rtu-login-help:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 22px rgba(20, 119, 107, 0.14);
+          }
           @media (prefers-reduced-motion: reduce) {
+            .rtu-in,
+            .rtu-login-shot,
+            .rtu-login-glass,
+            .rtu-login-btn::after,
+            .rtu-login-grad,
             .rtu-login-orb,
             .rtu-login-ring,
             .rtu-login-bg::before,
@@ -364,17 +482,25 @@
               <span class="rtu-login-ring r1"></span>
               <span class="rtu-login-ring r2"></span>
             </div>
-            <div style="display: flex; align-items: center; gap: 14px">
-              <img src="assets/images/avm-logo-transparent.png" alt="AVM Labs" style="height: 110px; width: auto; object-fit: contain" />
-              <div style="width: 1px; height: 56px; background: rgba(255, 255, 255, 0.22)"></div>
-              <span style="font-size: 14px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase">Marketing Studio</span>
+            <div class="rtu-in" style="--d: 0.05s; display: flex; align-items: center; gap: 14px">
+              <img src="assets/images/avm-logo-transparent.png" alt="AVM Labs" style="height: 96px; width: auto; object-fit: contain" />
+              <div style="width: 1px; height: 52px; background: rgba(255, 255, 255, 0.22)"></div>
+              <span style="font-size: 13.5px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase">Marketing Studio</span>
             </div>
-            <div style="max-width: 540px">
-              <h1 style="margin: 0; font-size: 40px; line-height: 1.12; font-weight: 800; letter-spacing: -0.03em">
+            <div style="max-width: 560px">
+              <h1 class="rtu-in" style="--d: 0.2s; margin: 0; font-size: 44px; line-height: 1.1; font-weight: 800; letter-spacing: -0.03em">
                 Create. Personalize.
-                <span style="background: linear-gradient(90deg, #4ad0be, #8ff0e2); -webkit-background-clip: text; background-clip: text; color: transparent">Promote.</span>
+                <span class="rtu-login-grad">Promote.</span>
               </h1>
-              <p style="margin: 14px 0 0; font-size: 15px; line-height: 1.6; color: #b9cbdb">Ready-to-use marketing designs for your lab. Add your logo and address, then download and share.</p>
+              <p class="rtu-in" style="--d: 0.35s; margin: 14px 0 0; font-size: 15.5px; line-height: 1.6; color: #b9cbdb">Ready-to-use marketing designs for your lab. Add your logo and address, then download and share.</p>
+              <div class="rtu-login-showcase rtu-in" style="--d: 0.5s">
+                <div class="rtu-login-shot s1"><img src="assets/artworks/avm-wellness-profiles-card-cover.jpg" alt="" /></div>
+                <div class="rtu-login-shot s2"><img src="assets/artworks/avm-women-camp-card-cover.jpg" alt="" /></div>
+                <div class="rtu-login-glass">
+                  <span style="width: 8px; height: 8px; border-radius: 50%; background: #4ad0be; box-shadow: 0 0 0 4px rgba(74, 208, 190, 0.3)"></span>
+                  Ready in seconds
+                </div>
+              </div>
             </div>
             <div style="font-size: 11.5px; color: #7d93a5">&copy; AVM Labs</div>
           </div>
@@ -386,28 +512,44 @@
 
           <div class="rtu-login-form">
             <div class="rtu-login-inner">
-              <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 4px">
+              <div class="rtu-in" style="--d: 0.25s; display: flex; flex-direction: column; gap: 4px; margin-bottom: 4px">
                 <span style="font-size: 26px; font-weight: 800; color: #0e2238; letter-spacing: -0.02em">Welcome</span>
-                <span style="font-size: 14px; color: #6b7b8a">Enter your client code to continue.</span>
+                <span style="font-size: 14px; color: #6b7b8a">Enter your ID and password to continue.</span>
               </div>
 
-              <div style="position: relative">
+              <div class="rtu-login-field rtu-in" style="--d: 0.38s; position: relative">
                 <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="#14776B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); pointer-events: none">
-                  <circle cx="7.5" cy="15.5" r="4.5"></circle>
-                  <path d="m10.7 12.3 9.8-9.8"></path>
-                  <path d="m17 6 3 3"></path>
-                  <path d="m14.5 8.5 2 2"></path>
+                  <circle cx="12" cy="8" r="4"></circle>
+                  <path d="M4 21a8 8 0 0 1 16 0"></path>
                 </svg>
               <input
                 type="text"
                 value="{{ loginInput }}"
                 onChange="{{ onLoginInput }}"
                 onKeyDown="{{ onLoginKey }}"
-                placeholder="Client code"
-                autocomplete="off"
+                placeholder="ID"
+                autocomplete="username"
                 autocapitalize="characters"
                 spellcheck="false"
                 style="width: 100%; height: 52px; padding: 0 16px 0 46px; border: 1.5px solid {{ loginBorder }}; border-radius: 12px; font-size: 16px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #0e2238; background: #f6f9fb; outline: none"
+                style-focus="border-color:#14776B;background:#fff;box-shadow:0 0 0 4px rgba(20,119,107,.12)"
+              />
+              </div>
+
+              <div class="rtu-login-field rtu-in" style="--d: 0.44s; position: relative">
+                <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="#14776B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); pointer-events: none">
+                  <rect x="4" y="11" width="16" height="10" rx="2"></rect>
+                  <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+                </svg>
+              <input
+                type="password"
+                value="{{ loginPass }}"
+                onChange="{{ onLoginPass }}"
+                onKeyDown="{{ onLoginKey }}"
+                placeholder="Password"
+                autocomplete="current-password"
+                spellcheck="false"
+                style="width: 100%; height: 52px; padding: 0 16px 0 46px; border: 1.5px solid {{ loginBorder }}; border-radius: 12px; font-size: 16px; font-weight: 700; color: #0e2238; background: #f6f9fb; outline: none"
                 style-focus="border-color:#14776B;background:#fff;box-shadow:0 0 0 4px rgba(20,119,107,.12)"
               />
               </div>
@@ -418,15 +560,16 @@
 
               <a
                 href="#"
+                class="rtu-login-btn rtu-in"
                 onClick="{{ doLogin }}"
-                style="height: 52px; border-radius: 12px; background: {{ loginBtnBg }}; color: #fff; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 12px 24px rgba(14, 34, 56, 0.22); pointer-events: {{ loginBtnEvents }}; transition: transform 0.15s ease, background 0.15s ease"
+                style="--d: 0.5s; height: 52px; border-radius: 12px; background: {{ loginBtnBg }}; color: #fff; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 12px 24px rgba(14, 34, 56, 0.22); pointer-events: {{ loginBtnEvents }}; transition: transform 0.15s ease, background 0.15s ease"
                 style-hover="background:#183253;color:#fff;text-decoration:none;transform:translateY(-2px)"
                 >{{ loginBtnLabel }}</a
               >
 
-              <div style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 12px; background: #eef7f5; border: 1px solid #cfe4df">
+              <div class="rtu-login-help rtu-in" style="--d: 0.62s; display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 12px; background: #eef7f5; border: 1px solid #cfe4df">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#14776B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
-                <span style="font-size: 13px; line-height: 1.45; color: #0f6157; font-weight: 600">No code? <b style="font-weight: 800; color: #0e2238">Contact your AVM Labs representative.</b></span>
+                <span style="font-size: 13px; line-height: 1.45; color: #0f6157; font-weight: 600">No login? <b style="font-weight: 800; color: #0e2238">Contact your AVM Labs representative.</b></span>
               </div>
             </div>
           </div>
@@ -1587,16 +1730,14 @@
 
       const STORE = 'avm-rtu-brand-v1';
 
-      // --- Client-code login (validated by the Google Apps Script in apps-script/Code.gs) ---
-      // Paste the web-app /exec URL from Deploy > Manage deployments here.
-      const AUTH_URL = 'https://script.google.com/macros/s/AKfycbznl9N6rPNXG1fkrFrZWI7hiWJUUSll5T5UZTYYnxNEnwFttJ9zA3TYVxl6Bu8Hv1D3cw/exec';
-      const AUTH_STORE = 'avm-rtu-client-v1';
-      // Cached salted-hash list of active codes, so a login can be checked instantly on the device.
-      // AUTH_SALT must match SALT in apps-script/Code.gs.
-      const AUTH_LIST_STORE = 'avm-rtu-codes-v1';
-      const AUTH_SALT = 'avm-ms-v1:';
-      // How often a signed-in session re-checks that its code is still in the sheet.
-      const AUTH_RECHECK_MS = 5 * 60 * 1000;
+      // --- Internal login: one shared ID + password ---
+      // Only a salted SHA-256 of "ID
+password" is kept here, never the password itself.
+      // To change the credentials, recompute AUTH_HASH = sha256(AUTH_SALT + ID + '
+' + password).
+      const AUTH_STORE = 'avm-rtu-login-v2';
+      const AUTH_SALT = 'avm-ms-v2:';
+      const AUTH_HASH = 'c16e3d872424ba69366f131a0b94ec03f86fc927b1d9baa4a41cc582779d579e';
 
       class Component extends DCLogic {
         // --- State & lifecycle ---
@@ -1619,6 +1760,7 @@
           clientCode: '',
           clientName: '',
           loginInput: '',
+          loginPass: '',
           loginError: '',
           loginBusy: false
         };
@@ -1638,141 +1780,40 @@
           if (document.fonts && document.fonts.load) document.fonts.load('600 40px Poppins');
           this.syncLogo();
           this.restoreSession();
-          // Start fetching the code list straight away so it's ready by the time the user presses Continue.
-          if (!this.state.authed) this.loadCodeList().catch(() => {});
         }
 
-        componentWillUnmount() {
-          clearInterval(this._authTimer);
-          if (this._onVisible) document.removeEventListener('visibilitychange', this._onVisible);
-        }
-
-        // --- Client-code auth ---
-        async checkCode(code) {
-          if (!AUTH_URL) throw new Error('not_configured');
-          const res = await fetch(AUTH_URL + (AUTH_URL.includes('?') ? '&' : '?') + 'code=' + encodeURIComponent(code), { cache: 'no-store' });
-          if (!res.ok) throw new Error('network');
-          return res.json();
-        }
-
-        // Fetches the salted-hash list of active codes (one request, shared by concurrent callers)
-        // and caches it for the next visit. force=true always goes to the network.
-        loadCodeList(force) {
-          if (this._listPromise && !force) return this._listPromise;
-          if (!AUTH_URL) return Promise.reject(new Error('not_configured'));
-          const p = fetch(AUTH_URL + (AUTH_URL.includes('?') ? '&' : '?') + 'list=1', { cache: 'no-store' })
-            .then(res => { if (!res.ok) throw new Error('network'); return res.json(); })
-            .then(r => {
-              if (!r || !r.ok || !Array.isArray(r.items)) throw new Error('bad_list');
-              this._freshList = r;
-              try { localStorage.setItem(AUTH_LIST_STORE, JSON.stringify(r)); } catch (e) {}
-              return r;
-            });
-          p.catch(() => { if (this._listPromise === p) this._listPromise = null; });
-          this._listPromise = p;
-          return p;
-        }
-
-        cachedCodeList() {
-          try { return JSON.parse(localStorage.getItem(AUTH_LIST_STORE) || 'null'); } catch (e) { return null; }
-        }
-
-        async hashCode(code, salt) {
-          const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode((salt || AUTH_SALT) + code));
+        // --- Auth ---
+        async hashLogin(id, pass) {
+          const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(AUTH_SALT + id + '
+' + pass));
           return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
-        }
-
-        async findInList(list, code) {
-          if (!list || !Array.isArray(list.items)) return null;
-          const h = await this.hashCode(code, list.salt);
-          return list.items.find(it => it.h === h) || null;
         }
 
         restoreSession() {
           let saved = null;
           try { saved = JSON.parse(localStorage.getItem(AUTH_STORE) || 'null'); } catch (e) {}
-          if (saved && saved.code) {
-            // Let a returning client straight in, then confirm the code is still in the sheet.
-            this.setState({ authed: true, clientCode: saved.code, clientName: saved.name || '' }, () => this.recheck());
-            this.startRecheck();
-          }
-        }
-
-        startRecheck() {
-          clearInterval(this._authTimer);
-          this._authTimer = setInterval(() => this.recheck(), AUTH_RECHECK_MS);
-          if (!this._onVisible) {
-            this._onVisible = () => { if (document.visibilityState === 'visible') this.recheck(); };
-            document.addEventListener('visibilitychange', this._onVisible);
-          }
-        }
-
-        async recheck() {
-          const code = this.state.clientCode;
-          if (!code) return;
-          try {
-            const hit = await this.findInList(await this.loadCodeList(true), code);
-            if (hit) {
-              if ((hit.n || '') !== this.state.clientName) this.saveSession(code, hit.n || '');
-            } else {
-              this.endSession('Your client code is no longer active. Please contact AVM Labs.');
-            }
-          } catch (e) {
-            // Network hiccup: keep the current session rather than locking the client out.
-          }
-        }
-
-        saveSession(code, name) {
-          try { localStorage.setItem(AUTH_STORE, JSON.stringify({ code: code, name: name })); } catch (e) {}
-          this.setState({ clientCode: code, clientName: name });
+          if (saved && saved.h === AUTH_HASH && saved.code) this.setState({ authed: true, clientCode: saved.code, clientName: '' });
         }
 
         endSession(msg) {
-          clearInterval(this._authTimer);
           try { localStorage.removeItem(AUTH_STORE); } catch (e) {}
-          this.setState({ authed: false, clientCode: '', clientName: '', loginInput: '', loginError: msg || '', loginBusy: false, view: 'gallery', zoomOpen: false });
-          this.loadCodeList(true).catch(() => {});
-        }
-
-        acceptLogin(code, name) {
-          this.saveSession(code, name || '');
-          this.setState({ authed: true, loginBusy: false, loginInput: '', loginError: '', view: 'gallery' });
-          this.startRecheck();
+          this.setState({ authed: false, clientCode: '', clientName: '', loginInput: '', loginPass: '', loginError: msg || '', loginBusy: false, view: 'gallery', zoomOpen: false });
         }
 
         async login() {
-          const code = String(this.state.loginInput || '').trim().toUpperCase();
-          if (!code) { this.setState({ loginError: 'Please enter your client code.' }); return; }
+          const id = String(this.state.loginInput || '').trim().toUpperCase();
+          const pass = String(this.state.loginPass || '');
+          if (!id) { this.setState({ loginError: 'Please enter your ID.' }); return; }
+          if (!pass) { this.setState({ loginError: 'Please enter your password.' }); return; }
           if (this.state.loginBusy) return;
-          const reject = () => this.setState({ loginBusy: false, loginError: 'That client code isn’t recognised. Check the code and try again.' });
-          try {
-            if (window.crypto && crypto.subtle) {
-              // 1. Fresh list already downloaded in the background: answer instantly.
-              if (this._freshList) {
-                const hit = await this.findInList(this._freshList, code);
-                return hit ? this.acceptLogin(code, hit.n) : reject();
-              }
-              // 2. Code is in the list cached from a previous visit: let them in now;
-              //    startRecheck() confirms against the sheet straight after.
-              const cachedHit = await this.findInList(this.cachedCodeList(), code);
-              if (cachedHit) { this.acceptLogin(code, cachedHit.n); this.recheck(); return; }
-              // 3. Otherwise wait for the in-flight list download.
-              this.setState({ loginBusy: true, loginError: '' });
-              const hit = await this.findInList(await this.loadCodeList(), code);
-              return hit ? this.acceptLogin(code, hit.n) : reject();
-            }
-            // No Web Crypto (non-HTTPS page): fall back to a single-code check.
-            this.setState({ loginBusy: true, loginError: '' });
-            const r = await this.checkCode(code);
-            return r && r.ok ? this.acceptLogin(code, r.name) : reject();
-          } catch (e) {
-            this.setState({
-              loginBusy: false,
-              loginError: e.message === 'not_configured'
-                ? 'Login is not set up yet. Please contact AVM Labs.'
-                : 'Couldn’t reach the server. Check your internet connection and try again.'
-            });
+          if (!(window.crypto && crypto.subtle)) { this.setState({ loginError: 'Login needs a secure (https) connection.' }); return; }
+          this.setState({ loginBusy: true, loginError: '' });
+          if (await this.hashLogin(id, pass) !== AUTH_HASH) {
+            this.setState({ loginBusy: false, loginPass: '', loginError: 'Incorrect ID or password. Please try again.' });
+            return;
           }
+          try { localStorage.setItem(AUTH_STORE, JSON.stringify({ code: id, h: AUTH_HASH })); } catch (e) {}
+          this.setState({ authed: true, clientCode: id, clientName: '', loginBusy: false, loginInput: '', loginPass: '', loginError: '', view: 'gallery' });
         }
 
         componentDidUpdate() { this.syncLogo(); }
@@ -2095,6 +2136,8 @@
             loginBtnBg: loginBusy ? '#5B6F82' : '#0E2238',
             loginBtnEvents: loginBusy ? 'none' : 'auto',
             onLoginInput: e => this.setState({ loginInput: e.target.value, loginError: '' }),
+            loginPass: this.state.loginPass,
+            onLoginPass: e => this.setState({ loginPass: e.target.value, loginError: '' }),
             onLoginKey: e => { if (e.key === 'Enter') { e.preventDefault(); this.login(); } },
             doLogin: e => { stop(e); this.login(); },
             logout: e => { stop(e); this.endSession(''); },
