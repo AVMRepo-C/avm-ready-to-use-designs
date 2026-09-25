@@ -238,7 +238,7 @@
                 <circle cx="12" cy="8" r="4"></circle>
                 <path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path>
               </svg>
-              My Details
+              Your Branding
             </a>
           </nav>
 
@@ -293,28 +293,9 @@
                   box-shadow: 0 18px 44px rgba(14, 34, 56, 0.22);
                 "
               >
-                <div
-                  style="
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 8px;
-                    padding: 5px 11px;
-                    border-radius: 999px;
-                    background: rgba(74, 208, 190, 0.14);
-                    border: 1px solid rgba(74, 208, 190, 0.35);
-                    color: #7ee8d8;
-                    font-size: 9.5px;
-                    letter-spacing: 0.16em;
-                    text-transform: uppercase;
-                    font-weight: 700;
-                  "
-                >
-                  <span style="width: 6px; height: 7px; border-radius: 50%; background: #4ad0be; box-shadow: 0 0 0 4px rgba(74, 208, 190, 0.22)"></span>
-                  Ready-to-use marketing designs
-                </div>
                 <h1
                   class="rtu-gallery-title"
-                  style="margin: 12px 0 8px; font-size: 30px; line-height: 1.1; font-weight: 800; letter-spacing: -0.025em; color: #fff"
+                  style="margin: 0 0 8px; font-size: 30px; line-height: 1.1; font-weight: 800; letter-spacing: -0.025em; color: #fff"
                 >
                   Create. Personalize.
                   <span style="background: linear-gradient(90deg, #4ad0be, #8ff0e2); -webkit-background-clip: text; background-clip: text; color: transparent">Promote.</span>
@@ -355,7 +336,6 @@
                       "
                     >
                       <div style="font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #8aa0b3; font-weight: 700">Coming soon</div>
-                      <div style="font-size: 16px; font-weight: 700; color: #6b8297; line-height: 1.3">{{ p.name }}</div>
                     </div>
                   </sc-if>
                   <sc-if value="{{ p.isLive }}">
@@ -482,13 +462,14 @@
                         </sc-if>
                         <span
                           style="
-                            padding: 4px 10px;
-                            border-radius: 6px;
-                            background: #eef3f7;
-                            border: 1px solid #dbe4ec;
-                            font-size: 12px;
+                            padding: 5px 11px;
+                            border-radius: 8px;
+                            background: #fdeef1;
+                            border: 1px solid #f5c6cf;
+                            font-size: 12.5px;
                             font-weight: 700;
-                            color: #3a5470;
+                            line-height: 1.3;
+                            color: #a4243b;
                           "
                           >{{ p.tests }}</span
                         >
@@ -1058,11 +1039,11 @@
             </div>
           </sc-if>
 
-          <!-- ============ My Details: saved logo, address & phone ============ -->
+          <!-- ============ Your Branding: saved logo, address & phone ============ -->
           <sc-if value="{{ isDetailsView }}">
             <div style="animation: rtuFade 0.3s ease both; max-width: 640px; margin: 0 auto; padding: 12px 0 16px; display: flex; flex-direction: column; gap: 18px">
               <div style="display: flex; flex-direction: column; gap: 6px">
-                <span class="rtu-desktop-only" style="font-size: 26px; font-weight: 700; color: #12263a">My Details</span>
+                <span class="rtu-desktop-only" style="font-size: 26px; font-weight: 700; color: #12263a">Your Branding</span>
                 <span style="font-size: 13.5px; color: #6b7b8a; line-height: 1.55">Save your logo and contact details once. They're filled into every design automatically.</span>
               </div>
 
@@ -1153,7 +1134,7 @@
                   <circle cx="12" cy="8" r="4"></circle>
                   <path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path>
                 </svg>
-                <span style="font-size: 11px; font-weight: 600">My Details</span>
+                <span style="font-size: 11px; font-weight: 600">Your Branding</span>
               </a>
             </div>
           </sc-if>
@@ -1284,11 +1265,10 @@
 
       // --- Profile catalogue shown in the gallery ---
       const PROFILES = [
-        { id: 'all', name: 'AVM Wellness Profiles', cover: 'assets/artworks/avm-wellness-profiles-card-cover.jpg', coverMobile: 'assets/artworks/avm-wellness-profiles-card-cover-mobile.jpg', tag: 'Complete Profile Collection', tests: 'Profiles 1–5', ctaLabel: 'Personalize Design', pages: [POSTER, DETAILS], note: 'The complete AVM Wellness Profiles set — offer poster plus the full test-details sheet.' },
-        { id: 'p1', name: 'Sumathi Offer Camp', num: '1', cover: 'assets/artworks/avm-women-camp-card-cover.jpg', tests: '37 Tests', ctaLabel: 'Personalize', pages: [WOMEN_CAMP], note: 'Only for Women camp poster — TSH + HbA1c at ₹100.' },
+        { id: 'all', name: 'AVM Wellness Profiles', cover: 'assets/artworks/avm-wellness-profiles-card-cover.jpg', coverMobile: 'assets/artworks/avm-wellness-profiles-card-cover-mobile.jpg', tag: 'Offer', tests: 'Man Pays, Women Gets It Free', ctaLabel: 'Personalize Design', pages: [POSTER, DETAILS], note: 'The complete AVM Wellness Profiles set — offer poster plus the full test-details sheet.' },
+        { id: 'p1', name: 'Sumathi Offer Camp', num: '1', cover: 'assets/artworks/avm-women-camp-card-cover.jpg', tag: 'Offer', tests: 'TSH + HbA1c @ ₹100', ctaLabel: 'Personalize', pages: [WOMEN_CAMP], note: 'Only for Women camp poster — TSH + HbA1c at ₹100.' },
         { id: 'p2', name: 'AVM Profile 2', soon: true, num: '2', tests: '69 Tests', ctaLabel: 'Personalize', pages: [POSTER, DETAILS], note: 'Using the AVM Wellness Profiles artwork until dedicated Profile 2 artwork is ready.' },
-        { id: 'p3', name: 'AVM Profile 3', soon: true, num: '3', tests: '75 Tests', ctaLabel: 'Personalize', pages: [POSTER, DETAILS], note: 'Using the AVM Wellness Profiles artwork until dedicated Profile 3 artwork is ready.' },
-      ];
+        { id: 'p3', name: 'AVM Profile 3', soon: true, num: '3', tests: '75 Tests', ctaLabel: 'Personalize', pages: [POSTER, DETAILS], note: 'Using the AVM Wellness Profiles artwork until dedicated Profile 3 artwork is ready.' },      ];
 
       const STORE = 'avm-rtu-brand-v1';
 
@@ -1637,7 +1617,7 @@
             isDetailsView: isDetailsView,
             topbarBack: isPreview || isEditor || isDetailsView,
             topbarBrand: isGallery,
-            topbarTitle: isDetailsView ? 'My Details' : prof.name,
+            topbarTitle: isDetailsView ? 'Your Branding' : prof.name,
             navDesignsBg: isDetailsView ? 'transparent' : '#1B3A52',
             navDetailsBg: isDetailsView ? '#1B3A52' : 'transparent',
             tabDesignsFg: isDetailsView ? '#8FA3B3' : '#0E2238',
