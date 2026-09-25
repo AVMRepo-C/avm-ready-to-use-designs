@@ -178,6 +178,98 @@
             opacity: 0;
           }
 
+          /* --- Client-code login: split brand panel + form --- */
+          .rtu-login {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: flex;
+            background: #fff;
+            overflow-y: auto;
+          }
+          .rtu-login-brand {
+            position: relative;
+            flex: 1 1 56%;
+            min-height: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 36px 48px 32px;
+            color: #fff;
+            background: radial-gradient(700px 420px at 100% 0%, rgba(74, 208, 190, 0.3), transparent 60%), radial-gradient(600px 420px at 0% 100%, rgba(30, 90, 140, 0.55), transparent 70%), linear-gradient(140deg, #0a1a2d 0%, #0e2b45 55%, #0f3b4d 100%);
+          }
+          .rtu-login-brand::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+            background-size: 22px 22px;
+            pointer-events: none;
+          }
+          .rtu-login-form {
+            flex: 1 1 44%;
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 32px;
+            background: radial-gradient(500px 300px at 100% 100%, rgba(74, 208, 190, 0.1), transparent 70%), #fff;
+          }
+          .rtu-login-inner {
+            width: 100%;
+            max-width: 380px;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            animation: rtuFade 0.4s ease both;
+          }
+          .rtu-login-previews {
+            position: relative;
+            flex: 1 1 auto;
+            min-height: 200px;
+            margin-top: 28px;
+          }
+          .rtu-login-preview {
+            position: absolute;
+            width: 60%;
+            aspect-ratio: 2 / 1;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 3px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35);
+          }
+          .rtu-login-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+          }
+          .rtu-login-mobile-head {
+            display: none;
+          }
+          @media (max-width: 860px) {
+            .rtu-login {
+              flex-direction: column;
+            }
+            .rtu-login-brand {
+              display: none;
+            }
+            .rtu-login-mobile-head {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              gap: 8px;
+              padding: 28px 20px 26px;
+              border-radius: 0 0 28px 28px;
+              background: radial-gradient(420px 220px at 100% 0%, rgba(74, 208, 190, 0.3), transparent 65%), linear-gradient(140deg, #0a1a2d 0%, #0e2b45 60%, #0f3b4d 100%);
+            }
+            .rtu-login-form {
+              flex: 1 0 auto;
+              align-items: flex-start;
+              padding: 28px 20px 32px;
+            }
+          }
+
           .rtu-zoom-overlay {
             position: fixed;
             inset: 0;
@@ -188,6 +280,120 @@
           }
         </style>
       </helmet>
+      <!-- ============ Client-code login ============ -->
+      <sc-if value="{{ needLogin }}">
+        <div class="rtu-login">
+          <!-- Brand panel (desktop) -->
+          <div class="rtu-login-brand">
+            <div style="position: relative; display: flex; align-items: center; gap: 14px">
+              <img src="assets/images/avm-logo-transparent.png" alt="AVM Labs" style="height: 64px; width: auto; object-fit: contain" />
+              <div style="width: 1px; height: 34px; background: rgba(255, 255, 255, 0.22)"></div>
+              <span style="font-size: 13px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase">Marketing Studio</span>
+            </div>
+
+            <div style="position: relative; margin-top: 44px; max-width: 520px">
+              <h1 style="margin: 0; font-size: 40px; line-height: 1.12; font-weight: 800; letter-spacing: -0.03em">
+                Create. Personalize.
+                <span style="background: linear-gradient(90deg, #4ad0be, #8ff0e2); -webkit-background-clip: text; background-clip: text; color: transparent">Promote.</span>
+              </h1>
+              <p style="margin: 14px 0 0; font-size: 15px; line-height: 1.65; color: #b9cbdb">Ready-to-use marketing designs for your lab. Add your logo and address, then download and share in seconds.</p>
+
+              <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 26px">
+                <div style="display: flex; align-items: center; gap: 12px">
+                  <span style="width: 30px; height: 30px; flex: 0 0 auto; border-radius: 9px; background: rgba(74, 208, 190, 0.16); border: 1px solid rgba(74, 208, 190, 0.35); color: #7ee8d8; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center">1</span>
+                  <span style="font-size: 14px; font-weight: 600">Choose a design</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px">
+                  <span style="width: 30px; height: 30px; flex: 0 0 auto; border-radius: 9px; background: rgba(74, 208, 190, 0.16); border: 1px solid rgba(74, 208, 190, 0.35); color: #7ee8d8; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center">2</span>
+                  <span style="font-size: 14px; font-weight: 600">Add your logo &amp; address</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px">
+                  <span style="width: 30px; height: 30px; flex: 0 0 auto; border-radius: 9px; background: rgba(74, 208, 190, 0.16); border: 1px solid rgba(74, 208, 190, 0.35); color: #7ee8d8; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center">3</span>
+                  <span style="font-size: 14px; font-weight: 600">Download &amp; share on WhatsApp</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="rtu-login-previews">
+              <div class="rtu-login-preview" style="left: 0; top: 0; transform: rotate(-5deg)">
+                <img src="assets/artworks/avm-wellness-profiles-card-cover.jpg" alt="" />
+              </div>
+              <div class="rtu-login-preview" style="right: 0; bottom: 0; transform: rotate(4deg)">
+                <img src="assets/artworks/avm-women-camp-card-cover.jpg" alt="" />
+              </div>
+            </div>
+
+            <div style="position: relative; margin-top: 18px; font-size: 11.5px; color: #7d93a5">&copy; AVM Labs &middot; Wellness Laboratory</div>
+          </div>
+
+          <!-- Brand header (mobile) -->
+          <div class="rtu-login-mobile-head">
+            <img src="assets/images/avm-logo-transparent.png" alt="AVM Labs" style="height: 72px; width: auto; object-fit: contain" />
+            <span style="color: #fff; font-size: 12.5px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase">Marketing Studio</span>
+          </div>
+
+          <!-- Sign-in form -->
+          <div class="rtu-login-form">
+            <div class="rtu-login-inner">
+              <div style="display: flex; flex-direction: column; gap: 8px">
+                <span style="align-self: flex-start; padding: 5px 11px; border-radius: 999px; background: #eef7f5; border: 1px solid #cfe4df; color: #0f6157; font-size: 10.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase">Client login</span>
+                <span style="font-size: 28px; font-weight: 800; color: #0e2238; letter-spacing: -0.02em; line-height: 1.2">Welcome back</span>
+                <span style="font-size: 14px; color: #6b7b8a; line-height: 1.6">Enter the client code shared by AVM Labs to access your marketing designs.</span>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 8px">
+                <label style="font-size: 13px; font-weight: 700; color: #12263a">Client code</label>
+                <div style="position: relative">
+                  <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="#14776B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); pointer-events: none">
+                    <circle cx="7.5" cy="15.5" r="4.5"></circle>
+                    <path d="m10.7 12.3 9.8-9.8"></path>
+                    <path d="m17 6 3 3"></path>
+                    <path d="m14.5 8.5 2 2"></path>
+                  </svg>
+                  <input
+                    type="text"
+                    value="{{ loginInput }}"
+                    onChange="{{ onLoginInput }}"
+                    onKeyDown="{{ onLoginKey }}"
+                    placeholder="Enter your code"
+                    autocomplete="off"
+                    autocapitalize="characters"
+                    spellcheck="false"
+                    style="width: 100%; height: 56px; padding: 0 16px 0 48px; border: 1.5px solid {{ loginBorder }}; border-radius: 14px; font-size: 16px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #0e2238; background: #f6f9fb; outline: none; transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease"
+                    style-focus="border-color:#14776B;background:#fff;box-shadow:0 0 0 4px rgba(20,119,107,.12)"
+                  />
+                </div>
+                <sc-if value="{{ hasLoginError }}">
+                  <div style="display: flex; align-items: flex-start; gap: 9px; padding: 11px 13px; border-radius: 12px; background: #fdf0f2; border: 1px solid #f3d0d7; color: #a3304a; font-size: 12.5px; font-weight: 600; line-height: 1.45">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto; margin-top: 1px"><circle cx="12" cy="12" r="10"></circle><path d="M12 7v6"></path><path d="M12 17h.01"></path></svg>
+                    <span>{{ loginError }}</span>
+                  </div>
+                </sc-if>
+              </div>
+
+              <a
+                href="#"
+                onClick="{{ doLogin }}"
+                style="height: 56px; border-radius: 14px; background: {{ loginBtnBg }}; color: #fff; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; box-shadow: 0 12px 26px rgba(14, 34, 56, 0.24); pointer-events: {{ loginBtnEvents }}; transition: transform 0.15s ease, background 0.15s ease"
+                style-hover="background:#183253;color:#fff;text-decoration:none;transform:translateY(-1px)"
+                >{{ loginBtnLabel }}</a
+              >
+
+              <div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 14px; background: #f6f9fb; border: 1px solid #e3e9ef">
+                <span style="width: 36px; height: 36px; flex: 0 0 auto; border-radius: 10px; background: #fff; border: 1px solid #e1e8ef; color: #14776b; display: flex; align-items: center; justify-content: center">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
+                </span>
+                <div style="display: flex; flex-direction: column; gap: 2px">
+                  <span style="font-size: 13px; font-weight: 700; color: #0e2238">Don&rsquo;t have a client code?</span>
+                  <span style="font-size: 12px; color: #6b7b8a; line-height: 1.45">Contact your AVM Labs representative to get access.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isAuthed }}">
       <div class="rtu-shell" style="display: flex; align-items: stretch; height: 100vh; overflow: hidden; color: #0e2238">
         <!-- ============ Desktop sidebar (1c — narrower rail) ============ -->
         <aside
@@ -271,6 +477,17 @@
           </nav>
 
           <div style="flex: 1 1 0"></div>
+
+          <div style="display: flex; flex-direction: column; gap: 12px; padding: 14px; border-radius: 14px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.1)">
+            <div style="display: flex; align-items: center; gap: 12px; min-width: 0">
+              <span style="flex: 0 0 auto; width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, #14776b, #4ad0be); color: #fff; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center">{{ clientInitial }}</span>
+              <div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+                <span style="font-size: 14px; font-weight: 700; color: #fff; line-height: 1.25; overflow-wrap: anywhere">{{ clientNameOnly }}</span>
+                <span style="font-size: 11px; color: #7d93a5; font-weight: 600; letter-spacing: 0.04em">{{ clientCodeOnly }}</span>
+              </div>
+            </div>
+            <a href="#" onClick="{{ logout }}" style="display: flex; align-items: center; justify-content: center; height: 36px; border-radius: 10px; border: 1px solid rgba(126, 232, 216, 0.4); color: #7ee8d8; font-size: 12.5px; font-weight: 700; text-decoration: none" style-hover="background:rgba(126,232,216,.12);color:#fff;text-decoration:none">Log out</a>
+          </div>
 
           <div style="color: #7d93a5; font-size: 11px; line-height: 1.55">
             Artwork stays locked. Only the logo and address blocks are yours to fill.
@@ -646,61 +863,84 @@
                   style="
                     flex: 0 0 auto;
                     background: #fff;
-                    border-bottom: 1px solid #dde4ea;
+                    border-bottom: 1px solid #e3e9ef;
+                    box-shadow: 0 4px 18px rgba(14, 34, 56, 0.04);
                     margin: -24px -28px 0;
                     padding: 14px 28px;
                     display: flex;
                     align-items: center;
                     flex-wrap: wrap;
                     justify-content: space-between;
-                    gap: 12px 20px;
+                    gap: 14px 24px;
                   "
                 >
-                  <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 14px; min-width: 0">
+                  <div style="display: flex; align-items: center; gap: 16px; min-width: 0; flex: 1 1 420px">
                     <a
                       href="#"
                       onClick="{{ goGallery }}"
                       aria-label="Back to all designs"
-                      style="display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px; border-radius: 9px; border: 1px solid #dde4ea; color: #12263a; font-size: 13px; font-weight: 600; text-decoration: none; white-space: nowrap; flex: 0 0 auto"
-                      style-hover="border-color:#14776B;color:#14776B;text-decoration:none"
+                      title="All designs"
+                      style="width: 40px; height: 40px; flex: 0 0 auto; border-radius: 12px; border: 1px solid #dde4ea; background: #f7f9fb; color: #12263a; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: all 0.15s ease"
+                      style-hover="border-color:#14776B;color:#14776B;background:#F2F8F6;text-decoration:none"
                     >
-                      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5 8 12l6.5 6.5"></path></svg>
-                      All designs
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5 8 12l6.5 6.5"></path></svg>
                     </a>
-                    <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
-                      <span style="font-size: 22px; font-weight: 700; color: #12263a; line-height: 1.2">{{ activeName }}</span>
-                      <span style="font-size: 12.5px; color: #6b7b8a; max-width: 420px">{{ activeNote }}</span>
+
+                    <div style="width: 5px; height: 52px; flex: 0 0 auto; border-radius: 3px; background: linear-gradient(180deg, #4ad0be, #14776b)"></div>
+
+                    <div style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
+                      <div style="display: flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; color: #8397a8">
+                        <a href="#" onClick="{{ goGallery }}" style="color: #8397a8; text-decoration: none" style-hover="color:#14776B;text-decoration:none">All designs</a>
+                        <span style="color: #c3cfd9">›</span>
+                        <span style="color: #14776b">Personalize</span>
+                      </div>
+                      <div style="display: flex; align-items: center; gap: 10px; min-width: 0">
+                        <span style="font-size: 20px; font-weight: 700; color: #0e2238; line-height: 1.2; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ activeName }}</span>
+                        <span style="flex: 0 0 auto; padding: 3px 9px; border-radius: 999px; background: #eef7f5; border: 1px solid #cfe4df; color: #0f6157; font-size: 11px; font-weight: 700">{{ pageCountLabel }}</span>
+                      </div>
+                      <span style="font-size: 12.5px; color: #6b7b8a; line-height: 1.4; max-width: 520px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis" title="{{ activeNote }}">{{ activeNote }}</span>
                     </div>
                   </div>
+
                   <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px">
-                    <a
-                      href="#"
-                      onClick="{{ exportJpg }}"
-                      style="height: 44px; padding: 0 18px; border: 1px solid #dde4ea; border-radius: 11px; color: #12263a; font-size: 14px; font-weight: 600; display: flex; align-items: center; text-decoration: none"
-                      style-hover="border-color:#14776B;color:#14776B;text-decoration:none"
-                      >JPG</a
-                    >
-                    <a
-                      href="#"
-                      onClick="{{ exportPng }}"
-                      style="height: 44px; padding: 0 18px; border: 1px solid #dde4ea; border-radius: 11px; color: #12263a; font-size: 14px; font-weight: 600; display: flex; align-items: center; text-decoration: none"
-                      style-hover="border-color:#14776B;color:#14776B;text-decoration:none"
-                      >PNG</a
-                    >
+                    <div style="display: flex; align-items: center; height: 44px; border: 1px solid #dde4ea; border-radius: 12px; overflow: hidden; background: #fff">
+                      <span style="display: flex; align-items: center; gap: 6px; padding: 0 12px; height: 100%; background: #f7f9fb; border-right: 1px solid #dde4ea; color: #6b7b8a; font-size: 12px; font-weight: 600">
+                        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2.5"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><path d="m21 15-5-5L5 21"></path></svg>
+                        Image
+                      </span>
+                      <a
+                        href="#"
+                        onClick="{{ exportJpg }}"
+                        style="height: 100%; padding: 0 16px; color: #12263a; font-size: 13.5px; font-weight: 700; display: flex; align-items: center; text-decoration: none; border-right: 1px solid #dde4ea"
+                        style-hover="background:#F2F8F6;color:#14776B;text-decoration:none"
+                        >JPG</a
+                      >
+                      <a
+                        href="#"
+                        onClick="{{ exportPng }}"
+                        style="height: 100%; padding: 0 16px; color: #12263a; font-size: 13.5px; font-weight: 700; display: flex; align-items: center; text-decoration: none"
+                        style-hover="background:#F2F8F6;color:#14776B;text-decoration:none"
+                        >PNG</a
+                      >
+                    </div>
                     <a
                       href="#"
                       onClick="{{ exportPdf }}"
-                      style="height: 44px; padding: 0 22px; background: #0e2238; border-radius: 11px; color: #fff; font-size: 14.5px; font-weight: 600; display: flex; align-items: center; text-decoration: none"
+                      style="height: 44px; padding: 0 20px; background: #0e2238; border-radius: 12px; color: #fff; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; text-decoration: none; box-shadow: 0 6px 16px rgba(14, 34, 56, 0.2)"
                       style-hover="background:#183253;color:#fff;text-decoration:none"
-                      >Download PDF</a
                     >
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M5 21h14"></path></svg>
+                      Download PDF
+                    </a>
                     <a
                       href="#"
                       onClick="{{ shareWhatsApp }}"
-                      style="height: 44px; padding: 0 22px; background: #14776b; border-radius: 11px; color: #fff; font-size: 14.5px; font-weight: 600; display: flex; align-items: center; text-decoration: none"
+                      style="height: 44px; padding: 0 20px; background: #14776b; border-radius: 12px; color: #fff; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; text-decoration: none; box-shadow: 0 6px 16px rgba(20, 119, 107, 0.25)"
                       style-hover="background:#0F6157;color:#fff;text-decoration:none"
-                      >Share on WhatsApp</a
                     >
+                      <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5 5 16a8.5 8.5 0 1 1 3.2 3.1z"></path><path d="M9.2 8.6c.2-.4.5-.5.8-.5h.5c.2 0 .4.1.5.4l.6 1.5c.1.2 0 .5-.1.6l-.4.5c.5 1 1.3 1.8 2.3 2.3l.5-.4c.2-.1.4-.2.6-.1l1.5.6c.3.1.4.3.4.5v.5c0 .3-.1.6-.5.8-.6.3-1.4.4-2.2.1a8 8 0 0 1-4.7-4.7c-.3-.8-.2-1.6.2-2.1z"></path></svg>
+                      Share on WhatsApp
+                    </a>
                   </div>
                 </div>
 
@@ -1144,7 +1384,10 @@
                 <div style="padding: 10px 14px; border-radius: 10px; background: #eef6f4; color: #0f6157; font-size: 13px; font-weight: 600">{{ status }}</div>
               </sc-if>
 
-              <a href="#" onClick="{{ goGallery }}" style="align-self: flex-start; font-size: 13.5px; font-weight: 600; color: #107a6e; text-decoration: none" style-hover="color:#0E2238;text-decoration:none">Browse designs →</a>
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap">
+                <a href="#" onClick="{{ goGallery }}" style="font-size: 13.5px; font-weight: 600; color: #107a6e; text-decoration: none" style-hover="color:#0E2238;text-decoration:none">Browse designs →</a>
+                <span style="font-size: 12.5px; color: #6b7b8a">Signed in as <b style="color: #0e2238">{{ clientLabel }}</b> · <a href="#" onClick="{{ logout }}" style="color: #b2405a; font-weight: 600; text-decoration: none" style-hover="color:#8F2C44;text-decoration:none">Log out</a></span>
+              </div>
             </div>
           </sc-if>
         </main>
@@ -1181,6 +1424,7 @@
           </sc-if>
         </footer>
       </div>
+      </sc-if>
 
       <!-- ============ Full-screen zoom (1a) ============ -->
       <sc-if value="{{ hasZoom }}">
@@ -1308,6 +1552,13 @@
 
       const STORE = 'avm-rtu-brand-v1';
 
+      // --- Client-code login (validated by the Google Apps Script in apps-script/Code.gs) ---
+      // Paste the web-app /exec URL from Deploy > Manage deployments here.
+      const AUTH_URL = 'https://script.google.com/macros/s/AKfycbznl9N6rPNXG1fkrFrZWI7hiWJUUSll5T5UZTYYnxNEnwFttJ9zA3TYVxl6Bu8Hv1D3cw/exec';
+      const AUTH_STORE = 'avm-rtu-client-v1';
+      // How often a signed-in session re-checks that its code is still in the sheet.
+      const AUTH_RECHECK_MS = 5 * 60 * 1000;
+
       class Component extends DCLogic {
         // --- State & lifecycle ---
         state = {
@@ -1324,7 +1575,13 @@
           zoomPlain: false,
           draftLogo: '',
           draftAddress: '',
-          draftCardNo: ''
+          draftCardNo: '',
+          authed: false,
+          clientCode: '',
+          clientName: '',
+          loginInput: '',
+          loginError: '',
+          loginBusy: false
         };
 
         componentDidMount() {
@@ -1341,6 +1598,89 @@
           } catch (e) {}
           if (document.fonts && document.fonts.load) document.fonts.load('600 40px Poppins');
           this.syncLogo();
+          this.restoreSession();
+        }
+
+        componentWillUnmount() {
+          clearInterval(this._authTimer);
+          if (this._onVisible) document.removeEventListener('visibilitychange', this._onVisible);
+        }
+
+        // --- Client-code auth ---
+        async checkCode(code) {
+          if (!AUTH_URL) throw new Error('not_configured');
+          const res = await fetch(AUTH_URL + (AUTH_URL.includes('?') ? '&' : '?') + 'code=' + encodeURIComponent(code), { cache: 'no-store' });
+          if (!res.ok) throw new Error('network');
+          return res.json();
+        }
+
+        restoreSession() {
+          let saved = null;
+          try { saved = JSON.parse(localStorage.getItem(AUTH_STORE) || 'null'); } catch (e) {}
+          if (saved && saved.code) {
+            // Let a returning client straight in, then confirm the code is still in the sheet.
+            this.setState({ authed: true, clientCode: saved.code, clientName: saved.name || '' }, () => this.recheck());
+            this.startRecheck();
+          }
+        }
+
+        startRecheck() {
+          clearInterval(this._authTimer);
+          this._authTimer = setInterval(() => this.recheck(), AUTH_RECHECK_MS);
+          if (!this._onVisible) {
+            this._onVisible = () => { if (document.visibilityState === 'visible') this.recheck(); };
+            document.addEventListener('visibilitychange', this._onVisible);
+          }
+        }
+
+        async recheck() {
+          const code = this.state.clientCode;
+          if (!code) return;
+          try {
+            const r = await this.checkCode(code);
+            if (r && r.ok) {
+              if ((r.name || '') !== this.state.clientName) this.saveSession(code, r.name || '');
+            } else {
+              this.endSession('Your client code is no longer active. Please contact AVM Labs.');
+            }
+          } catch (e) {
+            // Network hiccup: keep the current session rather than locking the client out.
+          }
+        }
+
+        saveSession(code, name) {
+          try { localStorage.setItem(AUTH_STORE, JSON.stringify({ code: code, name: name })); } catch (e) {}
+          this.setState({ clientCode: code, clientName: name });
+        }
+
+        endSession(msg) {
+          clearInterval(this._authTimer);
+          try { localStorage.removeItem(AUTH_STORE); } catch (e) {}
+          this.setState({ authed: false, clientCode: '', clientName: '', loginInput: '', loginError: msg || '', loginBusy: false, view: 'gallery', zoomOpen: false });
+        }
+
+        async login() {
+          const code = String(this.state.loginInput || '').trim().toUpperCase();
+          if (!code) { this.setState({ loginError: 'Please enter your client code.' }); return; }
+          if (this.state.loginBusy) return;
+          this.setState({ loginBusy: true, loginError: '' });
+          try {
+            const r = await this.checkCode(code);
+            if (r && r.ok) {
+              this.saveSession(code, r.name || '');
+              this.setState({ authed: true, loginBusy: false, loginInput: '', view: 'gallery' });
+              this.startRecheck();
+            } else {
+              this.setState({ loginBusy: false, loginError: 'That client code isn\u2019t recognised. Check the code and try again.' });
+            }
+          } catch (e) {
+            this.setState({
+              loginBusy: false,
+              loginError: e.message === 'not_configured'
+                ? 'Login is not set up yet. Please contact AVM Labs.'
+                : 'Couldn\u2019t reach the server. Check your internet connection and try again.'
+            });
+          }
         }
 
         componentDidUpdate() { this.syncLogo(); }
@@ -1632,6 +1972,7 @@
             ctaAction = gotoStep(2);
           }
 
+          const loginBusy = this.state.loginBusy;
           const detailsAdded = !!(this.state.logo || f.lines.length || f.tel);
 
           return {
@@ -1651,6 +1992,24 @@
             isStep1: isEditor && step === 1,
             isStep2: isEditor && step === 2,
             isDetailsView: isDetailsView,
+
+            isAuthed: this.state.authed,
+            needLogin: !this.state.authed,
+            loginInput: this.state.loginInput,
+            loginError: this.state.loginError,
+            hasLoginError: !!this.state.loginError,
+            loginBorder: this.state.loginError ? '#E3A3B1' : '#DDE4EA',
+            loginBtnLabel: loginBusy ? 'Checking…' : 'Continue →',
+            loginBtnBg: loginBusy ? '#5B6F82' : '#0E2238',
+            loginBtnEvents: loginBusy ? 'none' : 'auto',
+            onLoginInput: e => this.setState({ loginInput: e.target.value, loginError: '' }),
+            onLoginKey: e => { if (e.key === 'Enter') { e.preventDefault(); this.login(); } },
+            doLogin: e => { stop(e); this.login(); },
+            logout: e => { stop(e); this.endSession(''); },
+            clientNameOnly: this.state.clientName || this.state.clientCode,
+            clientCodeOnly: this.state.clientName ? this.state.clientCode : '',
+            clientInitial: String(this.state.clientName || this.state.clientCode || '?').trim().charAt(0).toUpperCase(),
+            clientLabel: this.state.clientName ? this.state.clientName + ' (' + this.state.clientCode + ')' : this.state.clientCode,
             topbarBack: isPreview || isEditor || isDetailsView,
             topbarBrand: isGallery,
             topbarTitle: isDetailsView ? 'Your Branding' : prof.name,
