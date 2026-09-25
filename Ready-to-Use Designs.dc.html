@@ -63,6 +63,30 @@
               box-shadow: 0 12px 30px rgba(20, 119, 107, 0.4);
             }
           }
+          @keyframes rtuOfferPop {
+            0%,
+            100% {
+              transform: scale(1);
+              box-shadow: 0 0 0 0 rgba(31, 168, 150, 0.45);
+            }
+            12% {
+              transform: scale(1.12);
+            }
+            24% {
+              transform: scale(0.97);
+            }
+            36% {
+              transform: scale(1.05);
+              box-shadow: 0 0 0 9px rgba(31, 168, 150, 0);
+            }
+            50% {
+              transform: scale(1);
+            }
+          }
+          .rtu-offer-pop {
+            animation: rtuOfferPop 2.6s ease-in-out infinite;
+            transform-origin: left center;
+          }
           .rtu-cta-pulse {
             animation: rtuCtaPulse 2.6s ease-in-out infinite;
           }
@@ -464,16 +488,17 @@
                             >{{ p.offerLabel }}</span
                           >
                         </sc-if>
-                        <span
+                        <span class="rtu-offer-pop"
                           style="
-                            padding: 5px 11px;
-                            border-radius: 8px;
-                            background: #fdeef1;
-                            border: 1px solid #f5c6cf;
+                            display: inline-block;
+                            padding: 6px 13px;
+                            border-radius: 999px;
+                            background: linear-gradient(135deg, #14776b, #1fa896);
+                            border: 1px solid rgba(255, 255, 255, 0.35);
                             font-size: 12.5px;
                             font-weight: 700;
                             line-height: 1.3;
-                            color: #a4243b;
+                            color: #fff;
                           "
                           >{{ p.tests }}</span
                         >
