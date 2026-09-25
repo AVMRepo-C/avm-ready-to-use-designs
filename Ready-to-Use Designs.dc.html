@@ -563,7 +563,7 @@
                   </span>
                   <div style="display: flex; flex-direction: column; gap: 3px">
                     <span class="rtu-el-k">02</span>
-                    <span class="rtu-el-t">Add your logo</span>
+                    <span class="rtu-el-t">Add Client Branding</span>
                   </div>
                 </div>
 
@@ -684,7 +684,7 @@
                 gap: 10px;
                 padding: 11px 13px;
                 border-radius: 10px;
-                background: {{ navDesignsBg }};
+                background: #1b3a52;
                 color: #fff;
                 font-size: 14px;
                 font-weight: 600;
@@ -699,29 +699,6 @@
                 <rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.6"></rect>
               </svg>
               Designs
-            </a>
-            <a
-              href="#"
-              onClick="{{ goDetails }}"
-              style="
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                padding: 11px 13px;
-                border-radius: 10px;
-                background: {{ navDetailsBg }};
-                color: #fff;
-                font-size: 14px;
-                font-weight: 600;
-                text-decoration: none;
-              "
-              style-hover="background:#21405C;color:#fff;text-decoration:none"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="#4AD0BE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px; flex: 0 0 auto">
-                <circle cx="12" cy="8" r="4"></circle>
-                <path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path>
-              </svg>
-              Your Branding
             </a>
           </nav>
 
@@ -1199,7 +1176,7 @@
                       <div style="font-size: 11px; letter-spacing: 0.16em; font-weight: 600; color: #107a6e">YOUR DETAILS</div>
 
                       <div style="display: flex; flex-direction: column; gap: 8px">
-                        <label style="font-size: 14px; font-weight: 600; color: #12263a">Your logo</label>
+                        <label style="font-size: 14px; font-weight: 600; color: #12263a">Your logo <span style="font-weight: 500; color: #8fa3b3">(optional)</span></label>
                         <label
                           onDragOver="{{ onDragOver }}"
                           onDrop="{{ onDrop }}"
@@ -1220,6 +1197,19 @@
                             >Remove logo</a
                           >
                         </sc-if>
+                      </div>
+
+                      <div style="display: flex; flex-direction: column; gap: 8px">
+                        <span style="font-size: 14px; font-weight: 600; color: #12263a">Lab name <span style="font-weight: 500; color: #8fa3b3">(optional)</span></span>
+                        <input
+                          type="text"
+                          value="{{ labName }}"
+                          onChange="{{ onLabName }}"
+                          placeholder="e.g. Sri Balaji Diagnostics"
+                          style="width: 100%; padding: 12px 14px; border: 1px solid #dde4ea; border-radius: 12px; font-size: 14.5px; color: #12263a; outline: none"
+                          style-focus="border-color:#14776B"
+                        />
+                        <span style="font-size: 11.5px; color: #6b7b8a">Shown in the logo spot when no logo is uploaded.</span>
                       </div>
 
                       <div style="display: flex; flex-direction: column; gap: 8px">
@@ -1279,6 +1269,13 @@
                         >
                           <sc-if value="{{ hasLogo }}">
                             <img ref="{{ logoRefB }}" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain" />
+                          </sc-if>
+                          <sc-if value="{{ hasLabName }}">
+                            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #0e2238; font-weight: 700; line-height: 1.15; font-size: {{ labBox.font }}; padding: {{ labBox.pad }}">
+                              <sc-for list="{{ labLines }}" as="ln">
+                                <div style="white-space: pre">{{ ln }}</div>
+                              </sc-for>
+                            </div>
                           </sc-if>
                         </div>
                       </sc-if>
@@ -1354,7 +1351,7 @@
                       <div style="font-size: 11px; letter-spacing: 0.16em; font-weight: 600; color: #107a6e">YOUR DETAILS</div>
 
                       <div style="display: flex; flex-direction: column; gap: 8px">
-                        <label style="font-size: 14px; font-weight: 600; color: #12263a">Your logo</label>
+                        <label style="font-size: 14px; font-weight: 600; color: #12263a">Your logo <span style="font-weight: 500; color: #8fa3b3">(optional)</span></label>
                         <label
                           onDragOver="{{ onDragOver }}"
                           onDrop="{{ onDrop }}"
@@ -1373,6 +1370,19 @@
                         <sc-if value="{{ hasLogo }}">
                           <a href="#" onClick="{{ clearLogo }}" style="align-self: flex-start; font-size: 11.5px; color: #b2405a; text-decoration: none">Remove logo</a>
                         </sc-if>
+                      </div>
+
+                      <div style="display: flex; flex-direction: column; gap: 8px">
+                        <span style="font-size: 14px; font-weight: 600; color: #12263a">Lab name <span style="font-weight: 500; color: #8fa3b3">(optional)</span></span>
+                        <input
+                          type="text"
+                          value="{{ labName }}"
+                          onChange="{{ onLabName }}"
+                          placeholder="e.g. Sri Balaji Diagnostics"
+                          style="width: 100%; padding: 12px 14px; border: 1px solid #dde4ea; border-radius: 12px; font-size: 16px; color: #12263a; outline: none"
+                          style-focus="border-color:#14776B"
+                        />
+                        <span style="font-size: 11.5px; color: #6b7b8a">Shown in the logo spot when no logo is uploaded.</span>
                       </div>
 
                       <div style="display: flex; flex-direction: column; gap: 8px">
@@ -1456,6 +1466,13 @@
                         >
                           <sc-if value="{{ hasLogo }}">
                             <img ref="{{ logoRefD }}" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain" />
+                          </sc-if>
+                          <sc-if value="{{ hasLabName }}">
+                            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #0e2238; font-weight: 700; line-height: 1.15; font-size: {{ labBox.font }}; padding: {{ labBox.pad }}">
+                              <sc-for list="{{ labLines }}" as="ln">
+                                <div style="white-space: pre">{{ ln }}</div>
+                              </sc-for>
+                            </div>
                           </sc-if>
                         </div>
                       </sc-if>
@@ -1557,91 +1574,13 @@
             </div>
           </sc-if>
 
-          <!-- ============ Your Branding: saved logo, address & phone ============ -->
-          <sc-if value="{{ isDetailsView }}">
-            <div style="animation: rtuFade 0.3s ease both; max-width: 640px; margin: 0 auto; padding: 12px 0 16px; display: flex; flex-direction: column; gap: 18px">
-              <div style="display: flex; flex-direction: column; gap: 6px">
-                <span class="rtu-desktop-only" style="font-size: 26px; font-weight: 700; color: #12263a">Your Branding</span>
-                <span style="font-size: 13.5px; color: #6b7b8a; line-height: 1.55">Save your logo and contact details once. They're filled into every design automatically.</span>
-              </div>
-
-              <section style="background: #fff; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 18px; box-shadow: 0 2px 8px rgba(14, 34, 56, 0.05)">
-                <div style="display: flex; flex-direction: column; gap: 8px">
-                  <label style="font-size: 14px; font-weight: 600; color: #12263a">Your logo</label>
-                  <label
-                    onDragOver="{{ onDragOver }}"
-                    onDrop="{{ onDraftDrop }}"
-                    style="border: 1.5px dashed #c6d1da; background: #f7f9fb; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; text-align: center"
-                    style-hover="border-color:#14776B;background:#F2F8F6"
-                  >
-                    <sc-if value="{{ hasDraftLogo }}">
-                      <img ref="{{ logoRefF }}" alt="logo" style="max-height: 80px; max-width: 100%; object-fit: contain" />
-                    </sc-if>
-                    <sc-if value="{{ noDraftLogo }}">
-                      <span style="font-size: 14px; font-weight: 600; color: #12263a">Drop logo or click to upload</span>
-                    </sc-if>
-                    <span style="font-size: 11.5px; color: #6b7b8a">PNG with transparent background works best</span>
-                    <input type="file" accept="image/png,image/jpeg,image/svg+xml,image/webp" onChange="{{ onDraftLogoFile }}" style="display: none" />
-                  </label>
-                  <sc-if value="{{ hasDraftLogo }}">
-                    <a href="#" onClick="{{ clearDraftLogo }}" style="align-self: flex-start; font-size: 11.5px; color: #b2405a; text-decoration: none" style-hover="color:#8F2C44;text-decoration:none">Remove logo</a>
-                  </sc-if>
-                </div>
-
-                <div style="display: flex; flex-direction: column; gap: 8px">
-                  <span style="font-size: 14px; font-weight: 600; color: #12263a">Your address</span>
-                  <textarea
-                    rows="3"
-                    value="{{ draftAddress }}"
-                    onChange="{{ onDraftAddress }}"
-                    placeholder="Centre name&#10;Street, area&#10;City – PIN"
-                    style="width: 100%; resize: vertical; padding: 12px 14px; border: 1px solid #dde4ea; border-radius: 12px; font-size: 14px; line-height: 1.55; color: #12263a; background: #fff; outline: none"
-                    style-focus="border-color:#14776B"
-                  ></textarea>
-                </div>
-
-                <div style="display: flex; flex-direction: column; gap: 8px">
-                  <span style="font-size: 14px; font-weight: 600; color: #12263a">Your phone number</span>
-                  <input
-                    type="text"
-                    value="{{ draftCardNo }}"
-                    onChange="{{ onDraftCardNo }}"
-                    placeholder="Phone number"
-                    style="width: 100%; padding: 12px 14px; border: 1px solid #dde4ea; border-radius: 12px; font-size: 14.5px; color: #12263a; outline: none"
-                    style-focus="border-color:#14776B"
-                  />
-                </div>
-
-                <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 12px; padding-top: 4px">
-                  <a
-                    href="#"
-                    onClick="{{ saveDetails }}"
-                    style="height: 48px; padding: 0 26px; background: #0e2238; border-radius: 12px; color: #fff; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none"
-                    style-hover="background:#183253;color:#fff;text-decoration:none"
-                    >Save details</a
-                  >
-                  <a href="#" onClick="{{ discardDetails }}" style="font-size: 13px; color: #6b7b8a; text-decoration: none" style-hover="color:#0E2238;text-decoration:none">{{ discardLabel }}</a>
-                  <span style="margin-left: auto; font-size: 12.5px; font-weight: 600; color: {{ saveStateColor }}">{{ saveStateLabel }}</span>
-                </div>
-              </section>
-
-              <sc-if value="{{ hasStatus }}">
-                <div style="padding: 10px 14px; border-radius: 10px; background: #eef6f4; color: #0f6157; font-size: 13px; font-weight: 600">{{ status }}</div>
-              </sc-if>
-
-              <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap">
-                <a href="#" onClick="{{ goGallery }}" style="font-size: 13.5px; font-weight: 600; color: #107a6e; text-decoration: none" style-hover="color:#0E2238;text-decoration:none">Browse designs →</a>
-                <span style="font-size: 12.5px; color: #6b7b8a">Signed in as <b style="color: #0e2238">{{ clientLabel }}</b> · <a href="#" onClick="{{ logout }}" style="color: #b2405a; font-weight: 600; text-decoration: none" style-hover="color:#8F2C44;text-decoration:none">Log out</a></span>
-              </div>
-            </div>
-          </sc-if>
         </main>
 
         <!-- ============ Mobile bottom bar: tabs or sticky step CTA (1a) ============ -->
         <footer class="rtu-bottom-tabs">
           <sc-if value="{{ hasBottomTabs }}">
             <div style="display: grid; grid-template-columns: repeat(2, 1fr); padding: 6px 0 calc(6px + env(safe-area-inset-bottom, 0px))">
-              <a href="#" onClick="{{ goGallery }}" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; color: {{ tabDesignsFg }}; text-decoration: none">
+              <a href="#" onClick="{{ goGallery }}" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; color: #0e2238; text-decoration: none">
                 <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
                   <rect x="3" y="3" width="7.5" height="7.5" rx="1.6"></rect>
                   <rect x="13.5" y="3" width="7.5" height="7.5" rx="1.6"></rect>
@@ -1650,12 +1589,13 @@
                 </svg>
                 <span style="font-size: 11px; font-weight: 600">Designs</span>
               </a>
-              <a href="#" onClick="{{ goDetails }}" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; color: {{ tabDetailsFg }}; text-decoration: none">
+              <a href="#" onClick="{{ logout }}" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; color: #8fa3b3; text-decoration: none">
                 <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="8" r="4"></circle>
-                  <path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path>
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                  <path d="m16 17 5-5-5-5"></path>
+                  <path d="M21 12H9"></path>
                 </svg>
-                <span style="font-size: 11px; font-weight: 600">Your Branding</span>
+                <span style="font-size: 11px; font-weight: 600">Log out</span>
               </a>
             </div>
           </sc-if>
@@ -1692,6 +1632,13 @@
                     <sc-if value="{{ hasLogo }}">
                       <img ref="{{ logoRefE }}" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain" />
                     </sc-if>
+                          <sc-if value="{{ hasLabName }}">
+                            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #0e2238; font-weight: 700; line-height: 1.15; font-size: {{ labBox.font }}; padding: {{ labBox.pad }}">
+                              <sc-for list="{{ labLines }}" as="ln">
+                                <div style="white-space: pre">{{ ln }}</div>
+                              </sc-for>
+                            </div>
+                          </sc-if>
                   </div>
                 </sc-if>
                 <div
@@ -1798,7 +1745,7 @@
 
       // --- Internal login: one shared ID + password ---
       // Only a salted SHA-256 of "ID\npassword" is kept here, never the password itself.
-      // To change the credentials, recompute AUTH_HASH = sha256(AUTH_SALT + ID + '\n' + password).
+      // To change the credentials, recompute AUTH_HASH = sha256(AUTH_SALT + ID + '\n' + password), both uppercased.
       const AUTH_STORE = 'avm-rtu-login-v2';
       const AUTH_SALT = 'avm-ms-v2:';
       const AUTH_HASH = 'c285c94cc013d5c27aa65de5a739cc6c114004ac8b61b12eb0c28e616d3a195d';
@@ -1813,13 +1760,11 @@
           logo: '',
           address: '',
           cardNo: '',
+          labName: '',
           status: '',
           zoomOpen: false,
           zoomScale: 1,
           zoomPlain: false,
-          draftLogo: '',
-          draftAddress: '',
-          draftCardNo: '',
           authed: false,
           clientCode: '',
           clientName: '',
@@ -1836,6 +1781,7 @@
               const v = JSON.parse(raw);
               this.setState({
                 logo: v.logo || '',
+                labName: typeof v.labName === 'string' ? v.labName : '',
                 address: typeof v.address === 'string' && !/Gandhi Road|T\. Nagar/.test(v.address) ? v.address : '',
                 cardNo: typeof v.cardNo === 'string' && v.cardNo.replace(/\D/g, '') !== '917094606386' ? v.cardNo : ''
               });
@@ -1865,7 +1811,7 @@
 
         async login() {
           const id = String(this.state.loginInput || '').trim().toUpperCase();
-          const pass = String(this.state.loginPass || '');
+          const pass = String(this.state.loginPass || '').trim().toUpperCase();
           if (!id) { this.setState({ loginError: 'Please enter your ID.' }); return; }
           if (!pass) { this.setState({ loginError: 'Please enter your password.' }); return; }
           if (this.state.loginBusy) return;
@@ -1889,19 +1835,13 @@
               else r.current.removeAttribute('src');
             }
           });
-          const f = this._logoF;
-          const d = this.state.draftLogo || '';
-          if (f && f.current && f.current.getAttribute('src') !== d) {
-            if (d) f.current.setAttribute('src', d);
-            else f.current.removeAttribute('src');
-          }
         }
 
         persist(patch) {
           this.setState(patch, () => {
             try {
               const s = this.state;
-              localStorage.setItem(STORE, JSON.stringify({ logo: s.logo, address: s.address, cardNo: s.cardNo }));
+              localStorage.setItem(STORE, JSON.stringify({ logo: s.logo, labName: s.labName, address: s.address, cardNo: s.cardNo }));
             } catch (e) {}
           });
         }
@@ -1960,6 +1900,34 @@
           return r;
         }
 
+        // Lab name shown in the logo slot when no logo is uploaded: wraps to at most three lines
+        // and picks the largest bold size that fits the slot.
+        fitLabName(slot) {
+          const name = String(this.state.labName || '').trim().replace(/\s+/g, ' ');
+          if (this.state.logo || !name || !slot) return null;
+          if (!this._mc) this._mc = document.createElement('canvas').getContext('2d');
+          const ctx = this._mc;
+          const w = slot.w - slot.pad * 2;
+          const h = slot.h - slot.pad * 2;
+          const words = name.split(' ');
+          const wrap = size => {
+            ctx.font = '700 ' + size + 'px Poppins, sans-serif';
+            const lines = [];
+            let cur = words[0];
+            for (let i = 1; i < words.length; i++) {
+              if (ctx.measureText(cur + ' ' + words[i]).width <= w) cur += ' ' + words[i];
+              else { lines.push(cur); cur = words[i]; }
+            }
+            lines.push(cur);
+            const widest = Math.max.apply(null, lines.map(l => ctx.measureText(l).width));
+            return { size, lines, lh: size * 1.15, fits: lines.length <= 3 && widest <= w && lines.length * size * 1.15 <= h };
+          };
+          let size = Math.floor(h / 1.15);
+          let r = wrap(size);
+          while (size > 10 && !r.fits) { size -= 1; r = wrap(size); }
+          return r;
+        }
+
         // --- Canvas rendering (shared by every export path) ---
         loadImg(src) {
           return new Promise((res, rej) => {
@@ -2008,6 +1976,25 @@
               const r = Math.min(bw / lw, bh / lh);
               ctx.drawImage(l, s.x + s.pad + (bw - lw * r) / 2, s.y + s.pad + (bh - lh * r) / 2, lw * r, lh * r);
             } catch (e) {}
+          }
+
+          const lab = this.fitLabName(page.logo);
+          if (lab) {
+            const s = page.logo;
+            if (s.patch !== false) {
+              ctx.fillStyle = '#fff';
+              ctx.beginPath();
+              if (ctx.roundRect) ctx.roundRect(s.x, s.y, s.w, s.h, page.w * LOGO_PATCH_RADIUS_RATIO);
+              else ctx.rect(s.x, s.y, s.w, s.h);
+              ctx.fill();
+            }
+            ctx.fillStyle = '#0E2238';
+            ctx.font = '700 ' + lab.size + 'px Poppins, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            const top = s.y + s.h / 2 - (lab.lines.length * lab.lh) / 2;
+            lab.lines.forEach((l, i) => ctx.fillText(l, s.x + s.w / 2, top + lab.lh * (i + 0.5)));
+            ctx.textAlign = 'left';
           }
 
           const t = page.text;
@@ -2116,18 +2103,6 @@
           r.readAsDataURL(file);
         }
 
-        readDraftImageFile(file) {
-          if (!file || !/^image\//.test(file.type)) return;
-          const r = new FileReader();
-          r.onload = () => this.setState({ draftLogo: r.result });
-          r.readAsDataURL(file);
-        }
-
-        draftDirty() {
-          const s = this.state;
-          return s.draftLogo !== s.logo || s.draftAddress !== s.address || s.draftCardNo !== s.cardNo;
-        }
-
         // --- View-model: everything the template binds to via {{ }} ---
         renderVals() {
           const stop = e => { if (e && e.preventDefault) e.preventDefault(); };
@@ -2142,15 +2117,11 @@
           if (!this._logoC) this._logoC = React.createRef();
           if (!this._logoD) this._logoD = React.createRef();
           if (!this._logoE) this._logoE = React.createRef();
-          if (!this._logoF) this._logoF = React.createRef();
 
           const step = this.state.step;
           const isGallery = this.state.view === 'gallery';
           const isPreview = this.state.view === 'preview';
           const isEditor = this.state.view === 'editor';
-          const isDetailsView = this.state.view === 'details';
-          const dirty = isDetailsView && this.draftDirty();
-          const hasSaved = !!(this.state.logo || this.state.address || this.state.cardNo);
           const curIdx = Math.min(this.state.page, pages.length - 1);
 
           const gotoStep = i => e => { stop(e); this.setState({ step: i }); window.scrollTo(0, 0); };
@@ -2169,7 +2140,8 @@
           }
 
           const loginBusy = this.state.loginBusy;
-          const detailsAdded = !!(this.state.logo || f.lines.length || f.tel);
+          const lab = this.fitLabName(page.logo);
+          const detailsAdded = !!(this.state.logo || lab || f.lines.length || f.tel);
 
           return {
             logoRefA: this._logoA,
@@ -2177,7 +2149,6 @@
             logoRefC: this._logoC,
             logoRefD: this._logoD,
             logoRefE: this._logoE,
-            logoRefF: this._logoF,
 
             isPoster: page.id === 'poster',
             isDetails: page.id === 'details',
@@ -2187,7 +2158,6 @@
             isStep0: isEditor && step === 0,
             isStep1: isEditor && step === 1,
             isStep2: isEditor && step === 2,
-            isDetailsView: isDetailsView,
 
             isAuthed: this.state.authed,
             needLogin: !this.state.authed,
@@ -2208,13 +2178,9 @@
             clientCodeOnly: this.state.clientName ? this.state.clientCode : '',
             clientInitial: String(this.state.clientName || this.state.clientCode || '?').trim().charAt(0).toUpperCase(),
             clientLabel: this.state.clientName ? this.state.clientName + ' (' + this.state.clientCode + ')' : this.state.clientCode,
-            topbarBack: isPreview || isEditor || isDetailsView,
+            topbarBack: isPreview || isEditor,
             topbarBrand: isGallery,
-            topbarTitle: isDetailsView ? 'Your Branding' : prof.name,
-            navDesignsBg: isDetailsView ? 'transparent' : '#1B3A52',
-            navDetailsBg: isDetailsView ? '#1B3A52' : 'transparent',
-            tabDesignsFg: isDetailsView ? '#8FA3B3' : '#0E2238',
-            tabDetailsFg: isDetailsView ? '#0E2238' : '#8FA3B3',
+            topbarTitle: prof.name,
 
             profiles: PROFILES.map(p => ({
               name: p.name,
@@ -2239,12 +2205,6 @@
               }
             })),
             goGallery: e => { stop(e); this.setState({ view: 'gallery', step: 0, status: '' }); window.scrollTo(0, 0); },
-            goDetails: e => {
-              stop(e);
-              const s = this.state;
-              this.setState({ view: 'details', status: '', draftLogo: s.logo, draftAddress: s.address, draftCardNo: s.cardNo });
-              window.scrollTo(0, 0);
-            },
             toStep0: gotoStep(0),
             toStep1: gotoStep(1),
             toStep2: gotoStep(2),
@@ -2287,7 +2247,15 @@
               left: pct(page.logo.x, page.w), top: pct(page.logo.y, page.h),
               width: pct(page.logo.w, page.w), height: pct(page.logo.h, page.h)
             } : { left: '0%', top: '0%', width: '0%', height: '0%' },
-            logoPatchBg: this.state.logo && page.logo && page.logo.patch !== false ? '#fff' : 'transparent',
+            labName: this.state.labName,
+            hasLabName: !!lab,
+            labLines: lab ? lab.lines : [],
+            labBox: {
+              font: cq(lab ? lab.size : 0),
+              pad: cq(page.logo ? page.logo.pad : 0)
+            },
+            onLabName: e => this.persist({ labName: e.target.value }),
+            logoPatchBg: (this.state.logo || lab) && page.logo && page.logo.patch !== false ? '#fff' : 'transparent',
             logoPatchRadius: cq(page.w * LOGO_PATCH_RADIUS_RATIO),
             textBox: {
               left: pct(page.text.x, page.w), top: pct(page.text.y, page.h),
@@ -2316,36 +2284,8 @@
             },
             onAddress: e => this.persist({ address: e.target.value }),
             onCardNo: e => this.persist({ cardNo: e.target.value }),
-            resetAll: e => { stop(e); this.persist({ logo: '', address: '', cardNo: '' }); },
+            resetAll: e => { stop(e); this.persist({ logo: '', labName: '', address: '', cardNo: '' }); },
 
-            draftAddress: this.state.draftAddress,
-            draftCardNo: this.state.draftCardNo,
-            hasDraftLogo: !!this.state.draftLogo,
-            noDraftLogo: !this.state.draftLogo,
-            onDraftLogoFile: e => this.readDraftImageFile(e.target.files && e.target.files[0]),
-            onDraftDrop: e => {
-              e.preventDefault();
-              const dt = e.dataTransfer;
-              if (dt && dt.files && dt.files[0]) this.readDraftImageFile(dt.files[0]);
-            },
-            clearDraftLogo: e => { stop(e); this.setState({ draftLogo: '' }); },
-            onDraftAddress: e => this.setState({ draftAddress: e.target.value }),
-            onDraftCardNo: e => this.setState({ draftCardNo: e.target.value }),
-            saveDetails: e => {
-              stop(e);
-              const s = this.state;
-              this.persist({ logo: s.draftLogo, address: s.draftAddress, cardNo: s.draftCardNo });
-              this.say('Details saved — they will appear on every design.');
-            },
-            discardDetails: e => {
-              stop(e);
-              const s = this.state;
-              if (dirty) this.setState({ draftLogo: s.logo, draftAddress: s.address, draftCardNo: s.cardNo });
-              else this.setState({ draftLogo: '', draftAddress: '', draftCardNo: '' });
-            },
-            discardLabel: dirty ? 'Discard changes' : 'Clear all fields',
-            saveStateLabel: dirty ? 'Unsaved changes' : (hasSaved ? '✓ Saved' : ''),
-            saveStateColor: dirty ? '#B2405A' : '#107A6E',
 
             exportPdf: e => { stop(e); this.exportPdfNow(); },
             exportJpg: e => { stop(e); this.exportRaster('image/jpeg', 'jpg'); },
@@ -2355,7 +2295,7 @@
             status: this.state.status,
             hasStatus: !!this.state.status,
 
-            hasBottomTabs: isGallery || isDetailsView || (isEditor && step === 2),
+            hasBottomTabs: isGallery || (isEditor && step === 2),
             hasStickyCta: isPreview || (isEditor && (step === 0 || step === 1)),
             ctaLabel: ctaLabel,
             ctaAction: ctaAction,
