@@ -188,6 +188,8 @@
             overflow-y: auto;
           }
           .rtu-login-brand {
+            position: relative;
+            overflow: hidden;
             flex: 1 1 50%;
             min-height: 100%;
             display: flex;
@@ -214,25 +216,109 @@
             gap: 16px;
             animation: rtuFade 0.4s ease both;
           }
-          .rtu-login-showcase {
-            position: relative;
-            height: 290px;
-            max-width: 540px;
-            margin-top: 34px;
-          }
-          .rtu-login-shot {
+          /* Animated background: slow-drifting glows + a gently moving dot grid */
+          .rtu-login-bg {
             position: absolute;
-            aspect-ratio: 2 / 1;
-            border-radius: 16px;
+            inset: 0;
+            pointer-events: none;
             overflow: hidden;
-            border: 3px solid rgba(255, 255, 255, 0.92);
-            box-shadow: 0 26px 50px rgba(0, 0, 0, 0.38);
           }
-          .rtu-login-shot img {
-            display: block;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+          .rtu-login-bg::before {
+            content: "";
+            position: absolute;
+            inset: -40px;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+            background-size: 26px 26px;
+            animation: rtuGridDrift 40s linear infinite;
+          }
+          .rtu-login-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.55;
+            will-change: transform;
+          }
+          .rtu-login-orb.o1 {
+            width: 420px;
+            height: 420px;
+            top: -120px;
+            right: -100px;
+            background: #1fb3a0;
+            animation: rtuOrbA 18s ease-in-out infinite alternate;
+          }
+          .rtu-login-orb.o2 {
+            width: 360px;
+            height: 360px;
+            bottom: -120px;
+            left: -80px;
+            background: #1e5a8c;
+            opacity: 0.7;
+            animation: rtuOrbB 22s ease-in-out infinite alternate;
+          }
+          .rtu-login-orb.o3 {
+            width: 240px;
+            height: 240px;
+            top: 45%;
+            left: 45%;
+            background: #4ad0be;
+            opacity: 0.28;
+            animation: rtuOrbC 26s ease-in-out infinite alternate;
+          }
+          .rtu-login-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(126, 232, 216, 0.16);
+            animation: rtuRingSpin 60s linear infinite;
+          }
+          .rtu-login-ring.r1 {
+            width: 520px;
+            height: 520px;
+            right: -180px;
+            bottom: -200px;
+          }
+          .rtu-login-ring.r2 {
+            width: 340px;
+            height: 340px;
+            right: -90px;
+            bottom: -110px;
+            border-style: dashed;
+            animation-direction: reverse;
+            animation-duration: 45s;
+          }
+          .rtu-login-brand > *:not(.rtu-login-bg) {
+            position: relative;
+            z-index: 1;
+          }
+          @keyframes rtuOrbA {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(-90px, 70px) scale(1.15); }
+          }
+          @keyframes rtuOrbB {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(110px, -80px) scale(1.2); }
+          }
+          @keyframes rtuOrbC {
+            from { transform: translate(-40px, -30px) scale(0.9); }
+            to { transform: translate(60px, 50px) scale(1.15); }
+          }
+          @keyframes rtuGridDrift {
+            from { transform: translate(0, 0); }
+            to { transform: translate(26px, 26px); }
+          }
+          @keyframes rtuRingSpin {
+            to { transform: rotate(360deg); }
+          }
+          @keyframes rtuHeadShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .rtu-login-orb,
+            .rtu-login-ring,
+            .rtu-login-bg::before,
+            .rtu-login-mobile-head {
+              animation: none !important;
+            }
           }
           .rtu-login-mobile-head {
             display: none;
@@ -250,7 +336,9 @@
               align-items: center;
               gap: 8px;
               padding: 28px 20px 24px;
-              background: linear-gradient(140deg, #0a1a2d 0%, #0e2b45 60%, #0f3b4d 100%);
+              background: linear-gradient(120deg, #0a1a2d 0%, #0e2b45 35%, #0f4a55 65%, #0e2b45 100%);
+              background-size: 220% 220%;
+              animation: rtuHeadShift 12s ease-in-out infinite;
             }
             .rtu-login-form {
               flex: 1 0 auto;
@@ -273,6 +361,13 @@
       <sc-if value="{{ needLogin }}">
         <div class="rtu-login">
           <div class="rtu-login-brand">
+            <div class="rtu-login-bg" aria-hidden="true">
+              <span class="rtu-login-orb o1"></span>
+              <span class="rtu-login-orb o2"></span>
+              <span class="rtu-login-orb o3"></span>
+              <span class="rtu-login-ring r1"></span>
+              <span class="rtu-login-ring r2"></span>
+            </div>
             <div style="display: flex; align-items: center; gap: 14px">
               <img src="assets/images/avm-logo-transparent.png" alt="AVM Labs" style="height: 64px; width: auto; object-fit: contain" />
               <div style="width: 1px; height: 32px; background: rgba(255, 255, 255, 0.22)"></div>
@@ -284,14 +379,6 @@
                 <span style="background: linear-gradient(90deg, #4ad0be, #8ff0e2); -webkit-background-clip: text; background-clip: text; color: transparent">Promote.</span>
               </h1>
               <p style="margin: 14px 0 0; font-size: 15px; line-height: 1.6; color: #b9cbdb">Ready-to-use marketing designs for your lab. Add your logo and address, then download and share.</p>
-              <div class="rtu-login-showcase">
-                <div class="rtu-login-shot" style="left: 0; top: 0; width: 330px; transform: rotate(-3deg)">
-                  <img src="assets/artworks/avm-wellness-profiles-card-cover.jpg" alt="" />
-                </div>
-                <div class="rtu-login-shot" style="left: 250px; top: 112px; width: 280px; transform: rotate(3deg)">
-                  <img src="assets/artworks/avm-women-camp-card-cover.jpg" alt="" />
-                </div>
-              </div>
             </div>
             <div style="font-size: 11.5px; color: #7d93a5">&copy; AVM Labs</div>
           </div>
@@ -341,7 +428,10 @@
                 >{{ loginBtnLabel }}</a
               >
 
-              <span style="font-size: 12.5px; color: #8aa0b3">No code? Contact your AVM Labs representative.</span>
+              <div style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 12px; background: #eef7f5; border: 1px solid #cfe4df">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#14776B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+                <span style="font-size: 13px; line-height: 1.45; color: #0f6157; font-weight: 600">No code? <b style="font-weight: 800; color: #0e2238">Contact your AVM Labs representative.</b></span>
+              </div>
             </div>
           </div>
         </div>
