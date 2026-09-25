@@ -54,6 +54,21 @@
               transform: none;
             }
           }
+          @keyframes rtuCtaPulse {
+            0%,
+            100% {
+              box-shadow: 0 10px 24px rgba(14, 34, 56, 0.22);
+            }
+            50% {
+              box-shadow: 0 12px 30px rgba(20, 119, 107, 0.4);
+            }
+          }
+          .rtu-cta-pulse {
+            animation: rtuCtaPulse 2.6s ease-in-out infinite;
+          }
+          .rtu-cta-pulse:hover {
+            animation-play-state: paused;
+          }
 
           /* --- Breakpoint toggles: 1a (mobile) / 1c (desktop) --- */
           .rtu-desktop-only {
@@ -400,7 +415,7 @@
           <sc-if value="{{ isPreview }}">
             <div style="animation: rtuFade 0.3s ease both; height: 100%">
               <!-- ============ Desktop preview-before-customising (1c-style) ============ -->
-              <div class="rtu-desktop-only" style="flex-direction: column; gap: 20px; max-width: 640px; margin: 0 auto">
+              <div class="rtu-desktop-only" style="flex-direction: column; gap: 22px; max-width: 980px; width: 100%; margin: 0 auto">
                 <a
                   href="#"
                   onClick="{{ goGallery }}"
@@ -412,50 +427,54 @@
                   All designs
                 </a>
 
-                <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; row-gap: 14px; gap: 24px">
-                  <div style="display: flex; flex-direction: column; gap: 6px; max-width: 360px">
-                    <span style="font-size: 26px; font-weight: 700; color: #12263a">{{ pageLabel }}</span>
-                    <span style="font-size: 13.5px; color: #6b7b8a; line-height: 1.5">{{ previewNote }}</span>
+                <div style="display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 36px; align-items: start">
+                  <div
+                    onClick="{{ openZoomPlain }}"
+                    style="container-type: inline-size; position: relative; border-radius: 18px; overflow: hidden; background: #0e2238; box-shadow: 0 16px 40px rgba(14, 34, 51, 0.22); cursor: pointer"
+                  >
+                    <img src="{{ previewImgSrc }}" alt="{{ pageLabel }}, before customising" style="display: block; width: 100%" />
+                    <div
+                      style="position: absolute; right: 12px; bottom: 12px; background: rgba(14, 34, 51, 0.86); color: #fff; font-size: 12px; font-weight: 600; padding: 8px 12px; border-radius: 999px; display: flex; align-items: center; gap: 6px"
+                    >
+                      <span style="font-size: 14px">◎</span> Tap to zoom
+                    </div>
                   </div>
-                  <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 10px">
+
+                  <div style="display: flex; flex-direction: column; gap: 18px; position: sticky; top: 24px">
+                    <div style="display: flex; flex-direction: column; gap: 6px">
+                      <span style="font-size: 26px; font-weight: 700; color: #12263a">{{ pageLabel }}</span>
+                      <span style="font-size: 13.5px; color: #6b7b8a; line-height: 1.5">{{ previewNote }}</span>
+                    </div>
+
                     <sc-if value="{{ multiPage }}">
                       <div style="display: flex; background: #e6ebef; border-radius: 999px; padding: 4px; gap: 4px">
                         <sc-for list="{{ pageTabs }}" as="t">
                           <a
                             href="#"
                             onClick="{{ t.select }}"
-                            style="height: 36px; padding: 0 18px; border-radius: 999px; color: {{ t.fg }}; font-size: 13px; font-weight: 600; display: flex; align-items: center; text-decoration: none; background: {{ t.bg }}"
+                            style="flex: 1 1 0; height: 36px; padding: 0 14px; border-radius: 999px; color: {{ t.fg }}; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; text-decoration: none; background: {{ t.bg }}"
                             >{{ t.label }}</a
                           >
                         </sc-for>
                       </div>
                     </sc-if>
+
                     <a
                       href="#"
                       onClick="{{ ctaAction }}"
-                      style="height: 46px; padding: 0 22px; background: #0e2238; border-radius: 11px; color: #fff; font-size: 14.5px; font-weight: 600; display: flex; align-items: center; text-decoration: none; white-space: nowrap"
-                      style-hover="background:#183253;color:#fff;text-decoration:none"
+                      class="rtu-cta-pulse"
+                      style="height: 50px; padding: 0 24px; background: #0e2238; border-radius: 12px; color: #fff; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none; white-space: nowrap; transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease"
+                      style-hover="background:#183253;color:#fff;text-decoration:none;transform:translateY(-3px)"
                       >{{ ctaLabel }}</a
                     >
+
+                    <sc-if value="{{ hasStatus }}">
+                      <div style="padding: 8px 14px; border-radius: 9px; background: #eef6f4; color: #0f6157; font-size: 12.5px; font-weight: 600">{{ status }}</div>
+                    </sc-if>
+
+                    <div style="text-align: center; font-size: 12px; color: #6b7b8a">{{ ctaCaption }}</div>
                   </div>
                 </div>
-
-                <sc-if value="{{ hasStatus }}">
-                  <div style="padding: 8px 14px; border-radius: 9px; background: #eef6f4; color: #0f6157; font-size: 12.5px; font-weight: 600">{{ status }}</div>
-                </sc-if>
-
-                <div
-                  onClick="{{ openZoomPlain }}"
-                  style="align-self: center; container-type: inline-size; position: relative; border-radius: 16px; overflow: hidden; background: #0e2238; box-shadow: 0 12px 36px rgba(14, 34, 51, 0.22); max-width: 400px; width: 100%; cursor: pointer"
-                >
-                  <img src="{{ previewImgSrc }}" alt="{{ pageLabel }}, before customising" style="display: block; width: 100%" />
-                  <div
-                    style="position: absolute; right: 10px; bottom: 10px; background: rgba(14, 34, 51, 0.86); color: #fff; font-size: 12px; font-weight: 600; padding: 8px 12px; border-radius: 999px; display: flex; align-items: center; gap: 6px"
-                  >
-                    <span style="font-size: 14px">◎</span> Tap to zoom
-                  </div>
-                </div>
-                <div style="text-align: center; font-size: 12px; color: #6b7b8a">{{ ctaCaption }}</div>
               </div>
 
               <!-- ============ Mobile preview-before-customising (1a) ============ -->
