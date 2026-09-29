@@ -1727,6 +1727,16 @@
         text: { x: 60, y: 3215, w: 1430, h: 260, pad: 26, max: 70 },
         previewNote: 'Client logo goes top-left. Client address and number go in the "To Avail Service" block at the bottom.'
       };
+      // Tamil version: narrower aspect than WOMEN_CAMP, so its own footer slot.
+      const WOMEN_CAMP_TAMIL = {
+        id: 'women-camp-tamil',
+        label: 'Women Camp Poster (Tamil)',
+        src: 'assets/artworks/avm-women-camp-tamil-poster.jpg',
+        w: 2526, h: 3675,
+        logo: { x: 70, y: 80, w: 560, h: 300, pad: 24 },
+        text: { x: 60, y: 3408, w: 1480, h: 205, pad: 26, max: 70 },
+        previewNote: 'Client logo goes top-left. Client address and number go in the "To Avail Service" block at the bottom.'
+      };
       const DETAILS = {
         id: 'details',
         label: 'Test Details',
@@ -1756,7 +1766,7 @@
       const PROFILES = [
         { id: 'all', name: 'AVM Wellness Profiles', cover: 'assets/artworks/avm-wellness-profiles-card-cover.jpg', coverMobile: 'assets/artworks/avm-wellness-profiles-card-cover-mobile.jpg', tag: 'Offer', tests: 'Man Pays, Women Gets It Free', ctaLabel: 'Personalize Design', pages: [POSTER, DETAILS], note: 'The complete AVM Wellness Profiles set — offer poster plus the full test-details sheet.' },
         { id: 'p1', name: 'Sumathi Offer Camp', num: '1', cover: 'assets/artworks/avm-women-camp-card-cover.jpg', tag: 'Offer', tests: 'TSH + HbA1c @ ₹100', ctaLabel: 'Personalize', pages: [WOMEN_CAMP], note: 'Only for Women camp poster — TSH + HbA1c at ₹100.' },
-        { id: 'p2', name: 'AVM Profile 2', soon: true, num: '2', tests: '69 Tests', ctaLabel: 'Personalize', pages: [POSTER, DETAILS], note: 'Using the AVM Wellness Profiles artwork until dedicated Profile 2 artwork is ready.' },
+        { id: 'p2', name: 'Sumathi Offer Camp Tamil', num: '2', cover: 'assets/artworks/avm-women-camp-tamil-card-cover.jpg', tag: 'Offer', tests: 'TSH + HbA1c @ ₹100 (Tamil)', ctaLabel: 'Personalize', pages: [WOMEN_CAMP_TAMIL], note: 'Tamil women camp poster — TSH + HbA1c at ₹100.' },
         { id: 'p3', name: 'AVM Profile 3', soon: true, num: '3', tests: '75 Tests', ctaLabel: 'Personalize', pages: [POSTER, DETAILS], note: 'Using the AVM Wellness Profiles artwork until dedicated Profile 3 artwork is ready.' },      ];
 
       const STORE = 'avm-rtu-brand-v1';
