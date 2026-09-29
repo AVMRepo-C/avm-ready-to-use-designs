@@ -1225,29 +1225,31 @@
                         </div>
                       </div>
 
-                      <div style="display: flex; flex-direction: column; gap: 6px">
-                        <div style="display: flex; align-items: center; justify-content: space-between">
-                          <span style="font-size: 14px; font-weight: 600; color: #12263a">Client address</span>
+                      <sc-if value="{{ showAddress }}">
+                        <div style="display: flex; flex-direction: column; gap: 6px">
+                          <div style="display: flex; align-items: center; justify-content: space-between">
+                            <span style="font-size: 14px; font-weight: 600; color: #12263a">Client address</span>
+                          </div>
+                          <textarea
+                            rows="3"
+                            value="{{ address }}"
+                            onChange="{{ onAddress }}"
+                            placeholder="Centre name&#10;Street, area&#10;City – PIN"
+                            style="width: 100%; resize: vertical; padding: 10px 14px; border: 1px solid #dde4ea; border-radius: 12px; font-size: 14px; line-height: 1.45; color: #12263a; background: #fff; outline: none"
+                            style-focus="border-color:#14776B"
+                          ></textarea>
                         </div>
-                        <textarea
-                          rows="3"
-                          value="{{ address }}"
-                          onChange="{{ onAddress }}"
-                          placeholder="Centre name&#10;Street, area&#10;City – PIN"
-                          style="width: 100%; resize: vertical; padding: 10px 14px; border: 1px solid #dde4ea; border-radius: 12px; font-size: 14px; line-height: 1.45; color: #12263a; background: #fff; outline: none"
-                          style-focus="border-color:#14776B"
-                        ></textarea>
-                      </div>
+                      </sc-if>
 
                       <div style="display: flex; flex-direction: column; gap: 6px">
-                        <span style="font-size: 14px; font-weight: 600; color: #12263a">Client number</span>
+                        <span style="font-size: 14px; font-weight: 600; color: #12263a">{{ numberLabel }}</span>
                         <input
                           type="text"
                           value="{{ cardNo }}"
                           onChange="{{ onCardNo }}"
                           inputmode="numeric"
                           maxlength="10"
-                          placeholder="10-digit mobile number"
+                          placeholder="{{ numberPlaceholder }}"
                           style="width: 100%; padding: 10px 14px; border: 1px solid #dde4ea; border-radius: 12px; font-size: 14.5px; color: #12263a; outline: none"
                           style-focus="border-color:#14776B"
                         />
@@ -1289,7 +1291,7 @@
                         </div>
                       </sc-if>
                       <div
-                        style="position: absolute; display: flex; flex-direction: column; justify-content: center; overflow: hidden; color: #0e2238; font-weight: 600; line-height: 1.28; left: {{ textBox.left }}; top: {{ textBox.top }}; width: {{ textBox.width }}; height: {{ textBox.height }}; padding-left: {{ textBox.pad }}; font-size: {{ textBox.font }}; gap: {{ textBox.gap }}"
+                        style="position: absolute; display: flex; flex-direction: column; justify-content: center; overflow: hidden; color: #0e2238; font-weight: 600; line-height: 1.28; align-items: {{ textBox.align }}; left: {{ textBox.left }}; top: {{ textBox.top }}; width: {{ textBox.width }}; height: {{ textBox.height }}; padding-left: {{ textBox.pad }}; font-size: {{ textBox.font }}; gap: {{ textBox.gap }}"
                       >
                         <sc-if value="{{ hasAddress }}">
                           <div style="display: flex; align-items: center; gap: {{ textBox.iconGap }}">
@@ -1314,6 +1316,10 @@
                         </sc-if>
                         <sc-if value="{{ hasPhone }}">
                           <div style="display: flex; align-items: center; gap: {{ textBox.iconGap }}">
+                            <sc-if value="{{ isWhatsAppNo }}">
+                              <svg viewBox="0 0 24 24" fill="{{ whatsappGreen }}" style="flex: 0 0 auto; width: {{ textBox.icon }}; height: {{ textBox.icon }}"><path d="{{ whatsappPath }}"></path></svg>
+                            </sc-if>
+                            <sc-if value="{{ isPlainPhone }}">
                             <svg
                               viewBox="0 0 24 24"
                               fill="none"
@@ -1327,6 +1333,7 @@
                                 d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
                               ></path>
                             </svg>
+                            </sc-if>
                             <div style="white-space: pre">{{ phone }}</div>
                           </div>
                         </sc-if>
@@ -1407,29 +1414,31 @@
                         </div>
                       </div>
 
-                      <div style="display: flex; flex-direction: column; gap: 8px">
-                        <div style="display: flex; align-items: center; justify-content: space-between">
-                          <span style="font-size: 14px; font-weight: 600; color: #12263a">Client address</span>
+                      <sc-if value="{{ showAddress }}">
+                        <div style="display: flex; flex-direction: column; gap: 8px">
+                          <div style="display: flex; align-items: center; justify-content: space-between">
+                            <span style="font-size: 14px; font-weight: 600; color: #12263a">Client address</span>
+                          </div>
+                          <textarea
+                            rows="3"
+                            value="{{ address }}"
+                            onChange="{{ onAddress }}"
+                            placeholder="Centre name&#10;Street, area&#10;City – PIN"
+                            style="width: 100%; resize: vertical; padding: 12px 14px; border: 1px solid #dde4ea; border-radius: 12px; font-size: 16px; line-height: 1.5; color: #12263a; background: #fff; outline: none"
+                            style-focus="border-color:#14776B"
+                          ></textarea>
                         </div>
-                        <textarea
-                          rows="3"
-                          value="{{ address }}"
-                          onChange="{{ onAddress }}"
-                          placeholder="Centre name&#10;Street, area&#10;City – PIN"
-                          style="width: 100%; resize: vertical; padding: 12px 14px; border: 1px solid #dde4ea; border-radius: 12px; font-size: 16px; line-height: 1.5; color: #12263a; background: #fff; outline: none"
-                          style-focus="border-color:#14776B"
-                        ></textarea>
-                      </div>
+                      </sc-if>
 
                       <div style="display: flex; flex-direction: column; gap: 8px">
-                        <span style="font-size: 14px; font-weight: 600; color: #12263a">Client number</span>
+                        <span style="font-size: 14px; font-weight: 600; color: #12263a">{{ numberLabel }}</span>
                         <input
                           type="text"
                           value="{{ cardNo }}"
                           onChange="{{ onCardNo }}"
                           inputmode="numeric"
                           maxlength="10"
-                          placeholder="10-digit mobile number"
+                          placeholder="{{ numberPlaceholder }}"
                           style="width: 100%; padding: 13px 14px; border: 1px solid #dde4ea; border-radius: 12px; font-size: 16px; color: #12263a; outline: none"
                           style-focus="border-color:#14776B"
                         />
@@ -1495,7 +1504,7 @@
                         </div>
                       </sc-if>
                       <div
-                        style="position: absolute; display: flex; flex-direction: column; justify-content: center; overflow: hidden; color: #0e2238; font-weight: 600; line-height: 1.28; left: {{ textBox.left }}; top: {{ textBox.top }}; width: {{ textBox.width }}; height: {{ textBox.height }}; padding-left: {{ textBox.pad }}; font-size: {{ textBox.font }}; gap: {{ textBox.gap }}"
+                        style="position: absolute; display: flex; flex-direction: column; justify-content: center; overflow: hidden; color: #0e2238; font-weight: 600; line-height: 1.28; align-items: {{ textBox.align }}; left: {{ textBox.left }}; top: {{ textBox.top }}; width: {{ textBox.width }}; height: {{ textBox.height }}; padding-left: {{ textBox.pad }}; font-size: {{ textBox.font }}; gap: {{ textBox.gap }}"
                       >
                         <sc-if value="{{ hasAddress }}">
                           <div style="display: flex; align-items: center; gap: {{ textBox.iconGap }}">
@@ -1512,11 +1521,16 @@
                         </sc-if>
                         <sc-if value="{{ hasPhone }}">
                           <div style="display: flex; align-items: center; gap: {{ textBox.iconGap }}">
+                            <sc-if value="{{ isWhatsAppNo }}">
+                              <svg viewBox="0 0 24 24" fill="{{ whatsappGreen }}" style="flex: 0 0 auto; width: {{ textBox.icon }}; height: {{ textBox.icon }}"><path d="{{ whatsappPath }}"></path></svg>
+                            </sc-if>
+                            <sc-if value="{{ isPlainPhone }}">
                             <svg viewBox="0 0 24 24" fill="none" stroke="#0E2238" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto; width: {{ textBox.icon }}; height: {{ textBox.icon }}">
                               <path
                                 d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
                               ></path>
                             </svg>
+                            </sc-if>
                             <div style="white-space: pre">{{ phone }}</div>
                           </div>
                         </sc-if>
@@ -1660,7 +1674,7 @@
                   </div>
                 </sc-if>
                 <div
-                  style="position: absolute; display: flex; flex-direction: column; justify-content: center; overflow: hidden; color: #0e2238; font-weight: 600; line-height: 1.28; left: {{ textBox.left }}; top: {{ textBox.top }}; width: {{ textBox.width }}; height: {{ textBox.height }}; padding-left: {{ textBox.pad }}; font-size: {{ textBox.font }}; gap: {{ textBox.gap }}"
+                  style="position: absolute; display: flex; flex-direction: column; justify-content: center; overflow: hidden; color: #0e2238; font-weight: 600; line-height: 1.28; align-items: {{ textBox.align }}; left: {{ textBox.left }}; top: {{ textBox.top }}; width: {{ textBox.width }}; height: {{ textBox.height }}; padding-left: {{ textBox.pad }}; font-size: {{ textBox.font }}; gap: {{ textBox.gap }}"
                 >
                   <sc-if value="{{ hasAddress }}">
                     <div style="display: flex; align-items: center; gap: {{ textBox.iconGap }}">
@@ -1677,11 +1691,16 @@
                   </sc-if>
                   <sc-if value="{{ hasPhone }}">
                     <div style="display: flex; align-items: center; gap: {{ textBox.iconGap }}">
+                      <sc-if value="{{ isWhatsAppNo }}">
+                        <svg viewBox="0 0 24 24" fill="{{ whatsappGreen }}" style="flex: 0 0 auto; width: {{ textBox.icon }}; height: {{ textBox.icon }}"><path d="{{ whatsappPath }}"></path></svg>
+                      </sc-if>
+                      <sc-if value="{{ isPlainPhone }}">
                       <svg viewBox="0 0 24 24" fill="none" stroke="#0E2238" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 auto; width: {{ textBox.icon }}; height: {{ textBox.icon }}">
                         <path
                           d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
                         ></path>
                       </svg>
+                      </sc-if>
                       <div style="white-space: pre">{{ phone }}</div>
                     </div>
                   </sc-if>
@@ -1737,6 +1756,19 @@
         text: { x: 60, y: 3408, w: 1480, h: 205, pad: 26, max: 70 },
         previewNote: 'Client logo goes top-left. Client address and number go in the "To Avail Service" block at the bottom.'
       };
+      // "One Pays, Two Gets It Free" poster: footer asks for WhatsApp only, so no address
+      // and the number is drawn centred with the WhatsApp logo.
+      const WOMEN_3_FOR_400 = {
+        id: 'women-3-for-400',
+        label: 'Women Offer Poster',
+        src: 'assets/artworks/avm-women-3-for-400-poster.jpg',
+        w: 2526, h: 3508,
+        whatsappOnly: true,
+        // Top-left of this artwork is empty curtain down to the headline, so a larger slot fits.
+        logo: { x: 70, y: 70, w: 760, h: 400, pad: 28 },
+        text: { x: 60, y: 3300, w: 1420, h: 180, pad: 26, max: 90, center: true },
+        previewNote: 'Client logo goes top-left. Client WhatsApp number goes under "WhatsApp Us At" at the bottom.'
+      };
       const DETAILS = {
         id: 'details',
         label: 'Test Details',
@@ -1758,6 +1790,8 @@
         'M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z',
         'M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z'
       ];
+      const WHATSAPP_PATH = 'M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z';
+      const WHATSAPP_GREEN = '#25D366';
       const PHONE_PATHS = [
         'M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z'
       ];
@@ -1766,8 +1800,10 @@
       const PROFILES = [
         { id: 'all', name: 'AVM Wellness Profiles', cover: 'assets/artworks/avm-wellness-profiles-card-cover.jpg', coverMobile: 'assets/artworks/avm-wellness-profiles-card-cover-mobile.jpg', tag: 'Offer', tests: 'Man Pays, Women Gets It Free', ctaLabel: 'Personalize Design', pages: [POSTER, DETAILS], note: 'The complete AVM Wellness Profiles set — offer poster plus the full test-details sheet.' },
         { id: 'p1', name: 'Sumathi Offer Camp', num: '1', cover: 'assets/artworks/avm-women-camp-card-cover.jpg', tag: 'Offer', tests: 'TSH + HbA1c @ ₹100', ctaLabel: 'Personalize', pages: [WOMEN_CAMP], note: 'Only for Women camp poster — TSH + HbA1c at ₹100.' },
-        { id: 'p2', name: 'Sumathi Offer Camp Tamil', num: '2', cover: 'assets/artworks/avm-women-camp-tamil-card-cover.jpg', tag: 'Offer', tests: 'TSH + HbA1c @ ₹100 (Tamil)', ctaLabel: 'Personalize', pages: [WOMEN_CAMP_TAMIL], note: 'Tamil women camp poster — TSH + HbA1c at ₹100.' },
-        { id: 'p3', name: 'AVM Profile 3', soon: true, num: '3', tests: '75 Tests', ctaLabel: 'Personalize', pages: [POSTER, DETAILS], note: 'Using the AVM Wellness Profiles artwork until dedicated Profile 3 artwork is ready.' },      ];
+        { id: 'p2', name: 'Sumathi Offer Camp Tamil', num: '2', tag: 'Offer', tests: 'TSH + HbA1c @ ₹100 (Tamil)', ctaLabel: 'Personalize', pages: [WOMEN_CAMP_TAMIL], note: 'Tamil women camp poster — TSH + HbA1c at ₹100.' },
+        { id: 'p4', name: 'One Pays, Two Gets It Free', num: '4', cover: 'assets/artworks/avm-women-3-for-400-card-cover.jpg', tag: 'Offer', tests: 'TSH + HbA1c @ ₹400 for 3 Women', ctaLabel: 'Personalize', pages: [WOMEN_3_FOR_400], note: 'Only for Women poster — TSH + HbA1c, ₹400 for 3 women. WhatsApp number only.' },
+        { id: 'p3', name: 'AVM Profile 3', soon: true, num: '3', tests: '75 Tests', ctaLabel: 'Personalize', pages: [POSTER, DETAILS], note: 'Using the AVM Wellness Profiles artwork until dedicated Profile 3 artwork is ready.' },
+      ];
 
       const STORE = 'avm-rtu-brand-v1';
 
@@ -1907,10 +1943,10 @@
 
         // Fits the address block (pin icon + lines) and phone row (phone icon + number)
         // inside a slot, returning the largest font size that clears both.
-        fitBlock(slot) {
+        fitBlock(slot, noAddress) {
           if (!this._mc) this._mc = document.createElement('canvas').getContext('2d');
           const ctx = this._mc;
-          const src = this.addrLines();
+          const src = noAddress ? [] : this.addrLines();
           const tel = this.phone();
           const w = slot.w - slot.pad * 2;
           const h = slot.h - slot.pad * 2;
@@ -1938,7 +1974,7 @@
               lines.length ? Math.max.apply(null, lines.map(l => ctx.measureText(l).width)) : 0,
               tel ? ctx.measureText(tel).width : 0
             );
-            return { size, icon, gap, textW, lines, tel, lh, blockGap, total, fits: total <= h && widest <= textW };
+            return { size, icon, gap, textW, lines, tel, lh, blockGap, total, widest, fits: total <= h && widest <= textW };
           };
 
           let size = slot.max;
@@ -2040,9 +2076,9 @@
           }
 
           const t = page.text;
-          const f = this.fitBlock(t);
+          const f = this.fitBlock(t, page.whatsappOnly);
           const ink = '#0E2238';
-          const x0 = t.x + t.pad;
+          const x0 = t.center ? t.x + (t.w - (f.icon + f.gap + f.widest)) / 2 : t.x + t.pad;
           const textX = x0 + f.icon + f.gap;
           let y = t.y + t.h / 2 - f.total / 2;
           ctx.fillStyle = ink;
@@ -2057,7 +2093,17 @@
             y += blockH + f.blockGap;
           }
           if (f.tel) {
-            this.drawIcon(ctx, PHONE_PATHS, x0, y + f.lh / 2 - f.icon / 2, f.icon, ink);
+            const iy = y + f.lh / 2 - f.icon / 2;
+            if (page.whatsappOnly) {
+              ctx.save();
+              ctx.translate(x0, iy);
+              ctx.scale(f.icon / 24, f.icon / 24);
+              ctx.fillStyle = WHATSAPP_GREEN;
+              ctx.fill(new Path2D(WHATSAPP_PATH));
+              ctx.restore();
+            } else {
+              this.drawIcon(ctx, PHONE_PATHS, x0, iy, f.icon, ink);
+            }
             ctx.fillText(f.tel, textX, y + f.size * 0.98);
           }
           return c;
@@ -2164,7 +2210,7 @@
           const page = this.page();
           const pages = this.pages();
           const prof = this.profile();
-          const f = this.fitBlock(page.text);
+          const f = this.fitBlock(page.text, page.whatsappOnly);
           const pct = (v, total) => (v / total * 100) + '%';
           const cq = v => (v / page.w * 100) + 'cqw';
           if (!this._logoA) this._logoA = React.createRef();
@@ -2296,6 +2342,13 @@
             hasAddress: f.lines.length > 0,
             phone: f.tel,
             hasPhone: !!f.tel,
+            isWhatsAppNo: !!page.whatsappOnly,
+            isPlainPhone: !page.whatsappOnly,
+            showAddress: !page.whatsappOnly,
+            numberLabel: page.whatsappOnly ? 'Client WhatsApp number' : 'Client number',
+            numberPlaceholder: page.whatsappOnly ? '10-digit WhatsApp number' : '10-digit mobile number',
+            whatsappPath: WHATSAPP_PATH,
+            whatsappGreen: WHATSAPP_GREEN,
 
             hasLogoSlot: !!page.logo,
             logoBox: page.logo ? {
@@ -2326,7 +2379,8 @@
             textBox: {
               left: pct(page.text.x, page.w), top: pct(page.text.y, page.h),
               width: pct(page.text.w, page.w), height: pct(page.text.h, page.h),
-              pad: cq(page.text.pad),
+              pad: cq(page.text.center ? 0 : page.text.pad),
+              align: page.text.center ? 'center' : 'flex-start',
               font: cq(f.size),
               icon: cq(f.icon),
               iconGap: cq(f.gap),
